@@ -1,0 +1,525 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Free AI Resources — ActivOrbit AI | Guides, Templates & Tools</title>
+<meta name="description" content="Free AI automation resources by ActivOrbit AI — downloadable guides, templates, prompt libraries, and tools to help you automate smarter.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;0,900;1,400;1,700;1,900&family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+<style>
+/* ═══════════════════════════════════════════════════
+   DESIGN SYSTEM — Warm Brutalist Editorial
+   (Identical to index.html)
+   ═══════════════════════════════════════════════════ */
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+:root{
+  --bg:#F5F0E8;--text:#0A0A0A;--accent:#FF6B00;
+  --accent-light:#FF8C33;--accent-dark:#CC5500;
+  --cream-dark:#E8E0D0;--cream-mid:#EDE6DA;
+  --serif:'Playfair Display',Georgia,serif;
+  --sans:'Plus Jakarta Sans','Helvetica Neue',Arial,sans-serif;
+  --nav-h:80px;--rule:2px solid var(--text);
+  --rule-thin:1px solid rgba(10,10,10,.15);
+  --transition:cubic-bezier(.22,1,.36,1);
+}
+html{scroll-behavior:smooth;font-size:16px;cursor:none}
+body{
+  font-family:var(--sans);background:var(--bg);color:var(--text);
+  line-height:1.6;overflow-x:hidden;cursor:none;
+  -webkit-font-smoothing:antialiased;
+}
+a{color:inherit;text-decoration:none;cursor:none}
+button,input,select,textarea{font-family:var(--sans);cursor:none}
+img{max-width:100%;display:block}
+ul{list-style:none}
+
+/* Custom Cursor */
+.cursor-ring{position:fixed;width:40px;height:40px;border:2px solid var(--text);border-radius:50%;pointer-events:none;z-index:10001;transform:translate(-50%,-50%);transition:width .3s var(--transition),height .3s var(--transition),border-color .3s}
+.cursor-dot{position:fixed;width:8px;height:8px;background:var(--accent);border-radius:50%;pointer-events:none;z-index:10002;transform:translate(-50%,-50%);transition:transform .1s}
+.cursor-ring.hover{width:60px;height:60px;border-color:var(--accent)}
+.cursor-dot.hover{transform:translate(-50%,-50%) scale(1.5)}
+
+/* Typography */
+h1,h2,h3,h4{font-family:var(--serif);font-weight:900;line-height:1.05;letter-spacing:-.02em}
+.section-label{font-family:var(--sans);font-size:.75rem;font-weight:700;text-transform:uppercase;letter-spacing:.2em;color:var(--accent);margin-bottom:1rem}
+
+/* Layout */
+.container{width:100%;max-width:1320px;margin:0 auto;padding:0 2rem}
+section{position:relative;padding:6rem 0;overflow:hidden}
+.thick-rule{border:none;border-top:var(--rule);margin:0}
+.thin-rule{border:none;border-top:var(--rule-thin);margin:0}
+
+/* Buttons */
+.btn{display:inline-flex;align-items:center;gap:.5rem;padding:.875rem 2rem;font-weight:700;font-size:.875rem;text-transform:uppercase;letter-spacing:.12em;border:var(--rule);border-radius:0;transition:all .4s var(--transition);position:relative;overflow:hidden}
+.btn-primary{background:var(--accent);color:#fff;border-color:var(--accent)}
+.btn-primary:hover{background:var(--accent-dark);transform:translateY(-2px);box-shadow:0 8px 30px rgba(255,107,0,.3)}
+.btn-secondary{background:transparent;color:var(--text)}
+.btn-secondary:hover{background:var(--text);color:var(--bg);transform:translateY(-2px)}
+.btn-arrow::after{content:'→';transition:transform .3s}
+.btn-arrow:hover::after{transform:translateX(4px)}
+.btn-download::before{content:'↓ ';font-weight:900}
+
+/* Scroll Reveal */
+.reveal{opacity:0;transform:translateY(40px);transition:opacity .8s var(--transition),transform .8s var(--transition)}
+.reveal.visible{opacity:1;transform:translateY(0)}
+.reveal-delay-1{transition-delay:.1s}.reveal-delay-2{transition-delay:.2s}
+.reveal-delay-3{transition-delay:.3s}.reveal-delay-4{transition-delay:.4s}
+
+/* ═══════════════════════════════════════════════════
+   NAV (identical to index.html)
+   ═══════════════════════════════════════════════════ */
+.nav{position:fixed;top:0;left:0;width:100%;height:var(--nav-h);z-index:1000;background:rgba(245,240,232,.92);backdrop-filter:blur(12px);border-bottom:var(--rule-thin);transition:height .4s var(--transition),box-shadow .4s}
+.nav.shrink{height:60px;box-shadow:0 2px 20px rgba(10,10,10,.08)}
+.nav-inner{display:flex;align-items:center;justify-content:space-between;height:100%;max-width:1320px;margin:0 auto;padding:0 2rem}
+.nav-logo{font-family:var(--serif);font-size:1.5rem;font-weight:900;letter-spacing:-.02em;transition:font-size .4s var(--transition)}
+.nav.shrink .nav-logo{font-size:1.25rem}
+.nav-logo span{color:var(--accent)}
+.nav-links{display:flex;align-items:center;gap:2.5rem}
+.nav-links a{font-size:.8rem;font-weight:600;text-transform:uppercase;letter-spacing:.15em;position:relative;padding:.25rem 0}
+.nav-links a::after{content:'';position:absolute;bottom:0;left:0;width:0;height:2px;background:var(--accent);transition:width .3s var(--transition)}
+.nav-links a:hover::after{width:100%}
+.nav-cta{background:var(--accent);color:#fff;padding:.625rem 1.5rem;font-size:.75rem;font-weight:700;text-transform:uppercase;letter-spacing:.15em;border:none;transition:all .3s var(--transition)}
+.nav-cta:hover{background:var(--text);transform:translateY(-1px)}
+.hamburger{display:none;flex-direction:column;gap:5px;background:none;border:none;padding:.5rem;cursor:none}
+.hamburger span{display:block;width:24px;height:2px;background:var(--text);transition:all .3s var(--transition)}
+.hamburger.active span:nth-child(1){transform:rotate(45deg) translate(5px,5px)}
+.hamburger.active span:nth-child(2){opacity:0}
+.hamburger.active span:nth-child(3){transform:rotate(-45deg) translate(5px,-5px)}
+.mobile-menu{position:fixed;top:0;left:0;width:100%;height:100vh;background:var(--bg);z-index:999;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:2rem;transform:translateY(-100%);transition:transform .5s var(--transition);pointer-events:none}
+.mobile-menu.open{transform:translateY(0);pointer-events:all}
+.mobile-menu a{font-family:var(--serif);font-size:2rem;font-weight:700}
+
+/* ═══════════════════════════════════════════════════
+   PAGE HEADER
+   ═══════════════════════════════════════════════════ */
+.page-header{padding:calc(var(--nav-h) + 4rem) 0 4rem;border-bottom:var(--rule)}
+.page-header h1{font-size:clamp(3rem,7vw,6rem);line-height:.95;margin-bottom:1rem}
+.page-header h1 em{font-style:italic;color:var(--accent)}
+.page-header p{font-size:1.1rem;color:rgba(10,10,10,.55);max-width:600px}
+.breadcrumb{font-size:.75rem;font-weight:600;text-transform:uppercase;letter-spacing:.15em;margin-bottom:1.5rem;display:flex;align-items:center;gap:.5rem}
+.breadcrumb a{color:var(--accent)}
+
+/* ═══════════════════════════════════════════════════
+   FEATURED FREEBIE
+   ═══════════════════════════════════════════════════ */
+.featured-section{border-bottom:var(--rule)}
+.featured-card{display:grid;grid-template-columns:1fr 1fr;gap:4rem;align-items:center;padding:3.5rem;background:var(--cream-mid);border:var(--rule-thin)}
+.featured-badge{display:inline-flex;align-items:center;gap:.5rem;background:var(--accent);color:#fff;padding:.375rem 1rem;font-size:.7rem;font-weight:700;text-transform:uppercase;letter-spacing:.12em;margin-bottom:1.25rem}
+.featured-card h2{font-size:clamp(1.75rem,3vw,2.5rem);margin-bottom:1rem}
+.featured-card p{font-size:1rem;color:rgba(10,10,10,.6);line-height:1.7;margin-bottom:1.5rem}
+.featured-includes{margin-bottom:2rem}
+.featured-includes li{font-size:.875rem;padding:.5rem 0;border-bottom:var(--rule-thin);display:flex;align-items:center;gap:.75rem;color:rgba(10,10,10,.7)}
+.featured-includes li::before{content:'✓';color:var(--accent);font-weight:900;font-size:.875rem}
+.featured-visual{background:var(--text);color:var(--bg);padding:3rem;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;min-height:320px}
+.featured-visual .icon{font-size:4rem;margin-bottom:1.5rem}
+.featured-visual h3{font-family:var(--serif);font-size:1.5rem;margin-bottom:.5rem}
+.featured-visual p{font-size:.875rem;color:rgba(245,240,232,.5)}
+
+/* ═══════════════════════════════════════════════════
+   RESOURCES GRID
+   ═══════════════════════════════════════════════════ */
+.resources-section h2{font-size:clamp(2rem,4vw,3rem);margin-bottom:3rem}
+.resources-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:2rem}
+.resource-card{border:var(--rule-thin);padding:2.5rem;background:var(--bg);transition:transform .4s var(--transition),box-shadow .4s var(--transition)}
+.resource-card:hover{transform:translateY(-6px);box-shadow:0 16px 40px rgba(10,10,10,.08)}
+.resource-icon{width:56px;height:56px;display:flex;align-items:center;justify-content:center;background:rgba(255,107,0,.08);font-size:1.75rem;margin-bottom:1.25rem}
+.resource-type{font-size:.65rem;font-weight:700;text-transform:uppercase;letter-spacing:.12em;color:var(--accent);margin-bottom:.75rem}
+.resource-card h3{font-size:1.2rem;margin-bottom:.75rem;font-family:var(--serif)}
+.resource-card p{font-size:.875rem;color:rgba(10,10,10,.6);line-height:1.7;margin-bottom:1.5rem}
+.resource-meta{display:flex;align-items:center;gap:1rem;font-size:.7rem;color:rgba(10,10,10,.4);font-weight:600;text-transform:uppercase;letter-spacing:.1em;margin-bottom:1.5rem}
+.resource-meta span{display:flex;align-items:center;gap:.3rem}
+
+/* ═══════════════════════════════════════════════════
+   NEWSLETTER
+   ═══════════════════════════════════════════════════ */
+.newsletter{background:var(--text);color:var(--bg)}
+.newsletter h2{color:var(--bg);font-size:clamp(2rem,4vw,3.5rem);margin-bottom:1rem}
+.newsletter p{color:rgba(245,240,232,.5);margin-bottom:2.5rem;max-width:500px}
+.newsletter .section-label{color:var(--accent)}
+.newsletter-form{display:flex;gap:0;max-width:520px}
+.newsletter-form input{flex:1;background:rgba(245,240,232,.08);border:1px solid rgba(245,240,232,.15);color:var(--bg);padding:1rem 1.25rem;font-size:.95rem;outline:none}
+.newsletter-form input:focus{border-color:var(--accent)}
+.newsletter-form button{background:var(--accent);color:#fff;border:none;padding:1rem 2rem;font-weight:700;font-size:.8rem;text-transform:uppercase;letter-spacing:.12em;cursor:none;transition:background .3s}
+.newsletter-form button:hover{background:var(--accent-dark)}
+.newsletter-note{font-size:.7rem;color:rgba(245,240,232,.3);margin-top:1rem}
+.newsletter-success{display:none;padding:1rem 0}
+.newsletter-success.show{display:block}
+.newsletter-success p{color:var(--accent);font-weight:600}
+
+/* ═══════════════════════════════════════════════════
+   FAQ
+   ═══════════════════════════════════════════════════ */
+.faq-section h2{font-size:clamp(2rem,4vw,3rem);margin-bottom:3rem}
+.faq-list{max-width:800px}
+.faq-item{border-bottom:var(--rule-thin);padding:1.5rem 0}
+.faq-q{font-family:var(--serif);font-size:1.1rem;font-weight:700;cursor:none;display:flex;justify-content:space-between;align-items:center;gap:1rem;user-select:none}
+.faq-q::after{content:'+';font-family:var(--sans);font-size:1.5rem;font-weight:300;color:var(--accent);transition:transform .3s}
+.faq-item.open .faq-q::after{transform:rotate(45deg)}
+.faq-a{max-height:0;overflow:hidden;transition:max-height .4s var(--transition),padding .4s}
+.faq-item.open .faq-a{max-height:200px;padding-top:1rem}
+.faq-a p{font-size:.9rem;color:rgba(10,10,10,.6);line-height:1.7}
+
+/* Toast */
+.toast{position:fixed;bottom:2rem;right:2rem;background:var(--accent);color:#fff;padding:1rem 2rem;font-weight:600;font-size:.875rem;z-index:9999;transform:translateY(120%);transition:transform .5s var(--transition);border-left:4px solid var(--accent-dark)}
+.toast.show{transform:translateY(0)}
+
+/* ═══════════════════════════════════════════════════
+   FOOTER (identical to index.html)
+   ═══════════════════════════════════════════════════ */
+.footer{background:var(--text);color:var(--bg);padding:4rem 0 2rem;border-top:1px solid rgba(245,240,232,.1)}
+.footer-grid{display:grid;grid-template-columns:2fr 1fr 1fr 1fr;gap:3rem;padding-bottom:3rem;border-bottom:1px solid rgba(245,240,232,.1)}
+.footer-brand{font-family:var(--serif);font-size:1.5rem;font-weight:900;margin-bottom:1rem}
+.footer-brand span{color:var(--accent)}
+.footer-desc{font-size:.875rem;color:rgba(245,240,232,.4);line-height:1.7;max-width:300px}
+.footer h4{font-size:.75rem;font-weight:700;text-transform:uppercase;letter-spacing:.15em;margin-bottom:1.25rem;color:rgba(245,240,232,.4)}
+.footer ul li{margin-bottom:.75rem}
+.footer ul li a{font-size:.875rem;color:rgba(245,240,232,.6);transition:color .3s}
+.footer ul li a:hover{color:var(--accent)}
+.footer-bottom{display:flex;justify-content:space-between;align-items:center;padding-top:2rem;font-size:.75rem;color:rgba(245,240,232,.3)}
+
+/* Floating CTA */
+.floating-cta{position:fixed;bottom:-80px;left:50%;transform:translateX(-50%);z-index:998;background:var(--accent);color:#fff;padding:.875rem 2.5rem;font-weight:700;font-size:.8rem;text-transform:uppercase;letter-spacing:.15em;border:none;box-shadow:0 8px 30px rgba(255,107,0,.3);transition:bottom .5s var(--transition);cursor:none}
+.floating-cta.show{bottom:2rem}
+.floating-cta:hover{background:var(--accent-dark)}
+
+/* ═══════════════════════════════════════════════════
+   RESPONSIVE (aligned with index.html breakpoints)
+   ═══════════════════════════════════════════════════ */
+@media(max-width:1024px){
+  .resources-grid{grid-template-columns:1fr 1fr}
+  .footer-grid{grid-template-columns:1fr 1fr}
+  .featured-card{grid-template-columns:1fr}
+}
+@media(max-width:768px){
+  .nav-links{display:none}
+  .hamburger{display:flex}
+  section{padding:4rem 0}
+  .resources-grid{grid-template-columns:1fr}
+  .footer-grid{grid-template-columns:1fr}
+  .newsletter-form{flex-direction:column}
+  .newsletter-form button{width:100%}
+  .featured-card{padding:2rem}
+  .page-header h1{font-size:clamp(2rem,8vw,3.5rem)}
+  .cursor-ring,.cursor-dot{display:none}
+}
+@media(max-width:480px){
+  .container{padding:0 1.25rem}
+}
+</style>
+</head>
+<body>
+
+<!-- Custom Cursor -->
+<div class="cursor-ring" id="cursorRing"></div>
+<div class="cursor-dot" id="cursorDot"></div>
+
+<!-- NAV (identical structure to index.html) -->
+<nav class="nav" id="nav">
+  <div class="nav-inner">
+    <a href="index.html" class="nav-logo">Activ<span>Orbit</span></a>
+    <div class="nav-links">
+      <a href="index.html#services">Services</a>
+      <a href="index.html#process">Process</a>
+      <a href="index.html#portfolio">Work</a>
+      <a href="projects.html">Projects</a>
+      <a href="resources.html" style="color:var(--accent)">Resources</a>
+      <a href="index.html#contact">Contact</a>
+      <a href="index.html#contact" class="nav-cta">Free AI Audit</a>
+    </div>
+    <button class="hamburger" id="hamburger" aria-label="Menu">
+      <span></span><span></span><span></span>
+    </button>
+  </div>
+</nav>
+
+<!-- Mobile Menu -->
+<div class="mobile-menu" id="mobileMenu">
+  <a href="index.html" class="mobile-link">Home</a>
+  <a href="index.html#services" class="mobile-link">Services</a>
+  <a href="index.html#process" class="mobile-link">Process</a>
+  <a href="index.html#portfolio" class="mobile-link">Work</a>
+  <a href="projects.html" class="mobile-link">Projects</a>
+  <a href="resources.html" class="mobile-link">Resources</a>
+  <a href="index.html#contact" class="mobile-link">Contact</a>
+  <a href="index.html#contact" class="btn btn-primary" style="margin-top:1rem">Free AI Audit</a>
+</div>
+
+<!-- PAGE HEADER -->
+<header class="page-header">
+  <div class="container">
+    <div class="breadcrumb"><a href="index.html">Home</a> <span>/</span> <span>Free Resources</span></div>
+    <h1>Free <em>AI</em> Resources</h1>
+    <p>Guides, templates, prompt libraries, and tools — all free. Built from real client work. No fluff, no email-gating the basics. Just value.</p>
+  </div>
+</header>
+
+<!-- FEATURED FREEBIE -->
+<section class="featured-section">
+  <div class="container">
+    <div class="featured-card reveal">
+      <div>
+        <div class="featured-badge">⭐ Featured Resource</div>
+        <h2>Multi-Agent Research & Report Generator</h2>
+        <p>A complete n8n workflow that chains 4 AI agents together — Research Agent, Fact-Checker, Report Writer, and HTML Formatter — to automatically research any topic, verify facts, and email you a polished report. Ready to import.</p>
+        <ul class="featured-includes">
+          <li>Research Agent with SerpAPI + HTTP tools for live web search</li>
+          <li>Fact-Checking Agent that verifies claims against 2+ independent sources</li>
+          <li>Report Writer that generates 1000-word structured reports</li>
+          <li>HTML Formatter for professional email delivery via Gmail</li>
+          <li>Scheduled trigger — runs weekly on autopilot</li>
+        </ul>
+        <a href="resources/starter-kit/Multi-Agent Research, Fact-Check, and HTML Email Report Generator.json" download class="btn btn-primary btn-download">Download Workflow JSON</a>
+      </div>
+      <div class="featured-visual">
+        <div class="icon">🤖</div>
+        <h3>Multi-Agent Workflow</h3>
+        <p>n8n JSON · 4 chained AI agents · OpenAI + SerpAPI · Gmail output</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<hr class="thick-rule">
+
+<!-- RESOURCES GRID -->
+<section class="resources-section">
+  <div class="container">
+    <p class="section-label">All Resources</p>
+    <h2>Grab What You Need</h2>
+    <div class="resources-grid">
+
+      <div class="resource-card reveal reveal-delay-1">
+        <div class="resource-icon">📧</div>
+        <div class="resource-type">n8n Workflow</div>
+        <h3>AI Email Automation System</h3>
+        <p>Full n8n workflow that auto-classifies incoming Gmail into 8 categories (sales, personal, recruitment, opportunity, promotions, social, offers, misc) using AI, then auto-drafts or sends smart replies per category using Gemini. Logs everything to Google Sheets.</p>
+        <div class="resource-meta"><span>📄 JSON</span><span>n8n workflow</span><span>16 nodes</span></div>
+        <a href="resources/guides/Email Automation.json" download class="btn btn-secondary btn-download" style="padding:.6rem 1.25rem;font-size:.7rem">Download Workflow</a>
+      </div>
+
+      <div class="resource-card reveal reveal-delay-2">
+        <div class="resource-icon">💬</div>
+        <div class="resource-type">n8n Workflow</div>
+        <h3>Slack AI Support Agent</h3>
+        <p>Ready-to-import n8n workflow that turns your Slack channel into an AI-powered support bot. Triggers on @mentions, uses Groq LLM for responses, includes memory for conversation context, and can pull Google Docs for knowledge base answers.</p>
+        <div class="resource-meta"><span>📄 JSON</span><span>n8n workflow</span><span>6 nodes</span></div>
+        <a href="resources/tools/Slack workflow agent.json" download class="btn btn-secondary btn-download" style="padding:.6rem 1.25rem;font-size:.7rem">Download Workflow</a>
+      </div>
+
+      <div class="resource-card reveal reveal-delay-3">
+        <div class="resource-icon">🔗</div>
+        <div class="resource-type">n8n Template</div>
+        <h3>Slack AI Bot Template (Basic)</h3>
+        <p>Minimal version of the Slack AI agent — perfect starting point for customization. Includes Slack trigger, AI agent with Groq, conversation memory, Google Docs tool integration, and Slack reply node. Clean and easy to extend.</p>
+        <div class="resource-meta"><span>📄 JSON</span><span>n8n template</span><span>6 nodes</span></div>
+        <a href="resources/templates/my workflow 2.json" download class="btn btn-secondary btn-download" style="padding:.6rem 1.25rem;font-size:.7rem">Download Template</a>
+      </div>
+
+      <div class="resource-card reveal reveal-delay-1">
+        <div class="resource-icon">🔬</div>
+        <div class="resource-type">n8n Workflow</div>
+        <h3>Multi-Agent Research Pipeline</h3>
+        <p>4-agent chain: Research → Fact-Check → Report Write → HTML Format → Email. Automatically researches any topic, verifies against independent sources, generates a polished report, and delivers it to your inbox on a weekly schedule.</p>
+        <div class="resource-meta"><span>📄 JSON</span><span>n8n workflow</span><span>16 nodes</span></div>
+        <a href="resources/starter-kit/Multi-Agent Research, Fact-Check, and HTML Email Report Generator.json" download class="btn btn-secondary btn-download" style="padding:.6rem 1.25rem;font-size:.7rem">Download Workflow</a>
+      </div>
+
+      <div class="resource-card reveal reveal-delay-2" style="border-left:3px solid var(--accent)">
+        <div class="resource-icon">🚀</div>
+        <div class="resource-type">Coming Soon</div>
+        <h3>AI Voice Agent Setup Blueprint</h3>
+        <p>Step-by-step guide to building your first AI voice agent using ElevenLabs + Voiceflow. Will include sample conversation flows, fallback handling, and Twilio integration setup.</p>
+        <div class="resource-meta"><span>📄 PDF</span><span>Coming soon</span></div>
+        <span class="btn btn-secondary" style="padding:.6rem 1.25rem;font-size:.7rem;opacity:.5;pointer-events:none">Coming Soon</span>
+      </div>
+
+      <div class="resource-card reveal reveal-delay-3" style="border-left:3px solid var(--accent)">
+        <div class="resource-icon">📊</div>
+        <div class="resource-type">Coming Soon</div>
+        <h3>AI Automation ROI Calculator</h3>
+        <p>Plug in your team size, hourly rates, and time spent on repetitive tasks. Instantly see how much you'd save with automation — monthly and annually. Interactive Google Sheet.</p>
+        <div class="resource-meta"><span>📄 Google Sheets</span><span>Coming soon</span></div>
+        <span class="btn btn-secondary" style="padding:.6rem 1.25rem;font-size:.7rem;opacity:.5;pointer-events:none">Coming Soon</span>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<hr class="thick-rule">
+
+<!-- NEWSLETTER -->
+<section class="newsletter" id="newsletter">
+  <div class="container">
+    <p class="section-label">Stay Updated</p>
+    <h2>Get Free AI Tips<br>Every Week.</h2>
+    <p>No spam, no fluff. Just one actionable AI automation tip every Tuesday — tools, workflows, and strategies I'm using with real clients.</p>
+    <form class="newsletter-form" id="newsletterForm">
+      <input type="email" name="email" placeholder="your@email.com" required>
+      <button type="submit">Subscribe Free</button>
+    </form>
+    <p class="newsletter-note">Join 500+ builders. Unsubscribe anytime.</p>
+    <div class="newsletter-success" id="newsletterSuccess"><p>🎉 You're in! Check your inbox for a welcome email.</p></div>
+  </div>
+</section>
+
+<!-- FAQ -->
+<section class="faq-section">
+  <div class="container">
+    <p class="section-label">Common Questions</p>
+    <h2>FAQ</h2>
+    <div class="faq-list">
+      <div class="faq-item">
+        <div class="faq-q">Are these resources really free?</div>
+        <div class="faq-a"><p>Yes — 100% free, no hidden costs. Some resources link to Notion or Google Sheets, but everything is open access. I believe in giving value first.</p></div>
+      </div>
+      <div class="faq-item">
+        <div class="faq-q">Do I need to give my email to download?</div>
+        <div class="faq-a"><p>Nope. Most downloads are direct links. The newsletter is optional — subscribe only if you want weekly tips. No email-gating the basics.</p></div>
+      </div>
+      <div class="faq-item">
+        <div class="faq-q">Can I use these templates for client work?</div>
+        <div class="faq-a"><p>Absolutely. Use them however you want — personal projects, client work, teaching. Just don't resell them as-is. Attribution is appreciated but not required.</p></div>
+      </div>
+      <div class="faq-item">
+        <div class="faq-q">How often do you add new resources?</div>
+        <div class="faq-a"><p>I aim to release 1–2 new resources per month, often built from patterns and tools I'm using in active client projects. Follow the newsletter to get notified.</p></div>
+      </div>
+      <div class="faq-item">
+        <div class="faq-q">I have a resource request — can I suggest one?</div>
+        <div class="faq-a"><p>Yes! Shoot me a message through the contact form on the homepage. I prioritize requests from newsletter subscribers and followers.</p></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<hr class="thick-rule">
+
+<!-- FOOTER (identical to index.html) -->
+<footer class="footer">
+  <div class="container">
+    <div class="footer-grid">
+      <div>
+        <div class="footer-brand">Activ<span>Orbit</span></div>
+        <p class="footer-desc">AI Automation Freelancer based in Lucknow, India. Building intelligent systems for clients worldwide.</p>
+      </div>
+      <div>
+        <h4>Services</h4>
+        <ul>
+          <li><a href="index.html#services">AI Automation</a></li>
+          <li><a href="index.html#services">AI Agents & MCP</a></li>
+          <li><a href="index.html#services">AI Voice Agents</a></li>
+          <li><a href="index.html#services">AIOS Stack</a></li>
+        </ul>
+      </div>
+      <div>
+        <h4>Navigate</h4>
+        <ul>
+          <li><a href="index.html">Home</a></li>
+          <li><a href="index.html#process">Process</a></li>
+          <li><a href="index.html#portfolio">Portfolio</a></li>
+          <li><a href="projects.html">Projects</a></li>
+          <li><a href="resources.html">Free Resources</a></li>
+          <li><a href="index.html#contact">Contact</a></li>
+        </ul>
+      </div>
+      <div>
+        <h4>Connect</h4>
+        <ul>
+          <li><a href="https://www.linkedin.com/in/sheshpalsingh915" target="_blank">LinkedIn ↗</a></li>
+          <li><a href="https://x.com/SheshpalSi36800" target="_blank">Twitter / X ↗</a></li>
+          <li><a href="https://github.com/sheshpalsingh01/" target="_blank">GitHub ↗</a></li>
+          <li><a href="https://www.youtube.com/@sheshpalsingh_ds" target="_blank">YouTube ↗</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <span>© 2026 ActivOrbit AI. All rights reserved.</span>
+      <span>Lucknow, India → Worldwide</span>
+    </div>
+  </div>
+</footer>
+
+<!-- Floating CTA -->
+<button class="floating-cta" id="floatingCta" onclick="window.location.href='index.html#contact'">🚀 Free AI Audit</button>
+
+<!-- Toast -->
+<div class="toast" id="toast">✓ Subscribed successfully!</div>
+
+<!-- ═══════════════════════════════════════════════════
+     JAVASCRIPT (aligned with index.html patterns)
+     ═══════════════════════════════════════════════════ -->
+<script>
+(function(){
+  // Custom Cursor
+  const ring=document.getElementById('cursorRing'),dot=document.getElementById('cursorDot');
+  let mx=0,my=0,rx=0,ry=0;
+  document.addEventListener('mousemove',e=>{mx=e.clientX;my=e.clientY;dot.style.left=mx+'px';dot.style.top=my+'px'});
+  function animateCursor(){rx+=(mx-rx)*.15;ry+=(my-ry)*.15;ring.style.left=rx+'px';ring.style.top=ry+'px';requestAnimationFrame(animateCursor)}
+  animateCursor();
+  document.querySelectorAll('a,button,.resource-card,.featured-card,.faq-q').forEach(el=>{
+    el.addEventListener('mouseenter',()=>{ring.classList.add('hover');dot.classList.add('hover')});
+    el.addEventListener('mouseleave',()=>{ring.classList.remove('hover');dot.classList.remove('hover')});
+  });
+
+  // Sticky Nav Shrink
+  const nav=document.getElementById('nav');
+  window.addEventListener('scroll',()=>{nav.classList.toggle('shrink',window.scrollY>80)});
+
+  // Hamburger Menu
+  const hamburger=document.getElementById('hamburger'),mobileMenu=document.getElementById('mobileMenu');
+  hamburger.addEventListener('click',()=>{hamburger.classList.toggle('active');mobileMenu.classList.toggle('open')});
+  document.querySelectorAll('.mobile-link').forEach(a=>a.addEventListener('click',()=>{hamburger.classList.remove('active');mobileMenu.classList.remove('open')}));
+
+  // Floating CTA
+  const floatingCta=document.getElementById('floatingCta');
+  window.addEventListener('scroll',()=>{floatingCta.classList.toggle('show',window.scrollY>600)});
+
+  // Scroll Reveal
+  const revealEls=document.querySelectorAll('.reveal');
+  const revealObserver=new IntersectionObserver(entries=>{
+    entries.forEach(e=>{if(e.isIntersecting){e.target.classList.add('visible');revealObserver.unobserve(e.target)}});
+  },{threshold:.12,rootMargin:'0px 0px -40px 0px'});
+  revealEls.forEach(el=>revealObserver.observe(el));
+
+  // Newsletter Form → Google Sheets
+  const NL_SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbwK5zPhMW5DmaalC-CgWw4dW-1MTisp66cwITMVkoGtvnbf89xtX54JcjjmOjc-o---yQ/exec';
+  const nlForm=document.getElementById('newsletterForm'),toast=document.getElementById('toast'),nlSuccess=document.getElementById('newsletterSuccess');
+  nlForm.addEventListener('submit',async(e)=>{
+    e.preventDefault();
+    const btn=nlForm.querySelector('button');
+    const originalText=btn.innerHTML;
+    btn.innerHTML='Subscribing...';btn.disabled=true;btn.style.opacity='.6';
+
+    try{
+      await fetch(NL_SCRIPT_URL,{
+        method:'POST',
+        mode:'no-cors',
+        headers:{'Content-Type':'application/json'},
+        body:JSON.stringify({email:nlForm.email.value,source:'newsletter'})
+      });
+      nlForm.style.display='none';nlSuccess.classList.add('show');
+      toast.classList.add('show');
+      setTimeout(()=>toast.classList.remove('show'),4000);
+    }catch(err){
+      btn.innerHTML=originalText;btn.disabled=false;btn.style.opacity='1';
+      toast.textContent='⚠ Something went wrong. Please try again.';
+      toast.classList.add('show');
+      setTimeout(()=>{toast.classList.remove('show');toast.textContent='✓ Subscribed successfully!'},4000);
+    }
+  });
+
+  // FAQ Accordion
+  document.querySelectorAll('.faq-q').forEach(q=>{
+    q.addEventListener('click',()=>{
+      const item=q.parentElement;
+      document.querySelectorAll('.faq-item').forEach(i=>{if(i!==item)i.classList.remove('open')});
+      item.classList.toggle('open');
+    });
+  });
+})();
+</script>
+</body>
+</html>

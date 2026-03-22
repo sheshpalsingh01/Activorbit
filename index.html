@@ -1,0 +1,755 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>ActivOrbit AI — AI Automation Freelancer | Lucknow, India</title>
+<meta name="description" content="ActivOrbit AI — Premium AI automation services. AI Agents, MCP, Voice Agents, and full local AI stack (AIOS). Based in Lucknow, serving clients worldwide.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;0,900;1,400;1,700;1,900&family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+<style>
+/* ═══════════════════════════════════════════════════
+   DESIGN SYSTEM — Warm Brutalist Editorial
+   ═══════════════════════════════════════════════════ */
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+:root{
+  --bg:#F5F0E8;--text:#0A0A0A;--accent:#FF6B00;
+  --accent-light:#FF8C33;--accent-dark:#CC5500;
+  --cream-dark:#E8E0D0;--cream-mid:#EDE6DA;
+  --serif:'Playfair Display',Georgia,serif;
+  --sans:'Plus Jakarta Sans','Helvetica Neue',Arial,sans-serif;
+  --nav-h:80px;--rule:2px solid var(--text);
+  --rule-thin:1px solid rgba(10,10,10,.15);
+  --transition:cubic-bezier(.22,1,.36,1);
+}
+html{scroll-behavior:smooth;font-size:16px;cursor:none}
+body{
+  font-family:var(--sans);background:var(--bg);color:var(--text);
+  line-height:1.6;overflow-x:hidden;cursor:none;
+  -webkit-font-smoothing:antialiased;
+}
+a{color:inherit;text-decoration:none;cursor:none}
+button,input,select,textarea{font-family:var(--sans);cursor:none}
+img{max-width:100%;display:block}
+ul{list-style:none}
+
+/* Custom Cursor */
+.cursor-ring{position:fixed;width:40px;height:40px;border:2px solid var(--text);border-radius:50%;pointer-events:none;z-index:10001;transform:translate(-50%,-50%);transition:width .3s var(--transition),height .3s var(--transition),border-color .3s}
+.cursor-dot{position:fixed;width:8px;height:8px;background:var(--accent);border-radius:50%;pointer-events:none;z-index:10002;transform:translate(-50%,-50%);transition:transform .1s}
+.cursor-ring.hover{width:60px;height:60px;border-color:var(--accent)}
+.cursor-dot.hover{transform:translate(-50%,-50%) scale(1.5)}
+
+/* Typography */
+h1,h2,h3,h4{font-family:var(--serif);font-weight:900;line-height:1.05;letter-spacing:-.02em}
+.section-label{font-family:var(--sans);font-size:.75rem;font-weight:700;text-transform:uppercase;letter-spacing:.2em;color:var(--accent);margin-bottom:1rem}
+.section-num{font-family:var(--serif);font-size:clamp(5rem,10vw,10rem);font-weight:900;color:rgba(10,10,10,.06);line-height:1;position:absolute;top:-2rem;left:-1rem;user-select:none;pointer-events:none}
+
+/* Layout */
+.container{width:100%;max-width:1320px;margin:0 auto;padding:0 2rem}
+section{position:relative;padding:6rem 0;overflow:hidden}
+.thick-rule{border:none;border-top:var(--rule);margin:0}
+.thin-rule{border:none;border-top:var(--rule-thin);margin:0}
+
+/* Buttons */
+.btn{display:inline-flex;align-items:center;gap:.5rem;padding:.875rem 2rem;font-weight:700;font-size:.875rem;text-transform:uppercase;letter-spacing:.12em;border:var(--rule);border-radius:0;transition:all .4s var(--transition);position:relative;overflow:hidden}
+.btn-primary{background:var(--accent);color:#fff;border-color:var(--accent)}
+.btn-primary:hover{background:var(--accent-dark);transform:translateY(-2px);box-shadow:0 8px 30px rgba(255,107,0,.3)}
+.btn-secondary{background:transparent;color:var(--text)}
+.btn-secondary:hover{background:var(--text);color:var(--bg);transform:translateY(-2px)}
+.btn-arrow::after{content:'→';transition:transform .3s}
+.btn-arrow:hover::after{transform:translateX(4px)}
+
+/* Scroll Reveal */
+.reveal{opacity:0;transform:translateY(40px);transition:opacity .8s var(--transition),transform .8s var(--transition)}
+.reveal.visible{opacity:1;transform:translateY(0)}
+.reveal-delay-1{transition-delay:.1s}.reveal-delay-2{transition-delay:.2s}
+.reveal-delay-3{transition-delay:.3s}.reveal-delay-4{transition-delay:.4s}
+
+/* ═══════════════════════════════════════════════════
+   NAV
+   ═══════════════════════════════════════════════════ */
+.nav{position:fixed;top:0;left:0;width:100%;height:var(--nav-h);z-index:1000;background:rgba(245,240,232,.92);backdrop-filter:blur(12px);border-bottom:var(--rule-thin);transition:height .4s var(--transition),box-shadow .4s}
+.nav.shrink{height:60px;box-shadow:0 2px 20px rgba(10,10,10,.08)}
+.nav-inner{display:flex;align-items:center;justify-content:space-between;height:100%;max-width:1320px;margin:0 auto;padding:0 2rem}
+.nav-logo{font-family:var(--serif);font-size:1.5rem;font-weight:900;letter-spacing:-.02em;transition:font-size .4s var(--transition)}
+.nav.shrink .nav-logo{font-size:1.25rem}
+.nav-logo span{color:var(--accent)}
+.nav-links{display:flex;align-items:center;gap:2.5rem}
+.nav-links a{font-size:.8rem;font-weight:600;text-transform:uppercase;letter-spacing:.15em;position:relative;padding:.25rem 0}
+.nav-links a::after{content:'';position:absolute;bottom:0;left:0;width:0;height:2px;background:var(--accent);transition:width .3s var(--transition)}
+.nav-links a:hover::after{width:100%}
+.nav-cta{background:var(--accent);color:#fff;padding:.625rem 1.5rem;font-size:.75rem;font-weight:700;text-transform:uppercase;letter-spacing:.15em;border:none;transition:all .3s var(--transition)}
+.nav-cta:hover{background:var(--text);transform:translateY(-1px)}
+.hamburger{display:none;flex-direction:column;gap:5px;background:none;border:none;padding:.5rem;cursor:none}
+.hamburger span{display:block;width:24px;height:2px;background:var(--text);transition:all .3s var(--transition)}
+.hamburger.active span:nth-child(1){transform:rotate(45deg) translate(5px,5px)}
+.hamburger.active span:nth-child(2){opacity:0}
+.hamburger.active span:nth-child(3){transform:rotate(-45deg) translate(5px,-5px)}
+.mobile-menu{position:fixed;top:0;left:0;width:100%;height:100vh;background:var(--bg);z-index:999;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:2rem;transform:translateY(-100%);transition:transform .5s var(--transition);pointer-events:none}
+.mobile-menu.open{transform:translateY(0);pointer-events:all}
+.mobile-menu a{font-family:var(--serif);font-size:2rem;font-weight:700}
+
+/* ═══════════════════════════════════════════════════
+   HERO
+   ═══════════════════════════════════════════════════ */
+.hero{min-height:100vh;display:flex;align-items:center;padding-top:calc(var(--nav-h) + 3rem);padding-bottom:4rem}
+.hero-content{width:100%}
+.hero-grid{display:grid;grid-template-columns:1fr 1fr;gap:4rem;align-items:center}
+.hero-visual{position:relative}
+.hero-visual img{width:100%;height:auto;border:var(--rule);mix-blend-mode:multiply}
+.hero-label{display:inline-flex;align-items:center;gap:.75rem;margin-bottom:2rem}
+.hero-label span{width:8px;height:8px;background:var(--accent);border-radius:50%;animation:pulse 2s ease infinite}
+@keyframes pulse{0%,100%{opacity:1;transform:scale(1)}50%{opacity:.5;transform:scale(1.3)}}
+.hero-label p{font-size:.8rem;font-weight:600;text-transform:uppercase;letter-spacing:.2em}
+.hero-headline{font-size:clamp(3rem,7.5vw,7rem);line-height:.95;margin-bottom:2rem;max-width:900px}
+.hero-headline em{font-style:italic;color:var(--accent)}
+.hero-sub{font-size:1.125rem;line-height:1.7;max-width:520px;margin-bottom:3rem;color:rgba(10,10,10,.7)}
+.hero-ctas{display:flex;gap:1rem;flex-wrap:wrap;margin-bottom:4rem}
+.hero-stats{display:flex;gap:0;border-top:var(--rule);border-bottom:var(--rule)}
+.hero-stat{flex:1;padding:1.75rem 2rem;border-right:var(--rule-thin);text-align:center}
+.hero-stat:last-child{border-right:none}
+.hero-stat .num{font-family:var(--serif);font-size:clamp(2rem,4vw,3.5rem);font-weight:900;line-height:1;color:var(--accent)}
+.hero-stat .label{font-size:.75rem;font-weight:600;text-transform:uppercase;letter-spacing:.15em;margin-top:.5rem;color:rgba(10,10,10,.5)}
+
+/* ═══════════════════════════════════════════════════
+   SERVICES
+   ═══════════════════════════════════════════════════ */
+.services{background:var(--bg)}
+.services-header{display:flex;align-items:flex-end;justify-content:space-between;margin-bottom:3rem;padding-bottom:2rem;border-bottom:var(--rule)}
+.services-header h2{font-size:clamp(2.5rem,5vw,4rem)}
+.services-grid{display:grid;grid-template-columns:repeat(2,1fr)}
+.service-card{padding:3rem 2.5rem;border:var(--rule-thin);position:relative;transition:background .4s var(--transition)}
+.service-card:hover{background:var(--cream-mid)}
+.service-num{font-family:var(--serif);font-size:clamp(3rem,5vw,5rem);font-weight:900;color:rgba(10,10,10,.07);line-height:1;margin-bottom:1rem}
+.service-card h3{font-size:1.5rem;margin-bottom:1rem}
+.service-card p{font-size:.95rem;line-height:1.7;color:rgba(10,10,10,.65);margin-bottom:1.5rem}
+.service-card img{width:100%;max-height:180px;object-fit:contain;margin-bottom:1.25rem;mix-blend-mode:multiply;opacity:.85;transition:opacity .4s var(--transition)}
+.service-card:hover img{opacity:1}
+.service-tags{display:flex;flex-wrap:wrap;gap:.5rem}
+.service-tag{font-size:.7rem;font-weight:600;text-transform:uppercase;letter-spacing:.1em;padding:.375rem .75rem;border:1px solid rgba(10,10,10,.15);background:rgba(10,10,10,.03)}
+
+/* ═══════════════════════════════════════════════════
+   PROCESS
+   ═══════════════════════════════════════════════════ */
+.process{background:var(--text);color:var(--bg);overflow:visible}
+.process .section-label{color:var(--accent)}
+.process h2{font-size:clamp(2.5rem,5vw,4rem);margin-bottom:4rem;color:var(--bg)}
+.process-timeline{display:grid;grid-template-columns:repeat(4,1fr);gap:0;position:relative}
+.process-timeline::before{content:'';position:absolute;top:28px;left:0;width:100%;height:2px;background:rgba(245,240,232,.15)}
+.process-step{padding:0 2rem;position:relative}
+.step-dot{width:16px;height:16px;background:var(--accent);border-radius:50%;margin-bottom:1.5rem;position:relative;z-index:1}
+.step-num{font-family:var(--serif);font-size:.875rem;font-weight:700;color:var(--accent);margin-bottom:.5rem}
+.step-title{font-family:var(--serif);font-size:1.25rem;font-weight:700;margin-bottom:.75rem}
+.step-desc{font-size:.875rem;line-height:1.7;color:rgba(245,240,232,.6)}
+.step-note{font-size:.7rem;font-style:italic;color:var(--accent);margin-top:1rem;padding-left:1rem;border-left:2px solid var(--accent)}
+
+/* ═══════════════════════════════════════════════════
+   TOOL STACK MARQUEE
+   ═══════════════════════════════════════════════════ */
+.marquee-section{padding:3rem 0;border-top:var(--rule);border-bottom:var(--rule);overflow:hidden}
+.marquee-wrap{display:flex;width:max-content;animation:marquee 25s linear infinite}
+.marquee-wrap:hover{animation-play-state:paused}
+@keyframes marquee{0%{transform:translateX(0)}100%{transform:translateX(-50%)}}
+.marquee-item{display:flex;align-items:center;gap:.75rem;padding:0 2.5rem;white-space:nowrap;font-family:var(--serif);font-size:1.25rem;font-weight:700;letter-spacing:-.01em}
+.marquee-item .dot{width:6px;height:6px;background:var(--accent);border-radius:50%;flex-shrink:0}
+
+/* ═══════════════════════════════════════════════════
+   WHY ME
+   ═══════════════════════════════════════════════════ */
+.why-me{background:var(--bg)}
+.why-grid{display:grid;grid-template-columns:1fr 1fr;gap:4rem;align-items:start}
+.why-quote{font-family:var(--serif);font-size:clamp(1.75rem,3.5vw,2.75rem);line-height:1.3;font-style:italic;position:relative;padding-top:2rem}
+.why-quote::before{content:'"';font-size:8rem;color:var(--accent);line-height:1;position:absolute;top:-1rem;left:-.5rem;opacity:.3;font-family:var(--serif)}
+.why-points{display:flex;flex-direction:column;gap:2rem}
+.why-point{display:flex;gap:1.25rem;align-items:flex-start;padding-bottom:2rem;border-bottom:var(--rule-thin)}
+.why-point:last-child{border-bottom:none;padding-bottom:0}
+.why-icon{width:48px;height:48px;display:flex;align-items:center;justify-content:center;background:var(--accent);color:#fff;font-size:1.25rem;flex-shrink:0}
+.why-point h4{font-size:1.1rem;margin-bottom:.375rem;font-family:var(--sans);font-weight:700}
+.why-point p{font-size:.875rem;color:rgba(10,10,10,.6);line-height:1.6}
+
+/* ═══════════════════════════════════════════════════
+   PORTFOLIO
+   ═══════════════════════════════════════════════════ */
+.portfolio{background:var(--cream-mid)}
+.portfolio-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:2rem;margin-top:3rem}
+.portfolio-card{background:var(--bg);border:var(--rule-thin);padding:2.5rem;transition:transform .4s var(--transition),box-shadow .4s var(--transition)}
+.portfolio-card:hover{transform:translateY(-6px);box-shadow:0 16px 40px rgba(10,10,10,.08)}
+.portfolio-card .tag{font-size:.7rem;font-weight:700;text-transform:uppercase;letter-spacing:.12em;color:var(--accent);margin-bottom:1rem}
+.portfolio-card h3{font-size:1.25rem;margin-bottom:.75rem}
+.portfolio-card p{font-size:.875rem;color:rgba(10,10,10,.6);line-height:1.7;margin-bottom:1.5rem}
+.portfolio-metrics{display:flex;gap:1.5rem}
+.metric{text-align:center}
+.metric .val{font-family:var(--serif);font-size:1.5rem;font-weight:900;color:var(--accent);line-height:1}
+.metric .met-label{font-size:.65rem;font-weight:600;text-transform:uppercase;letter-spacing:.1em;color:rgba(10,10,10,.45);margin-top:.25rem}
+
+/* ═══════════════════════════════════════════════════
+   TESTIMONIALS
+   ═══════════════════════════════════════════════════ */
+.testimonials{background:var(--bg)}
+.testimonials-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:2rem;margin-top:3rem}
+.testimonial-card{padding:2.5rem;border:var(--rule-thin);background:var(--bg);transition:transform .4s var(--transition)}
+.testimonial-card:nth-child(2){transform:translateY(2rem)}
+.testimonial-card:hover{transform:translateY(-4px)}
+.testimonial-card:nth-child(2):hover{transform:translateY(calc(2rem - 4px))}
+.testimonial-stars{color:var(--accent);font-size:1rem;margin-bottom:1rem;letter-spacing:2px}
+.testimonial-card blockquote{font-size:.95rem;line-height:1.7;color:rgba(10,10,10,.7);margin-bottom:1.5rem;font-style:italic}
+.testimonial-author{display:flex;align-items:center;gap:1rem}
+.testimonial-avatar{width:44px;height:44px;background:var(--cream-dark);border-radius:50%;display:flex;align-items:center;justify-content:center;font-family:var(--serif);font-weight:700;font-size:1rem;color:var(--accent)}
+.testimonial-name{font-weight:700;font-size:.875rem}
+.testimonial-role{font-size:.75rem;color:rgba(10,10,10,.5)}
+
+/* ═══════════════════════════════════════════════════
+   CONTACT
+   ═══════════════════════════════════════════════════ */
+.contact{background:var(--text);color:var(--bg)}
+.contact h2{font-size:clamp(2.5rem,5vw,4rem);color:var(--bg);margin-bottom:1rem}
+.contact .section-label{color:var(--accent)}
+.contact-sub{color:rgba(245,240,232,.5);margin-bottom:3rem;max-width:500px}
+.contact-form{display:grid;grid-template-columns:1fr 1fr;gap:1.5rem;max-width:700px}
+.form-group{display:flex;flex-direction:column;gap:.5rem}
+.form-group.full{grid-column:1/-1}
+.form-group label{font-size:.75rem;font-weight:600;text-transform:uppercase;letter-spacing:.15em;color:rgba(245,240,232,.5)}
+.form-group input,.form-group select,.form-group textarea{
+  background:rgba(245,240,232,.08);border:1px solid rgba(245,240,232,.15);
+  color:var(--bg);padding:1rem 1.25rem;font-size:.95rem;transition:border-color .3s;outline:none}
+.form-group input:focus,.form-group select:focus,.form-group textarea:focus{border-color:var(--accent)}
+.form-group textarea{resize:vertical;min-height:140px}
+.form-group select{appearance:none;background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='8'%3E%3Cpath d='M1 1l5 5 5-5' stroke='%23F5F0E8' stroke-width='1.5' fill='none'/%3E%3C/svg%3E");background-repeat:no-repeat;background-position:right 1rem center}
+.form-group select option{background:var(--text);color:var(--bg)}
+.form-submit{grid-column:1/-1;margin-top:.5rem}
+.form-submit .btn-primary{width:100%;justify-content:center;padding:1.125rem 2rem;font-size:.9rem}
+.form-success{display:none;text-align:center;padding:3rem}
+.form-success.show{display:block}
+.form-success h3{font-size:2rem;color:var(--bg);margin-bottom:1rem}
+.form-success p{color:rgba(245,240,232,.6)}
+
+/* Toast */
+.toast{position:fixed;bottom:2rem;right:2rem;background:var(--accent);color:#fff;padding:1rem 2rem;font-weight:600;font-size:.875rem;z-index:9999;transform:translateY(120%);transition:transform .5s var(--transition);border-left:4px solid var(--accent-dark)}
+.toast.show{transform:translateY(0)}
+
+/* ═══════════════════════════════════════════════════
+   FOOTER
+   ═══════════════════════════════════════════════════ */
+.footer{background:var(--text);color:var(--bg);padding:4rem 0 2rem;border-top:1px solid rgba(245,240,232,.1)}
+.footer-grid{display:grid;grid-template-columns:2fr 1fr 1fr 1fr;gap:3rem;padding-bottom:3rem;border-bottom:1px solid rgba(245,240,232,.1)}
+.footer-brand{font-family:var(--serif);font-size:1.5rem;font-weight:900;margin-bottom:1rem}
+.footer-brand span{color:var(--accent)}
+.footer-desc{font-size:.875rem;color:rgba(245,240,232,.4);line-height:1.7;max-width:300px}
+.footer h4{font-size:.75rem;font-weight:700;text-transform:uppercase;letter-spacing:.15em;margin-bottom:1.25rem;color:rgba(245,240,232,.4)}
+.footer ul li{margin-bottom:.75rem}
+.footer ul li a{font-size:.875rem;color:rgba(245,240,232,.6);transition:color .3s}
+.footer ul li a:hover{color:var(--accent)}
+.footer-bottom{display:flex;justify-content:space-between;align-items:center;padding-top:2rem;font-size:.75rem;color:rgba(245,240,232,.3)}
+
+/* Floating CTA */
+.floating-cta{position:fixed;bottom:-80px;left:50%;transform:translateX(-50%);z-index:998;background:var(--accent);color:#fff;padding:.875rem 2.5rem;font-weight:700;font-size:.8rem;text-transform:uppercase;letter-spacing:.15em;border:none;box-shadow:0 8px 30px rgba(255,107,0,.3);transition:bottom .5s var(--transition);cursor:none}
+.floating-cta.show{bottom:2rem}
+.floating-cta:hover{background:var(--accent-dark)}
+
+/* ═══════════════════════════════════════════════════
+   RESPONSIVE
+   ═══════════════════════════════════════════════════ */
+@media(max-width:1024px){
+  .hero-grid{grid-template-columns:1fr}
+  .hero-visual{display:none}
+  .services-grid{grid-template-columns:1fr 1fr}
+  .portfolio-grid{grid-template-columns:1fr 1fr}
+  .testimonials-grid{grid-template-columns:1fr 1fr}
+  .footer-grid{grid-template-columns:1fr 1fr}
+  .why-grid{grid-template-columns:1fr}
+  .process-timeline{grid-template-columns:repeat(2,1fr);gap:2rem}
+}
+@media(max-width:768px){
+  .nav-links{display:none}
+  .hamburger{display:flex}
+  section{padding:4rem 0}
+  .hero-headline{font-size:clamp(2.25rem,8vw,3.5rem)}
+  .hero-stats{flex-direction:column}
+  .hero-stat{border-right:none;border-bottom:var(--rule-thin);padding:1.25rem}
+  .hero-stat:last-child{border-bottom:none}
+  .services-grid{grid-template-columns:1fr}
+  .portfolio-grid{grid-template-columns:1fr}
+  .testimonials-grid{grid-template-columns:1fr}
+  .testimonial-card:nth-child(2){transform:none}
+  .testimonial-card:nth-child(2):hover{transform:translateY(-4px)}
+  .process-timeline{grid-template-columns:1fr;gap:2.5rem}
+  .process-timeline::before{display:none}
+  .contact-form{grid-template-columns:1fr}
+  .footer-grid{grid-template-columns:1fr}
+  .hero-ctas{flex-direction:column}
+  .hero-ctas .btn{justify-content:center}
+  .cursor-ring,.cursor-dot{display:none}
+}
+@media(max-width:480px){
+  .container{padding:0 1.25rem}
+  .hero{min-height:auto;padding-top:calc(var(--nav-h) + 2rem);padding-bottom:3rem}
+}
+</style>
+</head>
+<body>
+
+<!-- Custom Cursor -->
+<div class="cursor-ring" id="cursorRing"></div>
+<div class="cursor-dot" id="cursorDot"></div>
+
+<!-- NAV -->
+<nav class="nav" id="nav">
+  <div class="nav-inner">
+    <a href="#" class="nav-logo">Activ<span>Orbit</span></a>
+    <div class="nav-links">
+      <a href="#services">Services</a>
+      <a href="#process">Process</a>
+      <a href="#portfolio">Work</a>
+      <a href="projects.html">Projects</a>
+      <a href="resources.html">Resources</a>
+      <a href="#contact">Contact</a>
+      <a href="#contact" class="nav-cta">Free AI Audit</a>
+    </div>
+    <button class="hamburger" id="hamburger" aria-label="Menu">
+      <span></span><span></span><span></span>
+    </button>
+  </div>
+</nav>
+
+<!-- Mobile Menu -->
+<div class="mobile-menu" id="mobileMenu">
+  <a href="#services" class="mobile-link">Services</a>
+  <a href="#process" class="mobile-link">Process</a>
+  <a href="#portfolio" class="mobile-link">Work</a>
+  <a href="projects.html" class="mobile-link">Projects</a>
+  <a href="resources.html" class="mobile-link">Resources</a>
+  <a href="#contact" class="mobile-link">Contact</a>
+  <a href="#contact" class="btn btn-primary" style="margin-top:1rem">Free AI Audit</a>
+</div>
+
+<!-- HERO -->
+<section class="hero" id="hero">
+  <div class="container">
+    <div class="hero-content">
+      <div class="hero-grid">
+        <div>
+          <div class="hero-label"><span></span><p>AI Automation Worldwide</p></div>
+          <h1 class="hero-headline">I Build <em>Intelligent</em><br>Systems That Work<br>While You Sleep.</h1>
+          <p class="hero-sub">AI agents, voice bots, and full automation stacks — engineered to eliminate busywork, cut costs, and scale your operations without adding headcount.</p>
+          <div class="hero-ctas">
+            <a href="#contact" class="btn btn-primary btn-arrow">Start Your AI Audit</a>
+            <a href="#portfolio" class="btn btn-secondary btn-arrow">See Case Studies</a>
+          </div>
+        </div>
+        <div class="hero-visual reveal">
+          <img src="assets/hero-visual.png" alt="AI automation network illustration" loading="lazy">
+        </div>
+      </div>
+      <div class="hero-stats">
+        <div class="hero-stat"><div class="num" data-target="50">0</div><div class="label">Projects Built</div></div>
+        <div class="hero-stat"><div class="num" data-target="10000">0</div><div class="label">Hours Saved</div></div>
+        <div class="hero-stat"><div class="num" data-target="30">0</div><div class="label">Clients Served</div></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<hr class="thick-rule">
+
+<!-- SERVICES -->
+<section class="services" id="services">
+  <div class="container">
+    <div class="services-header reveal">
+      <div><p class="section-label">What I Do</p><h2>Services</h2></div>
+      <p style="max-width:360px;font-size:.9rem;color:rgba(10,10,10,.55);text-align:right">End-to-end AI solutions — from strategy to deployment. Every stack, custom-built.</p>
+    </div>
+    <div class="services-grid">
+      <div class="service-card reveal reveal-delay-1">
+        <div class="service-num">01</div>
+        <img src="assets/service-automation.png" alt="AI Automation illustration">
+        <h3>AI Automation</h3>
+        <p>Custom n8n / Make workflows that connect your tools, automate repetitive tasks, and eliminate manual data entry across your entire business operation.</p>
+        <div class="service-tags"><span class="service-tag">n8n</span><span class="service-tag">Make</span><span class="service-tag">Zapier</span><span class="service-tag">APIs</span></div>
+      </div>
+      <div class="service-card reveal reveal-delay-2">
+        <div class="service-num">02</div>
+        <img src="assets/services-ai-hand.png" alt="AI Agents illustration">
+        <h3>AI Agents & MCP</h3>
+        <p>Autonomous AI agents powered by Model Context Protocol — they browse, research, write, and execute multi-step tasks without human babysitting.</p>
+        <div class="service-tags"><span class="service-tag">MCP</span><span class="service-tag">Claude</span><span class="service-tag">LangChain</span><span class="service-tag">Agents</span></div>
+      </div>
+      <div class="service-card reveal reveal-delay-3">
+        <div class="service-num">03</div>
+        <img src="assets/service-voice.png" alt="AI Voice Agents illustration">
+        <h3>AI Voice Agents</h3>
+        <p>Production-ready voice bots for inbound/outbound calls — appointment booking, lead qualification, customer support. Sounds human. Works 24/7.</p>
+        <div class="service-tags"><span class="service-tag">ElevenLabs</span><span class="service-tag">Voiceflow</span><span class="service-tag">Twilio</span><span class="service-tag">VAPI</span></div>
+      </div>
+      <div class="service-card reveal reveal-delay-4">
+        <div class="service-num">04</div>
+        <img src="assets/service-aios.png" alt="AIOS local AI stack illustration">
+        <h3>AIOS — Local AI Stack</h3>
+        <p>Full private AI infrastructure on your machine or VPS. Ollama, Claude Code, local LLMs — zero vendor lock-in, total data privacy, your rules.</p>
+        <div class="service-tags"><span class="service-tag">Ollama</span><span class="service-tag">Claude Code</span><span class="service-tag">Local LLMs</span><span class="service-tag">VPS</span></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<hr class="thick-rule">
+
+<!-- PROCESS -->
+<section class="process" id="process">
+  <div class="container">
+    <p class="section-label">How It Works</p>
+    <h2>Process</h2>
+    <div class="process-timeline">
+      <div class="process-step reveal reveal-delay-1">
+        <div class="step-dot"></div>
+        <div class="step-num">Step 01</div>
+        <div class="step-title">Discovery</div>
+        <div class="step-desc">We audit your current stack, find the time sinks, and map every opportunity for AI to replace manual work.</div>
+        <div class="step-note">Usually a 45-min call + async deep-dive into your workflows</div>
+      </div>
+      <div class="process-step reveal reveal-delay-2">
+        <div class="step-dot"></div>
+        <div class="step-num">Step 02</div>
+        <div class="step-title">Design</div>
+        <div class="step-desc">Architecture the solution — tool selection, integration map, data flow, and a clear build timeline with deliverables.</div>
+        <div class="step-note">You get a Notion doc with the full blueprint before any code is written</div>
+      </div>
+      <div class="process-step reveal reveal-delay-3">
+        <div class="step-dot"></div>
+        <div class="step-num">Step 03</div>
+        <div class="step-title">Build</div>
+        <div class="step-desc">I build, test, and iterate fast. Daily async updates. You see working demos every few days, not after weeks of silence.</div>
+        <div class="step-note">Typical build cycle: 2–4 weeks depending on scope</div>
+      </div>
+      <div class="process-step reveal reveal-delay-4">
+        <div class="step-dot"></div>
+        <div class="step-num">Step 04</div>
+        <div class="step-title">Launch & Support</div>
+        <div class="step-desc">We deploy, monitor, and fine-tune together. I stick around for 30 days post-launch to squash bugs and optimize.</div>
+        <div class="step-note">Includes documentation, video walkthroughs, and handoff training</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- TOOL STACK MARQUEE -->
+<div class="marquee-section">
+  <div class="marquee-wrap" id="marquee">
+    <div class="marquee-item"><span class="dot"></span>n8n</div>
+    <div class="marquee-item"><span class="dot"></span>Ollama</div>
+    <div class="marquee-item"><span class="dot"></span>Claude Code</div>
+    <div class="marquee-item"><span class="dot"></span>MCP</div>
+    <div class="marquee-item"><span class="dot"></span>ElevenLabs</div>
+    <div class="marquee-item"><span class="dot"></span>Voiceflow</div>
+    <div class="marquee-item"><span class="dot"></span>Make</div>
+    <div class="marquee-item"><span class="dot"></span>Gmail API</div>
+    <div class="marquee-item"><span class="dot"></span>OpenAI</div>
+    <div class="marquee-item"><span class="dot"></span>LangChain</div>
+    <div class="marquee-item"><span class="dot"></span>n8n</div>
+    <div class="marquee-item"><span class="dot"></span>Ollama</div>
+    <div class="marquee-item"><span class="dot"></span>Claude Code</div>
+    <div class="marquee-item"><span class="dot"></span>MCP</div>
+    <div class="marquee-item"><span class="dot"></span>ElevenLabs</div>
+    <div class="marquee-item"><span class="dot"></span>Voiceflow</div>
+    <div class="marquee-item"><span class="dot"></span>Make</div>
+    <div class="marquee-item"><span class="dot"></span>Gmail API</div>
+    <div class="marquee-item"><span class="dot"></span>OpenAI</div>
+    <div class="marquee-item"><span class="dot"></span>LangChain</div>
+  </div>
+</div>
+
+<!-- WHY ME -->
+<section class="why-me" id="why">
+  <div class="container">
+    <p class="section-label">Why Me</p>
+    <h2 style="font-size:clamp(2.5rem,5vw,4rem);margin-bottom:3rem">The Difference</h2>
+    <div class="why-grid">
+      <div class="why-quote reveal">"I don't just plug in tools — I engineer systems that think, adapt, and operate autonomously so you can focus on what actually matters."</div>
+      <div class="why-points">
+        <div class="why-point reveal reveal-delay-1">
+          <div class="why-icon">⚡</div>
+          <div><h4>Speed-First Delivery</h4><p>Most projects ship in 2–4 weeks. Fast iterations, daily updates, no agency bloat or wait times.</p></div>
+        </div>
+        <div class="why-point reveal reveal-delay-2">
+          <div class="why-icon">🔒</div>
+          <div><h4>Privacy by Default</h4><p>I specialize in local LLM stacks — your data never leaves your infrastructure. Zero vendor lock-in.</p></div>
+        </div>
+        <div class="why-point reveal reveal-delay-3">
+          <div class="why-icon">🎯</div>
+          <div><h4>ROI-Obsessed</h4><p>Every automation is measured by hours saved, cost reduced, and revenue impact. No vanity metrics.</p></div>
+        </div>
+        <div class="why-point reveal reveal-delay-4">
+          <div class="why-icon">🌍</div>
+          <div><h4>Global, Remote-Native</h4><p>Based in Lucknow. Clients across 4 continents. Timezone overlap built into every engagement.</p></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<hr class="thick-rule">
+
+<!-- PORTFOLIO -->
+<section class="portfolio" id="portfolio">
+  <div class="container">
+    <p class="section-label">Selected Work</p>
+    <h2 style="font-size:clamp(2.5rem,5vw,4rem)">Case Studies</h2>
+    <div class="portfolio-grid">
+      <div class="portfolio-card reveal reveal-delay-1">
+        <div class="tag">AI Automation</div>
+        <h3>E-Commerce Order Pipeline</h3>
+        <p>Automated the entire order-to-fulfillment pipeline for a D2C brand — from Shopify webhook to warehouse API to customer SMS.</p>
+        <div class="portfolio-metrics">
+          <div class="metric"><div class="val">120h</div><div class="met-label">Saved/Month</div></div>
+          <div class="metric"><div class="val">68%</div><div class="met-label">Cost Cut</div></div>
+          <div class="metric"><div class="val">99.2%</div><div class="met-label">Uptime</div></div>
+        </div>
+      </div>
+      <div class="portfolio-card reveal reveal-delay-2">
+        <div class="tag">AI Voice Agent</div>
+        <h3>Clinic Appointment Bot</h3>
+        <p>Built a 24/7 voice agent for a multi-location clinic — handles bookings, reminders, rescheduling, and insurance verification calls.</p>
+        <div class="portfolio-metrics">
+          <div class="metric"><div class="val">3,200</div><div class="met-label">Calls/Month</div></div>
+          <div class="metric"><div class="val">85%</div><div class="met-label">Automation</div></div>
+          <div class="metric"><div class="val">4.8★</div><div class="met-label">Patient Rating</div></div>
+        </div>
+      </div>
+      <div class="portfolio-card reveal reveal-delay-3">
+        <div class="tag">AIOS Stack</div>
+        <h3>Private LLM Research Lab</h3>
+        <p>Deployed a full on-prem AI stack for a legal firm — Ollama + local models for contract analysis, zero data leaving the building.</p>
+        <div class="portfolio-metrics">
+          <div class="metric"><div class="val">40h</div><div class="met-label">Saved/Week</div></div>
+          <div class="metric"><div class="val">100%</div><div class="met-label">Private</div></div>
+          <div class="metric"><div class="val">$0</div><div class="met-label">API Costs</div></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<hr class="thick-rule">
+
+<!-- TESTIMONIALS -->
+<section class="testimonials" id="testimonials">
+  <div class="container">
+    <p class="section-label">Social Proof</p>
+    <h2 style="font-size:clamp(2.5rem,5vw,4rem)">What Clients Say</h2>
+    <div class="testimonials-grid">
+      <div class="testimonial-card reveal reveal-delay-1">
+        <div class="testimonial-stars">★★★★★</div>
+        <blockquote>"Completely transformed our workflow. We went from 6 hours of daily manual data entry to fully automated pipelines. The ROI was visible within the first week."</blockquote>
+        <div class="testimonial-author">
+          <div class="testimonial-avatar">R</div>
+          <div><div class="testimonial-name">Rajesh K.</div><div class="testimonial-role">Founder, TechVista Solutions</div></div>
+        </div>
+      </div>
+      <div class="testimonial-card reveal reveal-delay-2">
+        <div class="testimonial-stars">★★★★★</div>
+        <blockquote>"The voice agent handles 85% of our appointment calls now. Patients love it, and our front desk staff can finally focus on in-person care. Game changer."</blockquote>
+        <div class="testimonial-author">
+          <div class="testimonial-avatar">S</div>
+          <div><div class="testimonial-name">Dr. Sneha P.</div><div class="testimonial-role">Director, MedCare Clinics</div></div>
+        </div>
+      </div>
+      <div class="testimonial-card reveal reveal-delay-3">
+        <div class="testimonial-stars">★★★★★</div>
+        <blockquote>"Setting up our private AI stack was seamless. We now run contract analysis locally — no data leaves our servers. Exactly what our compliance team needed."</blockquote>
+        <div class="testimonial-author">
+          <div class="testimonial-avatar">A</div>
+          <div><div class="testimonial-name">Amir H.</div><div class="testimonial-role">CTO, LegalEdge Partners</div></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<hr class="thick-rule">
+
+<!-- CONTACT -->
+<section class="contact" id="contact">
+  <div class="container">
+    <p class="section-label">Get In Touch</p>
+    <h2>Let's Build Something<br>Remarkable.</h2>
+    <p class="contact-sub">Book your free AI audit — I'll map your biggest automation opportunities and show you exactly what's possible.</p>
+    <form class="contact-form" id="contactForm">
+      <div class="form-group"><label for="name">Full Name</label><input type="text" id="name" name="name" placeholder="John Doe" required></div>
+      <div class="form-group"><label for="email">Email Address</label><input type="email" id="email" name="email" placeholder="john@company.com" required></div>
+      <div class="form-group"><label for="service">Service Needed</label>
+        <select id="service" name="service" required>
+          <option value="" disabled selected>Select a service</option>
+          <option value="ai-automation">AI Automation</option>
+          <option value="ai-agents">AI Agents & MCP</option>
+          <option value="voice-agents">AI Voice Agents</option>
+          <option value="aios">AIOS — Local AI Stack</option>
+          <option value="consulting">AI Consulting</option>
+        </select>
+      </div>
+      <div class="form-group"><label for="budget">Budget Range</label>
+        <select id="budget" name="budget" required>
+          <option value="" disabled selected>Select budget</option>
+          <option value="1k-3k">$1,000 – $3,000</option>
+          <option value="3k-5k">$3,000 – $5,000</option>
+          <option value="5k-10k">$5,000 – $10,000</option>
+          <option value="10k+">$10,000+</option>
+        </select>
+      </div>
+      <div class="form-group full"><label for="message">Project Details</label><textarea id="message" name="message" placeholder="Tell me about your project, current pain points, and what you'd like automated..." required></textarea></div>
+      <div class="form-submit"><button type="submit" class="btn btn-primary btn-arrow">Send Message</button></div>
+    </form>
+    <div class="form-success" id="formSuccess">
+      <h3>Message Sent! 🎉</h3>
+      <p>Thanks for reaching out. I'll review your project details and get back to you within 24 hours.</p>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer class="footer">
+  <div class="container">
+    <div class="footer-grid">
+      <div>
+        <div class="footer-brand">Activ<span>Orbit</span></div>
+        <p class="footer-desc">AI Automation Freelancer based in Lucknow, India. Building intelligent systems for clients worldwide.</p>
+      </div>
+      <div>
+        <h4>Services</h4>
+        <ul>
+          <li><a href="#services">AI Automation</a></li>
+          <li><a href="#services">AI Agents & MCP</a></li>
+          <li><a href="#services">AI Voice Agents</a></li>
+          <li><a href="#services">AIOS Stack</a></li>
+        </ul>
+      </div>
+      <div>
+        <h4>Navigate</h4>
+        <ul>
+          <li><a href="#process">Process</a></li>
+          <li><a href="#portfolio">Portfolio</a></li>
+          <li><a href="projects.html">Projects</a></li>
+          <li><a href="resources.html">Free Resources</a></li>
+          <li><a href="#contact">Contact</a></li>
+        </ul>
+      </div>
+      <div>
+        <h4>Connect</h4>
+        <ul>
+          <li><a href="https://www.linkedin.com/in/sheshpalsingh915" target="_blank">LinkedIn ↗</a></li>
+          <li><a href="https://x.com/SheshpalSi36800" target="_blank">Twitter / X ↗</a></li>
+          <li><a href="https://github.com/sheshpalsingh01/" target="_blank">GitHub ↗</a></li>
+          <li><a href="https://www.youtube.com/@sheshpalsingh_ds" target="_blank">YouTube ↗</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <span>© 2026 ActivOrbit AI. All rights reserved.</span>
+      <span>Lucknow, India → Worldwide</span>
+    </div>
+  </div>
+</footer>
+
+<!-- Floating CTA -->
+<button class="floating-cta" id="floatingCta" onclick="document.querySelector('#contact').scrollIntoView({behavior:'smooth'})">🚀 Free AI Audit</button>
+
+<!-- Toast -->
+<div class="toast" id="toast">✓ Message sent successfully!</div>
+
+<!-- ═══════════════════════════════════════════════════
+     JAVASCRIPT
+     ═══════════════════════════════════════════════════ -->
+<script>
+(function(){
+  // Custom Cursor
+  const ring=document.getElementById('cursorRing'),dot=document.getElementById('cursorDot');
+  let mx=0,my=0,rx=0,ry=0;
+  document.addEventListener('mousemove',e=>{mx=e.clientX;my=e.clientY;dot.style.left=mx+'px';dot.style.top=my+'px'});
+  function animateCursor(){rx+=(mx-rx)*.15;ry+=(my-ry)*.15;ring.style.left=rx+'px';ring.style.top=ry+'px';requestAnimationFrame(animateCursor)}
+  animateCursor();
+  document.querySelectorAll('a,button,.service-card,.portfolio-card,.testimonial-card').forEach(el=>{
+    el.addEventListener('mouseenter',()=>{ring.classList.add('hover');dot.classList.add('hover')});
+    el.addEventListener('mouseleave',()=>{ring.classList.remove('hover');dot.classList.remove('hover')});
+  });
+
+  // Sticky Nav Shrink
+  const nav=document.getElementById('nav');
+  window.addEventListener('scroll',()=>{nav.classList.toggle('shrink',window.scrollY>80)});
+
+  // Hamburger Menu
+  const hamburger=document.getElementById('hamburger'),mobileMenu=document.getElementById('mobileMenu');
+  hamburger.addEventListener('click',()=>{hamburger.classList.toggle('active');mobileMenu.classList.toggle('open')});
+  document.querySelectorAll('.mobile-link').forEach(a=>a.addEventListener('click',()=>{hamburger.classList.remove('active');mobileMenu.classList.remove('open')}));
+
+  // Floating CTA
+  const floatingCta=document.getElementById('floatingCta');
+  window.addEventListener('scroll',()=>{floatingCta.classList.toggle('show',window.scrollY>600)});
+
+  // Counter Animation
+  function animateCounters(){
+    document.querySelectorAll('.hero-stat .num').forEach(el=>{
+      const target=+el.dataset.target;if(!target)return;
+      let start=0;const duration=2000,startTime=performance.now();
+      function update(now){
+        const progress=Math.min((now-startTime)/duration,1);
+        const eased=1-Math.pow(1-progress,3);
+        const current=Math.floor(eased*target);
+        el.textContent=target>=1000?(current/1000).toFixed(current>=target?0:1)+'K+':current+'+';
+        if(progress<1)requestAnimationFrame(update);
+        else el.textContent=target>=1000?(target/1000)+'K+':target+'+';
+      }
+      requestAnimationFrame(update);
+    });
+  }
+  let counterDone=false;
+  const heroStats=document.querySelector('.hero-stats');
+  const counterObserver=new IntersectionObserver(entries=>{
+    if(entries[0].isIntersecting&&!counterDone){counterDone=true;animateCounters();counterObserver.disconnect()}
+  },{threshold:.5});
+  if(heroStats)counterObserver.observe(heroStats);
+
+  // Scroll Reveal
+  const revealEls=document.querySelectorAll('.reveal');
+  const revealObserver=new IntersectionObserver(entries=>{
+    entries.forEach(e=>{if(e.isIntersecting){e.target.classList.add('visible');revealObserver.unobserve(e.target)}});
+  },{threshold:.12,rootMargin:'0px 0px -40px 0px'});
+  revealEls.forEach(el=>revealObserver.observe(el));
+
+  // Contact Form → Google Sheets
+  const GOOGLE_SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbwK5zPhMW5DmaalC-CgWw4dW-1MTisp66cwITMVkoGtvnbf89xtX54JcjjmOjc-o---yQ/exec'; // ← Replace with your deployed Web App URL
+  const form=document.getElementById('contactForm'),toast=document.getElementById('toast'),success=document.getElementById('formSuccess');
+  form.addEventListener('submit',async(e)=>{
+    e.preventDefault();
+    const btn=form.querySelector('button[type="submit"]');
+    const originalText=btn.innerHTML;
+    btn.innerHTML='Sending...';btn.disabled=true;btn.style.opacity='.6';
+
+    const payload={
+      name:form.name.value,
+      email:form.email.value,
+      service:form.service.value,
+      budget:form.budget.value,
+      message:form.message.value
+    };
+
+    try{
+      await fetch(GOOGLE_SCRIPT_URL,{
+        method:'POST',
+        mode:'no-cors',
+        headers:{'Content-Type':'application/json'},
+        body:JSON.stringify(payload)
+      });
+      // no-cors returns opaque response, so we assume success if no error
+      form.style.display='none';success.classList.add('show');
+      toast.classList.add('show');
+      setTimeout(()=>toast.classList.remove('show'),4000);
+    }catch(err){
+      btn.innerHTML=originalText;btn.disabled=false;btn.style.opacity='1';
+      toast.textContent='⚠ Something went wrong. Please try again.';
+      toast.classList.add('show');
+      setTimeout(()=>{toast.classList.remove('show');toast.textContent='✓ Message sent successfully!'},4000);
+    }
+  });
+})();
+</script>
+</body>
+</html>

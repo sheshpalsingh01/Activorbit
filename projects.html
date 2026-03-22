@@ -1,0 +1,379 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Projects — ActivOrbit AI | AI Automation Case Studies</title>
+<meta name="description" content="Detailed AI automation case studies by ActivOrbit AI — real projects, real results. E-commerce pipelines, voice agents, private LLM stacks, and more.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;0,900;1,400;1,700;1,900&family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+:root{
+  --bg:#F5F0E8;--text:#0A0A0A;--accent:#FF6B00;
+  --accent-light:#FF8C33;--accent-dark:#CC5500;
+  --cream-dark:#E8E0D0;--cream-mid:#EDE6DA;
+  --serif:'Playfair Display',Georgia,serif;
+  --sans:'Plus Jakarta Sans','Helvetica Neue',Arial,sans-serif;
+  --nav-h:80px;--rule:2px solid var(--text);
+  --rule-thin:1px solid rgba(10,10,10,.15);
+  --transition:cubic-bezier(.22,1,.36,1);
+}
+html{scroll-behavior:smooth;font-size:16px;cursor:none}
+body{
+  font-family:var(--sans);background:var(--bg);color:var(--text);
+  line-height:1.6;overflow-x:hidden;cursor:none;
+  -webkit-font-smoothing:antialiased;
+}
+a{color:inherit;text-decoration:none;cursor:none}
+button,input,select,textarea{font-family:var(--sans);cursor:none}
+img{max-width:100%;display:block}
+ul{list-style:none}
+
+/* Custom Cursor */
+.cursor-ring{position:fixed;width:40px;height:40px;border:2px solid var(--text);border-radius:50%;pointer-events:none;z-index:10001;transform:translate(-50%,-50%);transition:width .3s var(--transition),height .3s var(--transition),border-color .3s}
+.cursor-dot{position:fixed;width:8px;height:8px;background:var(--accent);border-radius:50%;pointer-events:none;z-index:10002;transform:translate(-50%,-50%);transition:transform .1s}
+.cursor-ring.hover{width:60px;height:60px;border-color:var(--accent)}
+.cursor-dot.hover{transform:translate(-50%,-50%) scale(1.5)}
+h1,h2,h3,h4{font-family:var(--serif);font-weight:900;line-height:1.05;letter-spacing:-.02em}
+.container{width:100%;max-width:1320px;margin:0 auto;padding:0 2rem}
+section{position:relative;padding:6rem 0;overflow:hidden}
+.thick-rule{border:none;border-top:var(--rule);margin:0}
+.thin-rule{border:none;border-top:var(--rule-thin);margin:0}
+.section-label{font-family:var(--sans);font-size:.75rem;font-weight:700;text-transform:uppercase;letter-spacing:.2em;color:var(--accent);margin-bottom:1rem}
+.btn{display:inline-flex;align-items:center;gap:.5rem;padding:.875rem 2rem;font-weight:700;font-size:.875rem;text-transform:uppercase;letter-spacing:.12em;border:var(--rule);border-radius:0;transition:all .4s var(--transition);position:relative;overflow:hidden}
+.btn-primary{background:var(--accent);color:#fff;border-color:var(--accent)}.btn-primary:hover{background:var(--accent-dark);transform:translateY(-2px);box-shadow:0 8px 30px rgba(255,107,0,.3)}
+.btn-secondary{background:transparent;color:var(--text)}.btn-secondary:hover{background:var(--text);color:var(--bg);transform:translateY(-2px)}
+.btn-arrow::after{content:'→';transition:transform .3s}.btn-arrow:hover::after{transform:translateX(4px)}
+.reveal{opacity:0;transform:translateY(40px);transition:opacity .8s var(--transition),transform .8s var(--transition)}.reveal.visible{opacity:1;transform:translateY(0)}
+.reveal-delay-1{transition-delay:.1s}.reveal-delay-2{transition-delay:.2s}.reveal-delay-3{transition-delay:.3s}.reveal-delay-4{transition-delay:.4s}
+
+/* NAV */
+.nav{position:fixed;top:0;left:0;width:100%;height:var(--nav-h);z-index:1000;background:rgba(245,240,232,.92);backdrop-filter:blur(12px);border-bottom:var(--rule-thin);transition:height .4s var(--transition),box-shadow .4s}
+.nav.shrink{height:60px;box-shadow:0 2px 20px rgba(10,10,10,.08)}
+.nav-inner{display:flex;align-items:center;justify-content:space-between;height:100%;max-width:1320px;margin:0 auto;padding:0 2rem}
+.nav-logo{font-family:var(--serif);font-size:1.5rem;font-weight:900;letter-spacing:-.02em;transition:font-size .4s var(--transition)}.nav.shrink .nav-logo{font-size:1.25rem}.nav-logo span{color:var(--accent)}
+.nav-links{display:flex;align-items:center;gap:2.5rem}
+.nav-links a{font-size:.8rem;font-weight:600;text-transform:uppercase;letter-spacing:.15em;position:relative;padding:.25rem 0}
+.nav-links a::after{content:'';position:absolute;bottom:0;left:0;width:0;height:2px;background:var(--accent);transition:width .3s var(--transition)}.nav-links a:hover::after{width:100%}
+.nav-cta{background:var(--accent);color:#fff;padding:.625rem 1.5rem;font-size:.75rem;font-weight:700;text-transform:uppercase;letter-spacing:.15em;border:none;transition:all .3s var(--transition)}.nav-cta:hover{background:var(--text);transform:translateY(-1px)}
+.hamburger{display:none;flex-direction:column;gap:5px;background:none;border:none;padding:.5rem;cursor:none}
+.hamburger span{display:block;width:24px;height:2px;background:var(--text);transition:all .3s var(--transition)}
+.hamburger.active span:nth-child(1){transform:rotate(45deg) translate(5px,5px)}.hamburger.active span:nth-child(2){opacity:0}.hamburger.active span:nth-child(3){transform:rotate(-45deg) translate(5px,-5px)}
+.mobile-menu{position:fixed;top:0;left:0;width:100%;height:100vh;background:var(--bg);z-index:999;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:2rem;transform:translateY(-100%);transition:transform .5s var(--transition);pointer-events:none}
+.mobile-menu.open{transform:translateY(0);pointer-events:all}.mobile-menu a{font-family:var(--serif);font-size:2rem;font-weight:700}
+
+/* PAGE HEADER */
+.page-header{padding:calc(var(--nav-h) + 4rem) 0 4rem;border-bottom:var(--rule)}
+.page-header h1{font-size:clamp(3rem,7vw,6rem);line-height:.95;margin-bottom:1rem}
+.page-header h1 em{font-style:italic;color:var(--accent)}
+.page-header p{font-size:1.1rem;color:rgba(10,10,10,.55);max-width:560px}
+.breadcrumb{font-size:.75rem;font-weight:600;text-transform:uppercase;letter-spacing:.15em;margin-bottom:1.5rem;display:flex;align-items:center;gap:.5rem}
+.breadcrumb a{color:var(--accent)}
+
+/* PROJECT CARDS */
+.projects-section{padding:5rem 0}
+.projects-list{display:flex;flex-direction:column;gap:0}
+.project-item{display:grid;grid-template-columns:auto 1fr;gap:3rem;padding:3rem 0;border-bottom:var(--rule-thin);align-items:start;transition:background .3s}
+.project-item:first-child{border-top:var(--rule-thin)}
+.project-item:hover{background:var(--cream-mid);padding-left:1.5rem;padding-right:1.5rem}
+.project-num{font-family:var(--serif);font-size:clamp(3rem,5vw,5rem);font-weight:900;color:rgba(10,10,10,.07);line-height:1;min-width:100px}
+.project-content{display:grid;grid-template-columns:1fr 280px;gap:2rem;align-items:start}
+.project-tag{font-size:.7rem;font-weight:700;text-transform:uppercase;letter-spacing:.12em;color:var(--accent);margin-bottom:.75rem}
+.project-content h3{font-family:var(--serif);font-size:1.5rem;font-weight:900;margin-bottom:.75rem}
+.project-content p{font-size:.9rem;color:rgba(10,10,10,.6);line-height:1.7;margin-bottom:1.25rem}
+.project-tech{display:flex;flex-wrap:wrap;gap:.5rem;margin-bottom:1rem}
+.project-tech span{font-size:.65rem;font-weight:600;text-transform:uppercase;letter-spacing:.1em;padding:.3rem .6rem;border:1px solid rgba(10,10,10,.12);background:rgba(10,10,10,.02)}
+.project-metrics-side{display:flex;flex-direction:column;gap:1.25rem;padding:1.5rem;background:rgba(10,10,10,.02);border:var(--rule-thin)}
+.pm{text-align:center}.pm .val{font-family:var(--serif);font-size:1.75rem;font-weight:900;color:var(--accent);line-height:1}.pm .lbl{font-size:.65rem;font-weight:600;text-transform:uppercase;letter-spacing:.1em;color:rgba(10,10,10,.4);margin-top:.2rem}
+
+/* CTA BAND */
+.cta-band{background:var(--text);color:var(--bg);padding:5rem 0;text-align:center}
+.cta-band h2{font-size:clamp(2rem,4vw,3.5rem);color:var(--bg);margin-bottom:1rem}
+.cta-band p{color:rgba(245,240,232,.5);margin-bottom:2rem;max-width:500px;margin-left:auto;margin-right:auto}
+.cta-band .btn-primary{font-size:.9rem;padding:1rem 2.5rem}
+
+/* FOOTER */
+.footer{background:var(--text);color:var(--bg);padding:4rem 0 2rem;border-top:1px solid rgba(245,240,232,.1)}
+.footer-grid{display:grid;grid-template-columns:2fr 1fr 1fr 1fr;gap:3rem;padding-bottom:3rem;border-bottom:1px solid rgba(245,240,232,.1)}
+.footer-brand{font-family:var(--serif);font-size:1.5rem;font-weight:900;margin-bottom:1rem}.footer-brand span{color:var(--accent)}
+.footer-desc{font-size:.875rem;color:rgba(245,240,232,.4);line-height:1.7;max-width:300px}
+.footer h4{font-size:.75rem;font-weight:700;text-transform:uppercase;letter-spacing:.15em;margin-bottom:1.25rem;color:rgba(245,240,232,.4)}
+.footer ul li{margin-bottom:.75rem}.footer ul li a{font-size:.875rem;color:rgba(245,240,232,.6);transition:color .3s}.footer ul li a:hover{color:var(--accent)}
+.footer-bottom{display:flex;justify-content:space-between;align-items:center;padding-top:2rem;font-size:.75rem;color:rgba(245,240,232,.3)}
+
+/* Floating CTA */
+.floating-cta{position:fixed;bottom:-80px;left:50%;transform:translateX(-50%);z-index:998;background:var(--accent);color:#fff;padding:.875rem 2.5rem;font-weight:700;font-size:.8rem;text-transform:uppercase;letter-spacing:.15em;border:none;box-shadow:0 8px 30px rgba(255,107,0,.3);transition:bottom .5s var(--transition);cursor:none}
+.floating-cta.show{bottom:2rem}
+.floating-cta:hover{background:var(--accent-dark)}
+
+@media(max-width:1024px){.project-content{grid-template-columns:1fr}.footer-grid{grid-template-columns:1fr 1fr}}
+@media(max-width:768px){
+  .nav-links{display:none}
+  .hamburger{display:flex}
+  section{padding:4rem 0}
+  .project-item{grid-template-columns:1fr;gap:1rem}
+  .project-num{min-width:auto}
+  .footer-grid{grid-template-columns:1fr}
+  .page-header h1{font-size:clamp(2rem,8vw,3.5rem)}
+  .cursor-ring,.cursor-dot{display:none}
+}
+@media(max-width:480px){
+  .container{padding:0 1.25rem}
+}
+</style>
+</head>
+<body>
+
+<!-- Custom Cursor -->
+<div class="cursor-ring" id="cursorRing"></div>
+<div class="cursor-dot" id="cursorDot"></div>
+
+<!-- NAV -->
+<nav class="nav" id="nav">
+  <div class="nav-inner">
+    <a href="index.html" class="nav-logo">Activ<span>Orbit</span></a>
+    <div class="nav-links">
+      <a href="index.html#services">Services</a>
+      <a href="index.html#process">Process</a>
+      <a href="index.html#portfolio">Work</a>
+      <a href="projects.html" style="color:var(--accent)">Projects</a>
+      <a href="resources.html">Resources</a>
+      <a href="index.html#contact">Contact</a>
+      <a href="index.html#contact" class="nav-cta">Free AI Audit</a>
+    </div>
+    <button class="hamburger" id="hamburger" aria-label="Menu"><span></span><span></span><span></span></button>
+  </div>
+</nav>
+<div class="mobile-menu" id="mobileMenu">
+  <a href="index.html" class="mobile-link">Home</a>
+  <a href="index.html#services" class="mobile-link">Services</a>
+  <a href="index.html#process" class="mobile-link">Process</a>
+  <a href="index.html#portfolio" class="mobile-link">Work</a>
+  <a href="projects.html" class="mobile-link">Projects</a>
+  <a href="resources.html" class="mobile-link">Resources</a>
+  <a href="index.html#contact" class="mobile-link">Contact</a>
+  <a href="index.html#contact" class="btn btn-primary" style="margin-top:1rem">Free AI Audit</a>
+</div>
+
+<!-- PAGE HEADER -->
+<header class="page-header">
+  <div class="container">
+    <div class="breadcrumb"><a href="index.html">Home</a> <span>/</span> <span>Projects</span></div>
+    <h1>Selected <em>Work</em></h1>
+    <p>Real automations. Real results. Every project below is a system I designed, built, and shipped — measured by the hours saved and dollars earned.</p>
+  </div>
+</header>
+
+<!-- PROJECTS LIST -->
+<section class="projects-section">
+  <div class="container">
+    <div class="projects-list">
+
+      <div class="project-item reveal">
+        <div class="project-num">01</div>
+        <div class="project-content">
+          <div>
+            <div class="project-tag">AI Automation</div>
+            <h3>E-Commerce Order-to-Fulfilment Pipeline</h3>
+            <p>A D2C skincare brand was drowning in manual order processing — copy-pasting from Shopify, emailing warehouses, and manually sending SMS updates. I built a fully automated pipeline using n8n that triggers on every new order, routes to the correct warehouse API, generates shipping labels, and sends real-time customer updates via WhatsApp and SMS.</p>
+            <div class="project-tech"><span>n8n</span><span>Shopify API</span><span>Warehouse API</span><span>Twilio</span><span>WhatsApp</span><span>Google Sheets</span></div>
+            <a href="index.html#contact" class="btn btn-secondary btn-arrow" style="padding:.6rem 1.5rem;font-size:.75rem">Discuss Similar Project</a>
+          </div>
+          <div class="project-metrics-side">
+            <div class="pm"><div class="val">120h</div><div class="lbl">Saved per Month</div></div>
+            <div class="pm"><div class="val">68%</div><div class="lbl">Cost Reduction</div></div>
+            <div class="pm"><div class="val">99.2%</div><div class="lbl">Pipeline Uptime</div></div>
+          </div>
+        </div>
+      </div>
+
+      <div class="project-item reveal">
+        <div class="project-num">02</div>
+        <div class="project-content">
+          <div>
+            <div class="project-tag">AI Voice Agent</div>
+            <h3>Multi-Location Clinic Appointment Bot</h3>
+            <p>A chain of 5 dental clinics was losing patients because the front desk couldn't keep up with phone volume. I designed and deployed a 24/7 AI voice agent that handles appointment booking, rescheduling, reminders, and basic insurance verification — in both English and Hindi. Trained on their specific scheduling rules and doctor availability.</p>
+            <div class="project-tech"><span>ElevenLabs</span><span>Voiceflow</span><span>Twilio</span><span>Google Calendar API</span><span>n8n</span></div>
+            <a href="index.html#contact" class="btn btn-secondary btn-arrow" style="padding:.6rem 1.5rem;font-size:.75rem">Discuss Similar Project</a>
+          </div>
+          <div class="project-metrics-side">
+            <div class="pm"><div class="val">3,200</div><div class="lbl">Calls Handled/Month</div></div>
+            <div class="pm"><div class="val">85%</div><div class="lbl">Full Automation Rate</div></div>
+            <div class="pm"><div class="val">4.8★</div><div class="lbl">Patient Satisfaction</div></div>
+          </div>
+        </div>
+      </div>
+
+      <div class="project-item reveal">
+        <div class="project-num">03</div>
+        <div class="project-content">
+          <div>
+            <div class="project-tag">AIOS — Private AI Stack</div>
+            <h3>On-Prem LLM Research Lab for Law Firm</h3>
+            <p>A mid-size law firm needed AI-powered contract analysis but couldn't send client data to external APIs due to compliance. I deployed a full private AI stack on their servers — Ollama with fine-tuned models for legal clause extraction, risk flagging, and document summarization. Zero data leaves the building. Runs entirely on local hardware.</p>
+            <div class="project-tech"><span>Ollama</span><span>Local LLMs</span><span>Claude Code</span><span>Python</span><span>FastAPI</span><span>Docker</span></div>
+            <a href="index.html#contact" class="btn btn-secondary btn-arrow" style="padding:.6rem 1.5rem;font-size:.75rem">Discuss Similar Project</a>
+          </div>
+          <div class="project-metrics-side">
+            <div class="pm"><div class="val">40h</div><div class="lbl">Saved per Week</div></div>
+            <div class="pm"><div class="val">100%</div><div class="lbl">Data Privacy</div></div>
+            <div class="pm"><div class="val">$0</div><div class="lbl">Monthly API Cost</div></div>
+          </div>
+        </div>
+      </div>
+
+      <div class="project-item reveal">
+        <div class="project-num">04</div>
+        <div class="project-content">
+          <div>
+            <div class="project-tag">AI Agents & MCP</div>
+            <h3>Autonomous Research & Outreach Agent</h3>
+            <p>A SaaS startup's sales team was spending 15+ hours a week on prospect research and cold email personalization. I built an MCP-powered AI agent that autonomously researches prospects (LinkedIn, Crunchbase, website), writes hyper-personalized outreach sequences, and pushes them into their CRM — all triggered by a single form submission.</p>
+            <div class="project-tech"><span>MCP</span><span>Claude</span><span>Gmail API</span><span>HubSpot</span><span>n8n</span><span>Airtable</span></div>
+            <a href="index.html#contact" class="btn btn-secondary btn-arrow" style="padding:.6rem 1.5rem;font-size:.75rem">Discuss Similar Project</a>
+          </div>
+          <div class="project-metrics-side">
+            <div class="pm"><div class="val">15h</div><div class="lbl">Saved per Week</div></div>
+            <div class="pm"><div class="val">3.2×</div><div class="lbl">Reply Rate Increase</div></div>
+            <div class="pm"><div class="val">92%</div><div class="lbl">Automation Rate</div></div>
+          </div>
+        </div>
+      </div>
+
+      <div class="project-item reveal">
+        <div class="project-num">05</div>
+        <div class="project-content">
+          <div>
+            <div class="project-tag">AI Automation</div>
+            <h3>Finance Reconciliation Automator</h3>
+            <p>An accounting firm was manually reconciling bank statements against invoices — an error-prone process eating 20+ hours weekly. I built an automated pipeline that ingests bank CSVs, matches them against Tally/QuickBooks entries using fuzzy logic and AI classification, flags anomalies, and generates reconciliation reports automatically.</p>
+            <div class="project-tech"><span>n8n</span><span>OpenAI</span><span>Google Sheets</span><span>Tally API</span><span>Python</span></div>
+            <a href="index.html#contact" class="btn btn-secondary btn-arrow" style="padding:.6rem 1.5rem;font-size:.75rem">Discuss Similar Project</a>
+          </div>
+          <div class="project-metrics-side">
+            <div class="pm"><div class="val">20h</div><div class="lbl">Saved per Week</div></div>
+            <div class="pm"><div class="val">99.5%</div><div class="lbl">Match Accuracy</div></div>
+            <div class="pm"><div class="val">45%</div><div class="lbl">Cost Savings</div></div>
+          </div>
+        </div>
+      </div>
+
+      <div class="project-item reveal">
+        <div class="project-num">06</div>
+        <div class="project-content">
+          <div>
+            <div class="project-tag">AI Voice Agent</div>
+            <h3>Restaurant Order & Reservation Bot</h3>
+            <p>A popular restaurant chain needed to handle phone orders and reservations without hiring extra staff. I deployed a multilingual voice agent that takes food orders, confirms reservations, provides menu information, and integrates directly with their POS system — handling peak dinner rush volumes with zero wait times.</p>
+            <div class="project-tech"><span>VAPI</span><span>ElevenLabs</span><span>Make</span><span>POS API</span><span>Google Sheets</span></div>
+            <a href="index.html#contact" class="btn btn-secondary btn-arrow" style="padding:.6rem 1.5rem;font-size:.75rem">Discuss Similar Project</a>
+          </div>
+          <div class="project-metrics-side">
+            <div class="pm"><div class="val">500+</div><div class="lbl">Orders/Week</div></div>
+            <div class="pm"><div class="val">0 sec</div><div class="lbl">Wait Time</div></div>
+            <div class="pm"><div class="val">$4,200</div><div class="lbl">Monthly Savings</div></div>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- CTA BAND -->
+<section class="cta-band">
+  <div class="container">
+    <p class="section-label" style="color:var(--accent)">Ready to Automate?</p>
+    <h2>Have a Similar Project<br>in Mind?</h2>
+    <p>Book a free AI audit — I'll analyze your workflows and show you exactly where automation can save you time and money.</p>
+    <a href="index.html#contact" class="btn btn-primary btn-arrow">Start Your Free AI Audit</a>
+  </div>
+</section>
+
+<!-- FOOTER (identical to index.html) -->
+<footer class="footer">
+  <div class="container">
+    <div class="footer-grid">
+      <div>
+        <div class="footer-brand">Activ<span>Orbit</span></div>
+        <p class="footer-desc">AI Automation Freelancer based in Lucknow, India. Building intelligent systems for clients worldwide.</p>
+      </div>
+      <div>
+        <h4>Services</h4>
+        <ul>
+          <li><a href="index.html#services">AI Automation</a></li>
+          <li><a href="index.html#services">AI Agents & MCP</a></li>
+          <li><a href="index.html#services">AI Voice Agents</a></li>
+          <li><a href="index.html#services">AIOS Stack</a></li>
+        </ul>
+      </div>
+      <div>
+        <h4>Navigate</h4>
+        <ul>
+          <li><a href="index.html">Home</a></li>
+          <li><a href="index.html#process">Process</a></li>
+          <li><a href="index.html#portfolio">Portfolio</a></li>
+          <li><a href="projects.html">Projects</a></li>
+          <li><a href="resources.html">Free Resources</a></li>
+          <li><a href="index.html#contact">Contact</a></li>
+        </ul>
+      </div>
+      <div>
+        <h4>Connect</h4>
+        <ul>
+          <li><a href="https://www.linkedin.com/in/sheshpalsingh915" target="_blank">LinkedIn ↗</a></li>
+          <li><a href="https://x.com/SheshpalSi36800" target="_blank">Twitter / X ↗</a></li>
+          <li><a href="https://github.com/sheshpalsingh01/" target="_blank">GitHub ↗</a></li>
+          <li><a href="https://www.youtube.com/@sheshpalsingh_ds" target="_blank">YouTube ↗</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <span>© 2026 ActivOrbit AI. All rights reserved.</span>
+      <span>Lucknow, India → Worldwide</span>
+    </div>
+  </div>
+</footer>
+
+<!-- Floating CTA -->
+<button class="floating-cta" id="floatingCta" onclick="window.location.href='index.html#contact'">🚀 Free AI Audit</button>
+
+<script>
+(function(){
+  // Custom Cursor
+  const ring=document.getElementById('cursorRing'),dot=document.getElementById('cursorDot');
+  let mx=0,my=0,rx=0,ry=0;
+  document.addEventListener('mousemove',e=>{mx=e.clientX;my=e.clientY;dot.style.left=mx+'px';dot.style.top=my+'px'});
+  function animateCursor(){rx+=(mx-rx)*.15;ry+=(my-ry)*.15;ring.style.left=rx+'px';ring.style.top=ry+'px';requestAnimationFrame(animateCursor)}
+  animateCursor();
+  document.querySelectorAll('a,button,.project-item').forEach(el=>{
+    el.addEventListener('mouseenter',()=>{ring.classList.add('hover');dot.classList.add('hover')});
+    el.addEventListener('mouseleave',()=>{ring.classList.remove('hover');dot.classList.remove('hover')});
+  });
+
+  // Sticky Nav Shrink
+  const nav=document.getElementById('nav');
+  window.addEventListener('scroll',()=>{nav.classList.toggle('shrink',window.scrollY>80)});
+
+  // Hamburger Menu
+  const hamburger=document.getElementById('hamburger'),mobileMenu=document.getElementById('mobileMenu');
+  hamburger.addEventListener('click',()=>{hamburger.classList.toggle('active');mobileMenu.classList.toggle('open')});
+  document.querySelectorAll('.mobile-link').forEach(a=>a.addEventListener('click',()=>{hamburger.classList.remove('active');mobileMenu.classList.remove('open')}));
+
+  // Floating CTA
+  const floatingCta=document.getElementById('floatingCta');
+  window.addEventListener('scroll',()=>{floatingCta.classList.toggle('show',window.scrollY>600)});
+
+  // Scroll Reveal
+  const revealEls=document.querySelectorAll('.reveal');
+  const revealObserver=new IntersectionObserver(entries=>{
+    entries.forEach(e=>{if(e.isIntersecting){e.target.classList.add('visible');revealObserver.unobserve(e.target)}});
+  },{threshold:.12,rootMargin:'0px 0px -40px 0px'});
+  revealEls.forEach(el=>revealObserver.observe(el));
+})();
+</script>
+</body>
+</html>

@@ -1,0 +1,2604 @@
+{
+  "name": "Email Automation",
+  "nodes": [
+    {
+      "parameters": {
+        "pollTimes": {
+          "item": [
+            {
+              "mode": "custom",
+              "cronExpression": "*/30 * * * *"
+            }
+          ]
+        },
+        "filters": {}
+      },
+      "type": "n8n-nodes-base.gmailTrigger",
+      "typeVersion": 1.3,
+      "position": [
+        -3936,
+        2064
+      ],
+      "id": "ff1b3671-43c0-46cc-ad10-68077be3dadf",
+      "name": "Gmail Trigger",
+      "credentials": {
+        "gmailOAuth2": {
+          "id": "jMwzMsM1idb8olHr",
+          "name": "Gmail account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "inputText": "=Subject :  {{ $json.Subject }}\nEmail body : {{ $json.snippet }}",
+        "categories": {
+          "categories": [
+            {
+              "category": "Promotions",
+              "description": "Purpose: Marketing-driven messages pushing a brand, product, or service. \nIncludes:  Product launches, feature updates  Marketing newsletters  Brand announcements  Promotional campaigns (non-discount focused) Signals: CTA buttons, brand tone, marketing language, mass-send style Example: “Introducing our new AI tool to boost your productivity"
+            },
+            {
+              "category": "social",
+              "description": "Purpose: Social interaction notifications and community activity.\nIncludes:\n\nLinkedIn, Twitter/X, GitHub, Slack, Discord notifications\n\nComments, likes, follows, mentions\n\nGroup or forum activity alerts\nSignals: Platform-generated, interaction-based language\nExample: “Someone commented on your post”"
+            },
+            {
+              "category": "Personal",
+              "description": "Purpose: Human-to-human, non-commercial communication.\nIncludes:\n\nFriends, family, colleagues\n\nOne-to-one conversations\n\nPersonal updates or casual messages\nExcludes: Sales, recruitment, marketing\nSignals: Informal tone, direct addressing, no CTA\nExample: “Hey, are we meeting tomorrow?”"
+            },
+            {
+              "category": "seles",
+              "description": "Purpose: Direct revenue-driven outreach or deal discussions.\nIncludes:\n\nCold/warm sales emails\n\nPricing, demos, proposals\n\nFollow-ups on leads or deals\nSignals: Revenue intent, deal language, persuasion, ROI framing\nExample: “Let’s schedule a demo to discuss pricing”"
+            },
+            {
+              "category": "Recruitment",
+              "description": "Purpose: Hiring-related communication.\nIncludes:\n\nJob offers\n\nInterview invites\n\nRecruiter outreach\n\nResume or application follow-ups\nSignals: Role titles, hiring language, HR tone\nExample: “We reviewed your profile and would like to interview you”"
+            },
+            {
+              "category": "opportunity",
+              "description": "Purpose: Non-sales growth or collaboration opportunities.\nIncludes:\n\nPartnerships\n\nSpeaking invites\n\nCollaborations\n\nFreelance or contract offers (non-recruitment)\nSignals: Mutual benefit framing, collaboration tone\nExample: “We’d love to collaborate on a joint project”"
+            },
+            {
+              "category": "Offers",
+              "description": "Purpose: Explicit incentives, discounts, or limited-time deals.\nIncludes:\n\nCoupons\n\nDiscounts\n\nCashback\n\nSpecial pricing offers\nSignals: % off, urgency, deal language\nExample: “Get 40% off – offer ends tonight”"
+            },
+            {
+              "category": "Misc",
+              "description": "Purpose: Everything that does not clearly fit other categories.\nIncludes:\n\nSystem alerts\n\nReceipts (non-promotional)\n\nLegal notices\n\nTravel confirmations\n\nUnclassifiable content\nSignals: Neutral, informational, no persuasion\nExample: “Your password was updated successfully”"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "type": "@n8n/n8n-nodes-langchain.textClassifier",
+      "typeVersion": 1.1,
+      "position": [
+        -3568,
+        1984
+      ],
+      "id": "c63c2344-62a5-4f31-ae22-e4db256333a9",
+      "name": "Text Classifier"
+    },
+    {
+      "parameters": {
+        "model": "openai/gpt-oss-20b",
+        "options": {}
+      },
+      "type": "@n8n/n8n-nodes-langchain.lmChatGroq",
+      "typeVersion": 1,
+      "position": [
+        -3616,
+        2432
+      ],
+      "id": "488b7ecc-7a5f-4510-8d83-315c10028684",
+      "name": "Groq Chat Model",
+      "credentials": {
+        "groqApi": {
+          "id": "5lZ3IJjQtO2iYCB3",
+          "name": "Groq account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "operation": "addLabels",
+        "messageId": "={{ $('Gmail Trigger').item.json.id }}",
+        "labelIds": [
+          "CATEGORY_PROMOTIONS",
+          "Label_1664033347263816239"
+        ]
+      },
+      "type": "n8n-nodes-base.gmail",
+      "typeVersion": 2.2,
+      "position": [
+        -3216,
+        1312
+      ],
+      "id": "fb6c8e5a-b9b7-4795-8c13-151c88dfc595",
+      "name": "Promotions",
+      "webhookId": "a018b6fc-12a0-4ad8-b7e2-00ff63e33d91",
+      "credentials": {
+        "gmailOAuth2": {
+          "id": "jMwzMsM1idb8olHr",
+          "name": "Gmail account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "operation": "addLabels",
+        "messageId": "={{ $('Gmail Trigger').item.json.id }}",
+        "labelIds": [
+          "CATEGORY_SOCIAL"
+        ]
+      },
+      "type": "n8n-nodes-base.gmail",
+      "typeVersion": 2.2,
+      "position": [
+        -3216,
+        1504
+      ],
+      "id": "721c08a1-70ba-4812-a455-e092bc5e23ff",
+      "name": "Social",
+      "webhookId": "a018b6fc-12a0-4ad8-b7e2-00ff63e33d91",
+      "credentials": {
+        "gmailOAuth2": {
+          "id": "jMwzMsM1idb8olHr",
+          "name": "Gmail account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "operation": "addLabels",
+        "messageId": "={{ $('Gmail Trigger').item.json.id }}",
+        "labelIds": [
+          "Label_4135413154825171201",
+          "CATEGORY_PERSONAL"
+        ]
+      },
+      "type": "n8n-nodes-base.gmail",
+      "typeVersion": 2.2,
+      "position": [
+        -3216,
+        1696
+      ],
+      "id": "704ac571-2e8c-46c2-bc76-ca43eea46337",
+      "name": "Personal",
+      "webhookId": "a018b6fc-12a0-4ad8-b7e2-00ff63e33d91",
+      "credentials": {
+        "gmailOAuth2": {
+          "id": "jMwzMsM1idb8olHr",
+          "name": "Gmail account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "operation": "addLabels",
+        "messageId": "={{ $('Gmail Trigger').item.json.id }}",
+        "labelIds": [
+          "Label_7087206276716313941"
+        ]
+      },
+      "type": "n8n-nodes-base.gmail",
+      "typeVersion": 2.2,
+      "position": [
+        -3216,
+        1888
+      ],
+      "id": "e9cdae64-9d50-473b-b493-b06253b19295",
+      "name": "Sales",
+      "webhookId": "a018b6fc-12a0-4ad8-b7e2-00ff63e33d91",
+      "credentials": {
+        "gmailOAuth2": {
+          "id": "jMwzMsM1idb8olHr",
+          "name": "Gmail account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "operation": "addLabels",
+        "messageId": "={{ $('Gmail Trigger').item.json.id }}",
+        "labelIds": [
+          "Label_6307920067832441589"
+        ]
+      },
+      "type": "n8n-nodes-base.gmail",
+      "typeVersion": 2.2,
+      "position": [
+        -3216,
+        2080
+      ],
+      "id": "a736a224-2119-4ede-9820-b3fc79d80f84",
+      "name": "Recruitment",
+      "webhookId": "a018b6fc-12a0-4ad8-b7e2-00ff63e33d91",
+      "credentials": {
+        "gmailOAuth2": {
+          "id": "jMwzMsM1idb8olHr",
+          "name": "Gmail account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "operation": "addLabels",
+        "messageId": "={{ $('Gmail Trigger').item.json.id }}",
+        "labelIds": [
+          "Label_7021788313955499323"
+        ]
+      },
+      "type": "n8n-nodes-base.gmail",
+      "typeVersion": 2.2,
+      "position": [
+        -3216,
+        2272
+      ],
+      "id": "bd26f8fe-4e6e-4a53-ac55-062d6582f452",
+      "name": "opportunity",
+      "webhookId": "a018b6fc-12a0-4ad8-b7e2-00ff63e33d91",
+      "credentials": {
+        "gmailOAuth2": {
+          "id": "jMwzMsM1idb8olHr",
+          "name": "Gmail account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "operation": "addLabels",
+        "messageId": "={{ $('Gmail Trigger').item.json.id }}",
+        "labelIds": [
+          "Label_5636057917404865732"
+        ]
+      },
+      "type": "n8n-nodes-base.gmail",
+      "typeVersion": 2.2,
+      "position": [
+        -3216,
+        2464
+      ],
+      "id": "d47fffc0-58a6-492e-8574-c66bec7e2be6",
+      "name": "Offers",
+      "webhookId": "a018b6fc-12a0-4ad8-b7e2-00ff63e33d91",
+      "credentials": {
+        "gmailOAuth2": {
+          "id": "jMwzMsM1idb8olHr",
+          "name": "Gmail account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "operation": "addLabels",
+        "messageId": "={{ $('Gmail Trigger').item.json.id }}",
+        "labelIds": [
+          "Label_7531897511872704507"
+        ]
+      },
+      "type": "n8n-nodes-base.gmail",
+      "typeVersion": 2.2,
+      "position": [
+        -3216,
+        2656
+      ],
+      "id": "93f939f8-d589-4ddd-9ccf-0fde1bcb6831",
+      "name": "Mics",
+      "webhookId": "a018b6fc-12a0-4ad8-b7e2-00ff63e33d91",
+      "credentials": {
+        "gmailOAuth2": {
+          "id": "jMwzMsM1idb8olHr",
+          "name": "Gmail account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "operation": "appendOrUpdate",
+        "documentId": {
+          "__rl": true,
+          "value": "1rtoq6bB2NjccbTDhA-qXsLxPo9pwWnQBle6OUVSBIas",
+          "mode": "list",
+          "cachedResultName": "Email Summary n8n",
+          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/1rtoq6bB2NjccbTDhA-qXsLxPo9pwWnQBle6OUVSBIas/edit?usp=drivesdk"
+        },
+        "sheetName": {
+          "__rl": true,
+          "value": "gid=0",
+          "mode": "list",
+          "cachedResultName": "Sheet1",
+          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/1rtoq6bB2NjccbTDhA-qXsLxPo9pwWnQBle6OUVSBIas/edit#gid=0"
+        },
+        "columns": {
+          "mappingMode": "defineBelow",
+          "value": {
+            "ID": "={{ $('Mics').item.json.id }}",
+            "Date": "={{ $now }}",
+            "Subject": "={{ $('Gmail Trigger').item.json.Subject }}",
+            "Snippet": "={{ $json.content.parts[0].text }}"
+          },
+          "matchingColumns": [
+            "ID"
+          ],
+          "schema": [
+            {
+              "id": "ID",
+              "displayName": "ID",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": false
+            },
+            {
+              "id": "Date",
+              "displayName": "Date",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "Subject",
+              "displayName": "Subject",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "Snippet",
+              "displayName": "Snippet",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            }
+          ],
+          "attemptToConvertTypes": false,
+          "convertFieldsToString": false
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.googleSheets",
+      "typeVersion": 4.7,
+      "position": [
+        -2528,
+        2672
+      ],
+      "id": "927b585c-9ba3-48dd-ae92-5b86c07d154c",
+      "name": "Append or update row in sheet1",
+      "credentials": {
+        "googleSheetsOAuth2Api": {
+          "id": "PmnJZ37onBlFUIIf",
+          "name": "Google Sheets account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "operation": "appendOrUpdate",
+        "documentId": {
+          "__rl": true,
+          "value": "1rtoq6bB2NjccbTDhA-qXsLxPo9pwWnQBle6OUVSBIas",
+          "mode": "list",
+          "cachedResultName": "Email Summary n8n",
+          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/1rtoq6bB2NjccbTDhA-qXsLxPo9pwWnQBle6OUVSBIas/edit?usp=drivesdk"
+        },
+        "sheetName": {
+          "__rl": true,
+          "value": "gid=0",
+          "mode": "list",
+          "cachedResultName": "Sheet1",
+          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/1rtoq6bB2NjccbTDhA-qXsLxPo9pwWnQBle6OUVSBIas/edit#gid=0"
+        },
+        "columns": {
+          "mappingMode": "defineBelow",
+          "value": {
+            "ID": "={{ $('Mics').item.json.id }}",
+            "Date": "={{ $now }}",
+            "Subject": "={{ $('Gmail Trigger').item.json.Subject }}",
+            "Snippet": "={{ $json.content.parts[0].text }}"
+          },
+          "matchingColumns": [
+            "ID"
+          ],
+          "schema": [
+            {
+              "id": "ID",
+              "displayName": "ID",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": false
+            },
+            {
+              "id": "Date",
+              "displayName": "Date",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "Subject",
+              "displayName": "Subject",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "Snippet",
+              "displayName": "Snippet",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            }
+          ],
+          "attemptToConvertTypes": false,
+          "convertFieldsToString": false
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.googleSheets",
+      "typeVersion": 4.7,
+      "position": [
+        -2640,
+        1504
+      ],
+      "id": "8b2c1259-a1ef-402d-a1d0-e21375dbaffc",
+      "name": "Append or update row in sheet2",
+      "credentials": {
+        "googleSheetsOAuth2Api": {
+          "id": "PmnJZ37onBlFUIIf",
+          "name": "Google Sheets account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "modelId": {
+          "__rl": true,
+          "value": "models/gemini-2.5-flash",
+          "mode": "list",
+          "cachedResultName": "models/gemini-2.5-flash"
+        },
+        "messages": {
+          "values": [
+            {
+              "content": "You are a high-performing sales communication strategist.\nYour sole objective is to move sales conversations forward efficiently and professionally.\n\nWhen replying:\n\nAddress the sender’s intent directly\n\nRemove friction and objections\n\nReinforce value in one or two sentences max\n\nPropose a clear, actionable next step (call, demo, reply, decision)\n\nKeep the tone confident, concise, and human\n\nNever sound robotic. Never oversell. Never add unnecessary explanations.\n\nAlways conclude every email exactly with:\n\nBest,\nSheshpal",
+              "role": "model"
+            },
+            {
+              "content": "=You are replying to an incoming email.\n\nEmail details:\n- From: {{ $('Gmail Trigger').item.json.From }}\n- Subject: {{ $('Gmail Trigger').item.json.Subject }}\n- Email Content:\n{{ $('Gmail Trigger').item.json.snippet }}\n\nTask:\nWrite a concise, professional reply that directly addresses the sender’s intent.\nMove the conversation forward with a clear next step.\nDo not repeat the original email.\nDo not add unnecessary explanations.\n\nReturn only the email reply text.\n"
+            }
+          ]
+        },
+        "builtInTools": {},
+        "options": {}
+      },
+      "type": "@n8n/n8n-nodes-langchain.googleGemini",
+      "typeVersion": 1.1,
+      "position": [
+        -2992,
+        1888
+      ],
+      "id": "06800f32-fbc9-47b2-a854-3a12c96c1ece",
+      "name": "Sales email",
+      "credentials": {
+        "googlePalmApi": {
+          "id": "v66PgG8LWrjtlbos",
+          "name": "Google Gemini(PaLM) Api account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "modelId": {
+          "__rl": true,
+          "value": "models/gemini-2.5-flash",
+          "mode": "list",
+          "cachedResultName": "models/gemini-2.5-flash"
+        },
+        "messages": {
+          "values": [
+            {
+              "content": "You are an intelligent assistant specialized in replying to opportunity-related emails.\n\nOpportunity emails include collaboration proposals, partnerships, speaking invites, freelance work, or exploratory discussions that are not direct sales or recruitment.\n\nYour goal is to respond with professional interest, clarity, and optionality.\nAcknowledge the opportunity without committing prematurely.\nExpress measured interest and invite further details or a discussion.\nMaintain a confident, neutral, and respectful tone.\nDo not use sales language, pressure, or over-enthusiasm.\nKeep the reply concise and purposeful.\n\nAlways end every email exactly with:\n\nBest,\nSheshpal\n",
+              "role": "model"
+            },
+            {
+              "content": "=You have received an opportunity-related email.\n\nEmail details:\n- From: {{ $('Gmail Trigger').item.json.From }}\n- Subject: {{ $('Gmail Trigger').item.json.Subject }}\n- Message:\n{{ $('Gmail Trigger').item.json.snippet }}\n\nTask:\nWrite a professional reply that acknowledges the opportunity.\nExpress interest without committing.\nInvite clarification on scope, goals, or next steps if appropriate.\nDo not repeat the original email.\nDo not add marketing or sales language.\n\nReturn only the email reply text.\n"
+            }
+          ]
+        },
+        "builtInTools": {},
+        "options": {}
+      },
+      "type": "@n8n/n8n-nodes-langchain.googleGemini",
+      "typeVersion": 1.1,
+      "position": [
+        -2992,
+        2272
+      ],
+      "id": "b33cd97d-b62d-4a85-b1d2-6150465abc10",
+      "name": "Opportunity Email Reply",
+      "credentials": {
+        "googlePalmApi": {
+          "id": "v66PgG8LWrjtlbos",
+          "name": "Google Gemini(PaLM) Api account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "modelId": {
+          "__rl": true,
+          "value": "models/gemini-2.5-flash",
+          "mode": "list",
+          "cachedResultName": "models/gemini-2.5-flash"
+        },
+        "messages": {
+          "values": [
+            {
+              "content": "=You are an intelligent assistant specialized in replying to recruitment and hiring-related emails.\nfirst identify the mail than think on it than take descssion on it don't perform any guess work on the mail read proper than understand what is context of the mail than create a mail for best suatble type or proper strucute this is speciaaly for the reply main so know what do or what not do\n\nYour goal is to respond professionally, clearly, and respectfully.\nMaintain a neutral, confident, and appreciative tone.\nAcknowledge the opportunity without committing unless explicitly stated.\nAsk for or confirm next steps when appropriate (interview details, role scope, timeline).\nDo not use sales, marketing, or casual language.\nDo not exaggerate interest or qualifications.\nKeep responses concise and factual.\n\nAlways end every email exactly with:\n\nBest,\nSheshpal\n",
+              "role": "model"
+            },
+            {
+              "content": "=You have received a recruitment-related email.\n\nEmail details:\n- From: {{ $('Gmail Trigger').item.json.From }}\n- Subject: {{ $('Gmail Trigger').item.json.Subject }}\n- Message:\n{{ $('Gmail Trigger').item.json.snippet }}\n\nTask:\nWrite a professional and polite reply to the recruiter.\nAcknowledge the message and respond to the intent.\nIf an interview or call is suggested, request or confirm details clearly.\nDo not add unnecessary explanations.\nDo not repeat the original email.\n\nReturn only the email reply text.\n"
+            }
+          ]
+        },
+        "builtInTools": {},
+        "options": {}
+      },
+      "type": "@n8n/n8n-nodes-langchain.googleGemini",
+      "typeVersion": 1.1,
+      "position": [
+        -2992,
+        2080
+      ],
+      "id": "387fceeb-7459-42f2-87fa-d8195d30af4e",
+      "name": "Recruitment Email Reply",
+      "credentials": {
+        "googlePalmApi": {
+          "id": "v66PgG8LWrjtlbos",
+          "name": "Google Gemini(PaLM) Api account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "modelId": {
+          "__rl": true,
+          "value": "models/gemini-2.5-flash",
+          "mode": "list",
+          "cachedResultName": "models/gemini-2.5-flash"
+        },
+        "messages": {
+          "values": [
+            {
+              "content": "You are an intelligent assistant specialized in handling offer and discount emails.\n\nOffer emails include promotions with explicit discounts, coupons, limited-time deals, or special pricing.\n\nYour goal is to:\n- Acknowledge the offer politely when a response is appropriate\n- Avoid engagement, negotiation, or commitment\n- Keep responses neutral and brief\n- Never express urgency, excitement, or intent to purchase\n- Never ask follow-up questions unless explicitly instructed\n\nIf no reply is required, generate no response.\n\nWhen a reply is generated, always end every email exactly with:\n\nBest,\nSheshpal\n",
+              "role": "model"
+            },
+            {
+              "content": "=You have received an offer-related email.\n\nEmail details:\n- From: {{ $('Gmail Trigger').item.json.From }}\n- Subject: {{ $('Gmail Trigger').item.json.Subject }}\n- Message:\n{{ $('Gmail Trigger').item.json.snippet }}\n\nTask:\nDetermine whether a reply is necessary.\nIf a reply is appropriate, write a brief and polite acknowledgment without commitment.\nIf no reply is needed, return exactly:\nNO_REPLY\nDo not repeat the original email.\nDo not add questions, enthusiasm, or purchasing intent.\n\nReturn only the final output.\n"
+            }
+          ]
+        },
+        "builtInTools": {},
+        "options": {}
+      },
+      "type": "@n8n/n8n-nodes-langchain.googleGemini",
+      "typeVersion": 1.1,
+      "position": [
+        -2992,
+        2464
+      ],
+      "id": "1fb46f01-f507-4331-a961-8007037a435c",
+      "name": "Offers Email Handling",
+      "credentials": {
+        "googlePalmApi": {
+          "id": "v66PgG8LWrjtlbos",
+          "name": "Google Gemini(PaLM) Api account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "operation": "reply",
+        "messageId": "={{ $('Gmail Trigger').item.json.id }}",
+        "message": "={{ $json.content.parts[0].text }}",
+        "options": {
+          "appendAttribution": false
+        }
+      },
+      "type": "n8n-nodes-base.gmail",
+      "typeVersion": 2.2,
+      "position": [
+        -2640,
+        2464
+      ],
+      "id": "21bb4a50-4859-4c35-a375-83ff7364fa34",
+      "name": "Offers Email Reply",
+      "webhookId": "2534bf20-2a92-4af5-a860-9b11c27eba27",
+      "credentials": {
+        "gmailOAuth2": {
+          "id": "jMwzMsM1idb8olHr",
+          "name": "Gmail account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "operation": "reply",
+        "messageId": "={{ $('Gmail Trigger').item.json.id }}",
+        "message": "={{ $json.content.parts[0].text }}",
+        "options": {
+          "appendAttribution": false
+        }
+      },
+      "type": "n8n-nodes-base.gmail",
+      "typeVersion": 2.2,
+      "position": [
+        -2640,
+        2272
+      ],
+      "id": "ce63183b-fdec-440f-87bf-f513a3b9d488",
+      "name": "Opportunity Email Reply1",
+      "webhookId": "2534bf20-2a92-4af5-a860-9b11c27eba27",
+      "credentials": {
+        "gmailOAuth2": {
+          "id": "jMwzMsM1idb8olHr",
+          "name": "Gmail account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "operation": "reply",
+        "messageId": "={{ $('Gmail Trigger').item.json.id }}",
+        "message": "={{ $json.content.parts[0].text }}",
+        "options": {
+          "appendAttribution": false
+        }
+      },
+      "type": "n8n-nodes-base.gmail",
+      "typeVersion": 2.2,
+      "position": [
+        -2640,
+        2080
+      ],
+      "id": "e535af5f-3347-414d-837a-e43de973ee95",
+      "name": "Recruitment Email Reply1",
+      "webhookId": "2534bf20-2a92-4af5-a860-9b11c27eba27",
+      "credentials": {
+        "gmailOAuth2": {
+          "id": "jMwzMsM1idb8olHr",
+          "name": "Gmail account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "modelId": {
+          "__rl": true,
+          "value": "models/gemini-2.5-flash",
+          "mode": "list",
+          "cachedResultName": "models/gemini-2.5-flash"
+        },
+        "messages": {
+          "values": [
+            {
+              "content": "You are an intelligent assistant specialized in summarizing social notification emails.\n\nYour task is to extract and summarize the key information from social or platform-generated emails such as notifications, mentions, comments, invites, or activity alerts.\n\nGuidelines:\n- Focus only on what happened and where\n- Identify the platform, action, and relevant person or content (if present)\n- Remove all promotional, decorative, or repetitive text\n- Keep the summary short, clear, and factual\n- Do not add opinions, recommendations, or next steps\n- Do not assume importance unless explicitly stated\n\nOutput format:\n- 1–2 concise sentences\n- Plain text only\n- No greetings, no sign-offs, no emojis\n",
+              "role": "model"
+            },
+            {
+              "content": "=You are processing a social or platform-related email.\n\nEmail details:\n- Subject: {{ $('Gmail Trigger').item.json.Subject }}\n- Message:\n{{ $('Gmail Trigger').item.json.snippet }}\n\nTask:\nDecide whether a reply is required.\n\n- If the email is only a notification or does not require a response, return exactly:\nNO_REPLY\n\n- If a reply is appropriate, write a short, polite, human-sounding response.\nKeep it neutral and concise.\nDo not add sales, marketing, or promotional language.\nDo not repeat the subject or quote the original message.\n\nReturn only one of the following:\n- NO_REPLY\n- The email reply text\n"
+            }
+          ]
+        },
+        "builtInTools": {},
+        "options": {}
+      },
+      "type": "@n8n/n8n-nodes-langchain.googleGemini",
+      "typeVersion": 1.1,
+      "position": [
+        -2992,
+        1504
+      ],
+      "id": "43247fc0-2c3b-482e-8213-28691f87c58c",
+      "name": "Social Mail Summarization",
+      "credentials": {
+        "googlePalmApi": {
+          "id": "v66PgG8LWrjtlbos",
+          "name": "Google Gemini(PaLM) Api account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "modelId": {
+          "__rl": true,
+          "value": "models/gemini-2.5-flash",
+          "mode": "list",
+          "cachedResultName": "models/gemini-2.5-flash"
+        },
+        "messages": {
+          "values": [
+            {
+              "content": "You are an intelligent assistant specialized in replying to personal emails.\n\nYour goal is to write natural, human, and respectful replies that feel genuinely written by a person.\nMatch the sender’s tone and level of formality.\nBe clear, friendly, and concise.\nDo not sound salesy, promotional, or automated.\nDo not introduce new topics unless necessary to respond.\n\nAlways end every email exactly with:\n\nBest,\nSheshpal\n",
+              "role": "model"
+            },
+            {
+              "content": "=You have received a personal email and need to reply.\n\nEmail details:\n- From: {{ $('Gmail Trigger').item.json.From }}\n- Subject: {{ $('Gmail Trigger').item.json.Subject }}\n- Message:\n{{ $('Gmail Trigger').item.json.snippet }}\n\nTask:\nWrite a natural, human-sounding reply that directly responds to the message.\nMatch the sender’s tone and intent.\nKeep the reply concise and friendly.\nDo not add marketing, sales language, or automation-style phrasing.\nDo not repeat the subject or quote the original email.\n\nReturn only the email reply text.\n"
+            }
+          ]
+        },
+        "builtInTools": {},
+        "options": {}
+      },
+      "type": "@n8n/n8n-nodes-langchain.googleGemini",
+      "typeVersion": 1.1,
+      "position": [
+        -2992,
+        1696
+      ],
+      "id": "acbe4834-6123-4fdb-ab62-f024e212a05d",
+      "name": "Personal Email Reply",
+      "credentials": {
+        "googlePalmApi": {
+          "id": "v66PgG8LWrjtlbos",
+          "name": "Google Gemini(PaLM) Api account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "resource": "draft",
+        "subject": "thanks for inform i will soon catch up",
+        "message": "={{ $json.content.parts[0].text }}",
+        "options": {
+          "replyTo": "={{ $('Gmail Trigger').item.json.From }}",
+          "threadId": "={{ $('Gmail Trigger').item.json.threadId }}",
+          "sendTo": "={{ $('Gmail Trigger').item.json.From }}"
+        }
+      },
+      "type": "n8n-nodes-base.gmail",
+      "typeVersion": 2.2,
+      "position": [
+        -2640,
+        1696
+      ],
+      "id": "1f8bc2f1-32a2-41b6-acfa-b9ef5f30b47b",
+      "name": "Personal Email Draft",
+      "webhookId": "2534bf20-2a92-4af5-a860-9b11c27eba27",
+      "credentials": {
+        "gmailOAuth2": {
+          "id": "jMwzMsM1idb8olHr",
+          "name": "Gmail account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "operation": "reply",
+        "messageId": "={{ $('Gmail Trigger').item.json.id }}",
+        "message": "={{ $json.content.parts[0].text }}",
+        "options": {
+          "appendAttribution": false
+        }
+      },
+      "type": "n8n-nodes-base.gmail",
+      "typeVersion": 2.2,
+      "position": [
+        -2640,
+        1888
+      ],
+      "id": "2a64d64e-80f0-4b0a-b890-542d7002a457",
+      "name": "Sales Email reply",
+      "webhookId": "2534bf20-2a92-4af5-a860-9b11c27eba27",
+      "credentials": {
+        "gmailOAuth2": {
+          "id": "jMwzMsM1idb8olHr",
+          "name": "Gmail account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "modelId": {
+          "__rl": true,
+          "value": "models/gemini-2.5-flash",
+          "mode": "list",
+          "cachedResultName": "models/gemini-2.5-flash"
+        },
+        "messages": {
+          "values": [
+            {
+              "content": "You are an intelligent assistant specialized in handling miscellaneous emails.\n\nMisc emails include system notifications, receipts, invoices, security alerts, confirmations, policy updates, and informational messages that do not require conversation.\n\nYour primary goal is to determine whether a reply is required.\n\nRules:\n- Do not generate replies to receipts, confirmations, invoices, or system alerts unless explicitly asked to respond\n- Do not add opinions, acknowledgments, or thanks unless action is required\n- Do not ask follow-up questions\n- Keep responses factual and minimal when necessary\n\nIf no reply is required, generate no response.\n\nWhen a reply is required, always end every email exactly with:\n\nBest,\nSheshpal\n",
+              "role": "model"
+            },
+            {
+              "content": "=You have received a miscellaneous email (system, receipt, or alert).\n\nEmail details:\n- From: {{ $('Gmail Trigger').item.json.From }}\n- Subject: {{ $('Gmail Trigger').item.json.Subject }}\n- Message:\n{{ $('Gmail Trigger').item.json.snippet }}\n\nTask:\nDetermine whether a reply is required.\nIf no reply is needed, return exactly:\nNO_REPLY\n\nIf a reply is required, write a short, factual response addressing the request.\nDo not include greetings, opinions, or questions.\nDo not repeat the original email.\n\nReturn only the final output.\n"
+            }
+          ]
+        },
+        "builtInTools": {},
+        "options": {}
+      },
+      "type": "@n8n/n8n-nodes-langchain.googleGemini",
+      "typeVersion": 1.1,
+      "position": [
+        -2512,
+        3104
+      ],
+      "id": "e7b8819b-f66b-41ad-b8a3-cabcc573edf6",
+      "name": "Misc Email Handling",
+      "credentials": {
+        "googlePalmApi": {
+          "id": "v66PgG8LWrjtlbos",
+          "name": "Google Gemini(PaLM) Api account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "promptType": "define",
+        "text": "={{ $json.snippet }}",
+        "options": {}
+      },
+      "type": "@n8n/n8n-nodes-langchain.agent",
+      "typeVersion": 3.1,
+      "position": [
+        -2960,
+        2704
+      ],
+      "id": "2eb6a7e0-cf23-458a-b1c0-8afcf47ca323",
+      "name": "AI Agent"
+    },
+    {
+      "parameters": {
+        "model": "openai/gpt-oss-120b",
+        "options": {}
+      },
+      "type": "@n8n/n8n-nodes-langchain.lmChatGroq",
+      "typeVersion": 1,
+      "position": [
+        -3072,
+        3024
+      ],
+      "id": "578533d6-831b-4d55-a85c-a7858efd265a",
+      "name": "Groq Chat Model1",
+      "credentials": {
+        "groqApi": {
+          "id": "5lZ3IJjQtO2iYCB3",
+          "name": "Groq account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "pollTimes": {
+          "item": [
+            {
+              "mode": "custom",
+              "cronExpression": "*/30 * * * *"
+            }
+          ]
+        },
+        "filters": {}
+      },
+      "type": "n8n-nodes-base.gmailTrigger",
+      "typeVersion": 1.3,
+      "position": [
+        -2128,
+        2048
+      ],
+      "id": "4a9fbeaf-b728-4239-b18b-4a8b46fc00d3",
+      "name": "Gmail Trigger1",
+      "credentials": {
+        "gmailOAuth2": {
+          "id": "jMwzMsM1idb8olHr",
+          "name": "Gmail account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "inputText": "=Subject :  {{ $json.Subject }}\nEmail body : {{ $json.snippet }}",
+        "categories": {
+          "categories": [
+            {
+              "category": "Promotions",
+              "description": "Purpose: Marketing-driven messages pushing a brand, product, or service. \nIncludes:  Product launches, feature updates  Marketing newsletters  Brand announcements  Promotional campaigns (non-discount focused) Signals: CTA buttons, brand tone, marketing language, mass-send style Example: “Introducing our new AI tool to boost your productivity"
+            },
+            {
+              "category": "social",
+              "description": "Purpose: Social interaction notifications and community activity.\nIncludes:\n\nLinkedIn, Twitter/X, GitHub, Slack, Discord notifications\n\nComments, likes, follows, mentions\n\nGroup or forum activity alerts\nSignals: Platform-generated, interaction-based language\nExample: “Someone commented on your post”"
+            },
+            {
+              "category": "Personal",
+              "description": "Purpose: Human-to-human, non-commercial communication.\nIncludes:\n\nFriends, family, colleagues\n\nOne-to-one conversations\n\nPersonal updates or casual messages\nExcludes: Sales, recruitment, marketing\nSignals: Informal tone, direct addressing, no CTA\nExample: “Hey, are we meeting tomorrow?”"
+            },
+            {
+              "category": "seles",
+              "description": "Purpose: Direct revenue-driven outreach or deal discussions.\nIncludes:\n\nCold/warm sales emails\n\nPricing, demos, proposals\n\nFollow-ups on leads or deals\nSignals: Revenue intent, deal language, persuasion, ROI framing\nExample: “Let’s schedule a demo to discuss pricing”"
+            },
+            {
+              "category": "Recruitment",
+              "description": "Purpose: Hiring-related communication.\nIncludes:\n\nJob offers\n\nInterview invites\n\nRecruiter outreach\n\nResume or application follow-ups\nSignals: Role titles, hiring language, HR tone\nExample: “We reviewed your profile and would like to interview you”"
+            },
+            {
+              "category": "opportunity",
+              "description": "Purpose: Non-sales growth or collaboration opportunities.\nIncludes:\n\nPartnerships\n\nSpeaking invites\n\nCollaborations\n\nFreelance or contract offers (non-recruitment)\nSignals: Mutual benefit framing, collaboration tone\nExample: “We’d love to collaborate on a joint project”"
+            },
+            {
+              "category": "Offers",
+              "description": "Purpose: Explicit incentives, discounts, or limited-time deals.\nIncludes:\n\nCoupons\n\nDiscounts\n\nCashback\n\nSpecial pricing offers\nSignals: % off, urgency, deal language\nExample: “Get 40% off – offer ends tonight”"
+            },
+            {
+              "category": "Misc",
+              "description": "Purpose: Everything that does not clearly fit other categories.\nIncludes:\n\nSystem alerts\n\nReceipts (non-promotional)\n\nLegal notices\n\nTravel confirmations\n\nUnclassifiable content\nSignals: Neutral, informational, no persuasion\nExample: “Your password was updated successfully”"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "type": "@n8n/n8n-nodes-langchain.textClassifier",
+      "typeVersion": 1.1,
+      "position": [
+        -1904,
+        2048
+      ],
+      "id": "4f5c5ff8-9a0d-41b9-af04-f46a02effbc8",
+      "name": "Text Classifier1"
+    },
+    {
+      "parameters": {
+        "model": "openai/gpt-oss-20b",
+        "options": {}
+      },
+      "type": "@n8n/n8n-nodes-langchain.lmChatGroq",
+      "typeVersion": 1,
+      "position": [
+        -1840,
+        2464
+      ],
+      "id": "7fc7f250-3e4a-4707-9ab1-24927cbeba68",
+      "name": "Groq Chat Model2",
+      "credentials": {
+        "groqApi": {
+          "id": "5lZ3IJjQtO2iYCB3",
+          "name": "Groq account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "operation": "addLabels",
+        "messageId": "={{ $('Gmail Trigger1').item.json.id }}",
+        "labelIds": [
+          "CATEGORY_PROMOTIONS",
+          "Label_1664033347263816239"
+        ]
+      },
+      "type": "n8n-nodes-base.gmail",
+      "typeVersion": 2.2,
+      "position": [
+        -1200,
+        1376
+      ],
+      "id": "dafbc47b-ec94-416d-8100-767b25484eac",
+      "name": "Promotions1",
+      "webhookId": "a018b6fc-12a0-4ad8-b7e2-00ff63e33d91",
+      "credentials": {
+        "gmailOAuth2": {
+          "id": "jMwzMsM1idb8olHr",
+          "name": "Gmail account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "operation": "addLabels",
+        "messageId": "={{ $('Gmail Trigger1').item.json.id }}",
+        "labelIds": [
+          "CATEGORY_SOCIAL"
+        ]
+      },
+      "type": "n8n-nodes-base.gmail",
+      "typeVersion": 2.2,
+      "position": [
+        -1200,
+        1568
+      ],
+      "id": "71dccbc2-26eb-4e21-b222-114ea6a56b41",
+      "name": "Social1",
+      "webhookId": "a018b6fc-12a0-4ad8-b7e2-00ff63e33d91",
+      "credentials": {
+        "gmailOAuth2": {
+          "id": "jMwzMsM1idb8olHr",
+          "name": "Gmail account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "operation": "addLabels",
+        "messageId": "={{ $('Gmail Trigger1').item.json.id }}",
+        "labelIds": [
+          "Label_4135413154825171201",
+          "CATEGORY_PERSONAL"
+        ]
+      },
+      "type": "n8n-nodes-base.gmail",
+      "typeVersion": 2.2,
+      "position": [
+        -1200,
+        1760
+      ],
+      "id": "fe04824c-1da0-478e-ae72-8365ce4001c9",
+      "name": "Personal1",
+      "webhookId": "a018b6fc-12a0-4ad8-b7e2-00ff63e33d91",
+      "credentials": {
+        "gmailOAuth2": {
+          "id": "jMwzMsM1idb8olHr",
+          "name": "Gmail account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "operation": "addLabels",
+        "messageId": "={{ $('Gmail Trigger1').item.json.id }}",
+        "labelIds": [
+          "Label_7087206276716313941"
+        ]
+      },
+      "type": "n8n-nodes-base.gmail",
+      "typeVersion": 2.2,
+      "position": [
+        -1200,
+        1952
+      ],
+      "id": "7c54dea0-0627-49b2-aa71-b4358acd89be",
+      "name": "Sales1",
+      "webhookId": "a018b6fc-12a0-4ad8-b7e2-00ff63e33d91",
+      "credentials": {
+        "gmailOAuth2": {
+          "id": "jMwzMsM1idb8olHr",
+          "name": "Gmail account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "operation": "addLabels",
+        "messageId": "={{ $('Gmail Trigger1').item.json.id }}",
+        "labelIds": [
+          "Label_6307920067832441589"
+        ]
+      },
+      "type": "n8n-nodes-base.gmail",
+      "typeVersion": 2.2,
+      "position": [
+        -1200,
+        2528
+      ],
+      "id": "e91fae2c-1a75-4068-b339-79f328fb515c",
+      "name": "Recruitment1",
+      "webhookId": "a018b6fc-12a0-4ad8-b7e2-00ff63e33d91",
+      "credentials": {
+        "gmailOAuth2": {
+          "id": "jMwzMsM1idb8olHr",
+          "name": "Gmail account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "operation": "addLabels",
+        "messageId": "={{ $('Gmail Trigger1').item.json.id }}",
+        "labelIds": [
+          "Label_7021788313955499323"
+        ]
+      },
+      "type": "n8n-nodes-base.gmail",
+      "typeVersion": 2.2,
+      "position": [
+        -1200,
+        2144
+      ],
+      "id": "eacf24b3-2bd7-47e2-9420-9c52ac652a35",
+      "name": "opportunity1",
+      "webhookId": "a018b6fc-12a0-4ad8-b7e2-00ff63e33d91",
+      "credentials": {
+        "gmailOAuth2": {
+          "id": "jMwzMsM1idb8olHr",
+          "name": "Gmail account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "operation": "addLabels",
+        "messageId": "={{ $('Gmail Trigger1').item.json.id }}",
+        "labelIds": [
+          "Label_5636057917404865732"
+        ]
+      },
+      "type": "n8n-nodes-base.gmail",
+      "typeVersion": 2.2,
+      "position": [
+        -1200,
+        2336
+      ],
+      "id": "679a295a-cacd-4ff6-8088-15d9deb7f426",
+      "name": "Offers1",
+      "webhookId": "a018b6fc-12a0-4ad8-b7e2-00ff63e33d91",
+      "credentials": {
+        "gmailOAuth2": {
+          "id": "jMwzMsM1idb8olHr",
+          "name": "Gmail account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "operation": "addLabels",
+        "messageId": "={{ $('Gmail Trigger1').item.json.id }}",
+        "labelIds": [
+          "Label_7531897511872704507"
+        ]
+      },
+      "type": "n8n-nodes-base.gmail",
+      "typeVersion": 2.2,
+      "position": [
+        -1200,
+        2720
+      ],
+      "id": "bff4d4d0-b8b8-4582-9a4e-80035216c5ed",
+      "name": "Mics1",
+      "webhookId": "a018b6fc-12a0-4ad8-b7e2-00ff63e33d91",
+      "credentials": {
+        "gmailOAuth2": {
+          "id": "jMwzMsM1idb8olHr",
+          "name": "Gmail account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "operation": "appendOrUpdate",
+        "documentId": {
+          "__rl": true,
+          "value": "1rtoq6bB2NjccbTDhA-qXsLxPo9pwWnQBle6OUVSBIas",
+          "mode": "list",
+          "cachedResultName": "Email Summary n8n",
+          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/1rtoq6bB2NjccbTDhA-qXsLxPo9pwWnQBle6OUVSBIas/edit?usp=drivesdk"
+        },
+        "sheetName": {
+          "__rl": true,
+          "value": "gid=0",
+          "mode": "list",
+          "cachedResultName": "Sheet1",
+          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/1rtoq6bB2NjccbTDhA-qXsLxPo9pwWnQBle6OUVSBIas/edit#gid=0"
+        },
+        "columns": {
+          "mappingMode": "defineBelow",
+          "value": {
+            "ID": "={{ $('Mics1').item.json.id }}",
+            "Date": "={{ $now }}",
+            "Subject": "={{ $('Gmail Trigger1').item.json.Subject }}",
+            "Snippet": "={{ $json.content.parts[0].text }}"
+          },
+          "matchingColumns": [
+            "ID"
+          ],
+          "schema": [
+            {
+              "id": "ID",
+              "displayName": "ID",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": false
+            },
+            {
+              "id": "Date",
+              "displayName": "Date",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "Subject",
+              "displayName": "Subject",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "Snippet",
+              "displayName": "Snippet",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            }
+          ],
+          "attemptToConvertTypes": false,
+          "convertFieldsToString": false
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.googleSheets",
+      "typeVersion": 4.7,
+      "position": [
+        -624,
+        2720
+      ],
+      "id": "673b22cf-075d-468f-bcd2-167791110f67",
+      "name": "Append or update row in sheet",
+      "credentials": {
+        "googleSheetsOAuth2Api": {
+          "id": "PmnJZ37onBlFUIIf",
+          "name": "Google Sheets account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "operation": "appendOrUpdate",
+        "documentId": {
+          "__rl": true,
+          "value": "1rtoq6bB2NjccbTDhA-qXsLxPo9pwWnQBle6OUVSBIas",
+          "mode": "list",
+          "cachedResultName": "Email Summary n8n",
+          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/1rtoq6bB2NjccbTDhA-qXsLxPo9pwWnQBle6OUVSBIas/edit?usp=drivesdk"
+        },
+        "sheetName": {
+          "__rl": true,
+          "value": "gid=0",
+          "mode": "list",
+          "cachedResultName": "Sheet1",
+          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/1rtoq6bB2NjccbTDhA-qXsLxPo9pwWnQBle6OUVSBIas/edit#gid=0"
+        },
+        "columns": {
+          "mappingMode": "defineBelow",
+          "value": {
+            "ID": "={{ $('Mics1').item.json.id }}",
+            "Date": "={{ $now }}",
+            "Subject": "={{ $('Gmail Trigger1').item.json.Subject }}",
+            "Snippet": "={{ $json.content.parts[0].text }}"
+          },
+          "matchingColumns": [
+            "ID"
+          ],
+          "schema": [
+            {
+              "id": "ID",
+              "displayName": "ID",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": false
+            },
+            {
+              "id": "Date",
+              "displayName": "Date",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "Subject",
+              "displayName": "Subject",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "Snippet",
+              "displayName": "Snippet",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            }
+          ],
+          "attemptToConvertTypes": false,
+          "convertFieldsToString": false
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.googleSheets",
+      "typeVersion": 4.7,
+      "position": [
+        -624,
+        1568
+      ],
+      "id": "07d8b07b-d338-4298-af7a-440fdc10ad5d",
+      "name": "Append or update row in sheet3",
+      "credentials": {
+        "googleSheetsOAuth2Api": {
+          "id": "PmnJZ37onBlFUIIf",
+          "name": "Google Sheets account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "modelId": {
+          "__rl": true,
+          "value": "models/gemini-2.5-flash",
+          "mode": "list",
+          "cachedResultName": "models/gemini-2.5-flash"
+        },
+        "messages": {
+          "values": [
+            {
+              "content": "You are a high-performing sales communication strategist.\nYour sole objective is to move sales conversations forward efficiently and professionally.\n\nWhen replying:\n\nAddress the sender’s intent directly\n\nRemove friction and objections\n\nReinforce value in one or two sentences max\n\nPropose a clear, actionable next step (call, demo, reply, decision)\n\nKeep the tone confident, concise, and human\n\nNever sound robotic. Never oversell. Never add unnecessary explanations.\n\nAlways conclude every email exactly with:\n\nBest,\nSheshpal",
+              "role": "model"
+            },
+            {
+              "content": "=You are replying to an incoming email.\n\nEmail details:\n- From: {{ $('Gmail Trigger1').item.json.From }}\n- Subject: {{ $('Gmail Trigger1').item.json.Subject }}\n- Email Content:\n{{ $('Gmail Trigger1').item.json.snippet }}\n\nTask:\nWrite a concise, professional reply that directly addresses the sender’s intent.\nMove the conversation forward with a clear next step.\nDo not repeat the original email.\nDo not add unnecessary explanations.\n\nReturn only the email reply text.\n"
+            }
+          ]
+        },
+        "builtInTools": {},
+        "options": {}
+      },
+      "type": "@n8n/n8n-nodes-langchain.googleGemini",
+      "typeVersion": 1.1,
+      "position": [
+        -976,
+        1952
+      ],
+      "id": "5ec492de-b409-4656-a717-9e8e32d04039",
+      "name": "Sales email1",
+      "credentials": {
+        "googlePalmApi": {
+          "id": "v66PgG8LWrjtlbos",
+          "name": "Google Gemini(PaLM) Api account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "modelId": {
+          "__rl": true,
+          "value": "models/gemini-2.5-flash",
+          "mode": "list",
+          "cachedResultName": "models/gemini-2.5-flash"
+        },
+        "messages": {
+          "values": [
+            {
+              "content": "You are an intelligent assistant specialized in replying to opportunity-related emails.\n\nOpportunity emails include collaboration proposals, partnerships, speaking invites, freelance work, or exploratory discussions that are not direct sales or recruitment.\n\nYour goal is to respond with professional interest, clarity, and optionality.\nAcknowledge the opportunity without committing prematurely.\nExpress measured interest and invite further details or a discussion.\nMaintain a confident, neutral, and respectful tone.\nDo not use sales language, pressure, or over-enthusiasm.\nKeep the reply concise and purposeful.\n\nAlways end every email exactly with:\n\nBest,\nSheshpal\n",
+              "role": "model"
+            },
+            {
+              "content": "=You have received an opportunity-related email.\n\nEmail details:\n- From: {{ $('Gmail Trigger1').item.json.From }}\n- Subject: {{ $('Gmail Trigger1').item.json.Subject }}\n- Message:\n{{ $('Gmail Trigger1').item.json.snippet }}\n\nTask:\nWrite a professional reply that acknowledges the opportunity.\nExpress interest without committing.\nInvite clarification on scope, goals, or next steps if appropriate.\nDo not repeat the original email.\nDo not add marketing or sales language.\n\nReturn only the email reply text.\n"
+            }
+          ]
+        },
+        "builtInTools": {},
+        "options": {}
+      },
+      "type": "@n8n/n8n-nodes-langchain.googleGemini",
+      "typeVersion": 1.1,
+      "position": [
+        -976,
+        2144
+      ],
+      "id": "0e42ae1b-fbf7-4d20-9b08-c533ed17391f",
+      "name": "Opportunity Email Reply2",
+      "credentials": {
+        "googlePalmApi": {
+          "id": "v66PgG8LWrjtlbos",
+          "name": "Google Gemini(PaLM) Api account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "modelId": {
+          "__rl": true,
+          "value": "models/gemini-2.5-flash",
+          "mode": "list",
+          "cachedResultName": "models/gemini-2.5-flash"
+        },
+        "messages": {
+          "values": [
+            {
+              "content": "You are an intelligent assistant specialized in replying to recruitment and hiring-related emails.\n\nYour goal is to respond professionally, clearly, and respectfully.\nMaintain a neutral, confident, and appreciative tone.\nAcknowledge the opportunity without committing unless explicitly stated.\nAsk for or confirm next steps when appropriate (interview details, role scope, timeline).\nDo not use sales, marketing, or casual language.\nDo not exaggerate interest or qualifications.\nKeep responses concise and factual.\n\nAlways end every email exactly with:\n\nBest,\nSheshpal\n",
+              "role": "model"
+            },
+            {
+              "content": "=You have received a recruitment-related email.\n\nEmail details:\n- From: {{ $('Gmail Trigger1').item.json.From }}\n- Subject: {{ $('Gmail Trigger1').item.json.Subject }}\n- Message:\n{{ $('Gmail Trigger1').item.json.snippet }}\n\nTask:\nWrite a professional and polite reply to the recruiter.\nAcknowledge the message and respond to the intent.\nIf an interview or call is suggested, request or confirm details clearly.\nDo not add unnecessary explanations.\nDo not repeat the original email.\n\nReturn only the email reply text.\n"
+            }
+          ]
+        },
+        "builtInTools": {},
+        "options": {}
+      },
+      "type": "@n8n/n8n-nodes-langchain.googleGemini",
+      "typeVersion": 1.1,
+      "position": [
+        -976,
+        2528
+      ],
+      "id": "67835ec2-74c2-4593-8664-e6c46de3472b",
+      "name": "Recruitment Email Reply2",
+      "credentials": {
+        "googlePalmApi": {
+          "id": "v66PgG8LWrjtlbos",
+          "name": "Google Gemini(PaLM) Api account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "modelId": {
+          "__rl": true,
+          "value": "models/gemini-2.5-flash",
+          "mode": "list",
+          "cachedResultName": "models/gemini-2.5-flash"
+        },
+        "messages": {
+          "values": [
+            {
+              "content": "You are an intelligent assistant specialized in handling offer and discount emails.\n\nOffer emails include promotions with explicit discounts, coupons, limited-time deals, or special pricing.\n\nYour goal is to:\n- Acknowledge the offer politely when a response is appropriate\n- Avoid engagement, negotiation, or commitment\n- Keep responses neutral and brief\n- Never express urgency, excitement, or intent to purchase\n- Never ask follow-up questions unless explicitly instructed\n\nIf no reply is required, generate no response.\n\nWhen a reply is generated, always end every email exactly with:\n\nBest,\nSheshpal\n",
+              "role": "model"
+            },
+            {
+              "content": "=You have received an offer-related email.\n\nEmail details:\n- From: {{ $('Gmail Trigger1').item.json.From }}\n- Subject: {{ $('Gmail Trigger1').item.json.Subject }}\n- Message:\n{{ $('Gmail Trigger1').item.json.snippet }}\n\nTask:\nDetermine whether a reply is necessary.\nIf a reply is appropriate, write a brief and polite acknowledgment without commitment.\nIf no reply is needed, return exactly:\nNO_REPLY\nDo not repeat the original email.\nDo not add questions, enthusiasm, or purchasing intent.\n\nReturn only the final output.\n"
+            }
+          ]
+        },
+        "builtInTools": {},
+        "options": {}
+      },
+      "type": "@n8n/n8n-nodes-langchain.googleGemini",
+      "typeVersion": 1.1,
+      "position": [
+        -976,
+        2336
+      ],
+      "id": "c3b8c89c-f555-4ac3-9536-db733aa4c831",
+      "name": "Offers Email Handling1",
+      "credentials": {
+        "googlePalmApi": {
+          "id": "v66PgG8LWrjtlbos",
+          "name": "Google Gemini(PaLM) Api account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "operation": "reply",
+        "messageId": "={{ $('Gmail Trigger1').item.json.id }}",
+        "message": "={{ $json.content.parts[0].text }}",
+        "options": {
+          "appendAttribution": false
+        }
+      },
+      "type": "n8n-nodes-base.gmail",
+      "typeVersion": 2.2,
+      "position": [
+        -624,
+        2336
+      ],
+      "id": "43c03a0c-3369-4028-8c49-560771d07dbd",
+      "name": "Offers Email Reply1",
+      "webhookId": "2534bf20-2a92-4af5-a860-9b11c27eba27",
+      "credentials": {
+        "gmailOAuth2": {
+          "id": "jMwzMsM1idb8olHr",
+          "name": "Gmail account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "operation": "reply",
+        "messageId": "={{ $('Gmail Trigger1').item.json.id }}",
+        "message": "={{ $json.content.parts[0].text }}",
+        "options": {
+          "appendAttribution": false
+        }
+      },
+      "type": "n8n-nodes-base.gmail",
+      "typeVersion": 2.2,
+      "position": [
+        -624,
+        2144
+      ],
+      "id": "eec483d3-45f7-40cb-9577-7bf66edefb2b",
+      "name": "Opportunity Email Reply3",
+      "webhookId": "2534bf20-2a92-4af5-a860-9b11c27eba27",
+      "credentials": {
+        "gmailOAuth2": {
+          "id": "jMwzMsM1idb8olHr",
+          "name": "Gmail account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "operation": "reply",
+        "messageId": "={{ $('Gmail Trigger1').item.json.id }}",
+        "message": "={{ $json.content.parts[0].text }}",
+        "options": {
+          "appendAttribution": false
+        }
+      },
+      "type": "n8n-nodes-base.gmail",
+      "typeVersion": 2.2,
+      "position": [
+        -624,
+        2528
+      ],
+      "id": "ddf04717-9dcc-4044-8406-8500f6f5905d",
+      "name": "Recruitment Email Reply3",
+      "webhookId": "2534bf20-2a92-4af5-a860-9b11c27eba27",
+      "credentials": {
+        "gmailOAuth2": {
+          "id": "jMwzMsM1idb8olHr",
+          "name": "Gmail account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "modelId": {
+          "__rl": true,
+          "value": "models/gemini-2.5-flash",
+          "mode": "list",
+          "cachedResultName": "models/gemini-2.5-flash"
+        },
+        "messages": {
+          "values": [
+            {
+              "content": "You are an intelligent assistant specialized in summarizing social notification emails.\n\nYour task is to extract and summarize the key information from social or platform-generated emails such as notifications, mentions, comments, invites, or activity alerts.\n\nGuidelines:\n- Focus only on what happened and where\n- Identify the platform, action, and relevant person or content (if present)\n- Remove all promotional, decorative, or repetitive text\n- Keep the summary short, clear, and factual\n- Do not add opinions, recommendations, or next steps\n- Do not assume importance unless explicitly stated\n\nOutput format:\n- 1–2 concise sentences\n- Plain text only\n- No greetings, no sign-offs, no emojis\n",
+              "role": "model"
+            },
+            {
+              "content": "=You are processing a social or platform-related email.\n\nEmail details:\n- Subject: {{ $('Gmail Trigger1').item.json.Subject }}\n- Message:\n{{ $('Gmail Trigger1').item.json.snippet }}\n\nTask:\nDecide whether a reply is required.\n\n- If the email is only a notification or does not require a response, return exactly:\nNO_REPLY\n\n- If a reply is appropriate, write a short, polite, human-sounding response.\nKeep it neutral and concise.\nDo not add sales, marketing, or promotional language.\nDo not repeat the subject or quote the original message.\n\nReturn only one of the following:\n- NO_REPLY\n- The email reply text\n"
+            }
+          ]
+        },
+        "builtInTools": {},
+        "options": {}
+      },
+      "type": "@n8n/n8n-nodes-langchain.googleGemini",
+      "typeVersion": 1.1,
+      "position": [
+        -976,
+        1568
+      ],
+      "id": "1a807dfb-21b5-4cf2-8d9e-00dfa6da729a",
+      "name": "Social Mail Summarization1",
+      "credentials": {
+        "googlePalmApi": {
+          "id": "v66PgG8LWrjtlbos",
+          "name": "Google Gemini(PaLM) Api account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "modelId": {
+          "__rl": true,
+          "value": "models/gemini-2.5-flash",
+          "mode": "list",
+          "cachedResultName": "models/gemini-2.5-flash"
+        },
+        "messages": {
+          "values": [
+            {
+              "content": "You are an intelligent assistant specialized in replying to personal emails.\n\nYour goal is to write natural, human, and respectful replies that feel genuinely written by a person.\nMatch the sender’s tone and level of formality.\nBe clear, friendly, and concise.\nDo not sound salesy, promotional, or automated.\nDo not introduce new topics unless necessary to respond.\n\nAlways end every email exactly with:\n\nBest,\nSheshpal\n",
+              "role": "model"
+            },
+            {
+              "content": "=You have received a personal email and need to reply.\n\nEmail details:\n- From: {{ $('Gmail Trigger1').item.json.From }}\n- Subject: {{ $('Gmail Trigger1').item.json.Subject }}\n- Message:\n{{ $('Gmail Trigger1').item.json.snippet }}\n\nTask:\nWrite a natural, human-sounding reply that directly responds to the message.\nMatch the sender’s tone and intent.\nKeep the reply concise and friendly.\nDo not add marketing, sales language, or automation-style phrasing.\nDo not repeat the subject or quote the original email.\n\nReturn only the email reply text.\n"
+            }
+          ]
+        },
+        "builtInTools": {},
+        "options": {}
+      },
+      "type": "@n8n/n8n-nodes-langchain.googleGemini",
+      "typeVersion": 1.1,
+      "position": [
+        -976,
+        1760
+      ],
+      "id": "00d3d954-dca3-45eb-85d0-b00919bfeb0f",
+      "name": "Personal Email Reply1",
+      "credentials": {
+        "googlePalmApi": {
+          "id": "v66PgG8LWrjtlbos",
+          "name": "Google Gemini(PaLM) Api account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "resource": "draft",
+        "subject": "thanks for inform i will soon catch up",
+        "message": "={{ $json.content.parts[0].text }}",
+        "options": {
+          "replyTo": "={{ $('Gmail Trigger1').item.json.From }}",
+          "threadId": "={{ $('Gmail Trigger1').item.json.threadId }}",
+          "sendTo": "={{ $('Gmail Trigger1').item.json.From }}"
+        }
+      },
+      "type": "n8n-nodes-base.gmail",
+      "typeVersion": 2.2,
+      "position": [
+        -624,
+        1760
+      ],
+      "id": "80c1813c-426d-46d8-9798-1e53e1f35291",
+      "name": "Personal Email Draft1",
+      "webhookId": "2534bf20-2a92-4af5-a860-9b11c27eba27",
+      "credentials": {
+        "gmailOAuth2": {
+          "id": "jMwzMsM1idb8olHr",
+          "name": "Gmail account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "operation": "reply",
+        "messageId": "={{ $('Gmail Trigger1').item.json.id }}",
+        "message": "={{ $json.content.parts[0].text }}",
+        "options": {
+          "appendAttribution": false
+        }
+      },
+      "type": "n8n-nodes-base.gmail",
+      "typeVersion": 2.2,
+      "position": [
+        -624,
+        1952
+      ],
+      "id": "29140b07-0212-4174-8447-88abcac69354",
+      "name": "Sales Email reply1",
+      "webhookId": "2534bf20-2a92-4af5-a860-9b11c27eba27",
+      "credentials": {
+        "gmailOAuth2": {
+          "id": "jMwzMsM1idb8olHr",
+          "name": "Gmail account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "modelId": {
+          "__rl": true,
+          "value": "models/gemini-2.5-flash",
+          "mode": "list",
+          "cachedResultName": "models/gemini-2.5-flash"
+        },
+        "messages": {
+          "values": [
+            {
+              "content": "You are an intelligent assistant specialized in handling miscellaneous emails.\n\nMisc emails include system notifications, receipts, invoices, security alerts, confirmations, policy updates, and informational messages that do not require conversation.\n\nYour primary goal is to determine whether a reply is required.\n\nRules:\n- Do not generate replies to receipts, confirmations, invoices, or system alerts unless explicitly asked to respond\n- Do not add opinions, acknowledgments, or thanks unless action is required\n- Do not ask follow-up questions\n- Keep responses factual and minimal when necessary\n\nIf no reply is required, generate no response.\n\nWhen a reply is required, always end every email exactly with:\n\nBest,\nSheshpal\n",
+              "role": "model"
+            },
+            {
+              "content": "=You have received a miscellaneous email (system, receipt, or alert).\n\nEmail details:\n- From: {{ $('Gmail Trigger1').item.json.From }}\n- Subject: {{ $('Gmail Trigger1').item.json.Subject }}\n- Message:\n{{ $('Gmail Trigger1').item.json.snippet }}\n\nTask:\nDetermine whether a reply is required.\nIf no reply is needed, return exactly:\nNO_REPLY\n\nIf a reply is required, write a short, factual response addressing the request.\nDo not include greetings, opinions, or questions.\nDo not repeat the original email.\n\nReturn only the final output.\n"
+            }
+          ]
+        },
+        "builtInTools": {},
+        "options": {}
+      },
+      "type": "@n8n/n8n-nodes-langchain.googleGemini",
+      "typeVersion": 1.1,
+      "position": [
+        -976,
+        2720
+      ],
+      "id": "7fc77b46-01bc-4c8a-b279-068a56697963",
+      "name": "Misc Email Handling1",
+      "credentials": {
+        "googlePalmApi": {
+          "id": "v66PgG8LWrjtlbos",
+          "name": "Google Gemini(PaLM) Api account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "promptType": "define",
+        "text": "={{ $json.snippet }}",
+        "options": {}
+      },
+      "type": "@n8n/n8n-nodes-langchain.agent",
+      "typeVersion": 3.1,
+      "position": [
+        -1552,
+        2048
+      ],
+      "id": "d169926b-3f97-4add-b8dd-1898cf065845",
+      "name": "AI Agent1"
+    },
+    {
+      "parameters": {
+        "model": "openai/gpt-oss-120b",
+        "options": {}
+      },
+      "type": "@n8n/n8n-nodes-langchain.lmChatGroq",
+      "typeVersion": 1,
+      "position": [
+        -1552,
+        2272
+      ],
+      "id": "c2fb4715-d5c4-478a-9bbd-5bbf3aa3ac1f",
+      "name": "Groq Chat Model3",
+      "credentials": {
+        "groqApi": {
+          "id": "5lZ3IJjQtO2iYCB3",
+          "name": "Groq account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "options": {}
+      },
+      "type": "n8n-nodes-base.gmailTool",
+      "typeVersion": 2.2,
+      "position": [
+        -1424,
+        2272
+      ],
+      "id": "38a74050-f8b2-443c-b3f4-7af170c1f3f9",
+      "name": "Send a message in Gmail1",
+      "webhookId": "afcbd8bb-dca0-41d1-a639-d119fa8f9fcc",
+      "credentials": {
+        "gmailOAuth2": {
+          "id": "jMwzMsM1idb8olHr",
+          "name": "Gmail account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "sendTo": "={{ $('Gmail Trigger').item.json.From }}",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.gmailTool",
+      "typeVersion": 2.2,
+      "position": [
+        -2720,
+        2992
+      ],
+      "id": "dd392103-3d86-4f39-bd3c-e96ff71d89a0",
+      "name": "Send a message in Gmail",
+      "webhookId": "fdac7c3d-5ee8-464e-bfec-62d682e47fcb",
+      "credentials": {
+        "gmailOAuth2": {
+          "id": "jMwzMsM1idb8olHr",
+          "name": "Gmail account"
+        }
+      }
+    }
+  ],
+  "pinData": {
+    "Sales email": [
+      {
+        "json": {
+          "content": {
+            "parts": [
+              {
+                "text": "Thanks for reaching out. I'm happy to discuss how our consulting can support your goals.\n\nLet's schedule a brief call to understand your specific needs. What does your availability look like next week?\n\nBest,\nSheshpal"
+              }
+            ],
+            "role": "model"
+          },
+          "finishReason": "STOP",
+          "index": 0
+        },
+        "pairedItem": {
+          "item": 0
+        }
+      }
+    ],
+    "Opportunity Email Reply": [
+      {
+        "json": {
+          "content": {
+            "parts": [
+              {
+                "text": "Subject: Re: Interview Opportunity for Software Engineer Role\n\nDear Talent Acquisition Team,\n\nThank you for the interview opportunity for the Software Engineer position.\n\nI am available for a 30-minute call this week on [Day, Date] at [Time AM/PM Time Zone] or [Day, Date] at [Time AM/PM Time Zone]. Please let me know if either of these times works for you, or suggest an alternative.\n\nBest,\nSheshpal"
+              }
+            ],
+            "role": "model"
+          },
+          "finishReason": "STOP",
+          "index": 0
+        }
+      }
+    ],
+    "Recruitment Email Reply": [
+      {
+        "json": {
+          "content": {
+            "parts": [
+              {
+                "text": "Subject: Re: Interview Opportunity for Software Engineer Role\n\nDear Talent Acquisition Team,\n\nThank you for the interview opportunity for the Software Engineer position.\n\nI am available for a 30-minute call this week on [Day, Date] at [Time AM/PM Time Zone] or [Day, Date] at [Time AM/PM Time Zone]. Please let me know if either of these times works for you, or suggest an alternative.\n\nBest,\nSheshpal"
+              }
+            ],
+            "role": "model"
+          },
+          "finishReason": "STOP",
+          "index": 0
+        },
+        "pairedItem": {
+          "item": 0
+        }
+      }
+    ],
+    "Personal Email Draft": [
+      {
+        "json": {
+          "id": "r-2471564336790211142",
+          "message": {
+            "id": "19c0ec0c42c78adf",
+            "threadId": "19c0ec0c42c78adf",
+            "labelIds": [
+              "DRAFT"
+            ]
+          }
+        },
+        "pairedItem": {
+          "item": 0
+        }
+      }
+    ],
+    "Gmail Trigger1": [
+      {
+        "json": {
+          "id": "19c0eb98ce1e1f00",
+          "threadId": "19c0eb98ce1e1f00",
+          "snippet": "Hello,\\n\nThis is to inform you that your account password was successfully updated on January 30, 2026. If you did not make this change, please contact support immediately.\n\nNo further action is required at this time.\n\nThank you,\n\nSecurity Team",
+          "payload": {
+            "mimeType": "multipart/alternative"
+          },
+          "sizeEstimate": 7991,
+          "historyId": "551462",
+          "internalDate": "1769773555000",
+          "labels": [
+            {
+              "id": "INBOX",
+              "name": "INBOX"
+            },
+            {
+              "id": "IMPORTANT",
+              "name": "IMPORTANT"
+            },
+            {
+              "id": "CATEGORY_PERSONAL",
+              "name": "CATEGORY_PERSONAL"
+            },
+            {
+              "id": "UNREAD",
+              "name": "UNREAD"
+            }
+          ],
+          "From": "Sheshpal Rajput <sheshpalrajput9193@gmail.com>",
+          "Subject": "Your Account Security Update",
+          "To": "\"sheshpalsingh2024@gmail.com\" <sheshpalsingh2024@gmail.com>"
+        }
+      }
+    ],
+    "Sales email1": [
+      {
+        "json": {
+          "content": {
+            "parts": [
+              {
+                "text": "Thanks for reaching out. I'm happy to discuss how our consulting can support your goals.\n\nLet's schedule a brief call to understand your specific needs. What does your availability look like next week?\n\nBest,\nSheshpal"
+              }
+            ],
+            "role": "model"
+          },
+          "finishReason": "STOP",
+          "index": 0
+        }
+      }
+    ],
+    "Opportunity Email Reply2": [
+      {
+        "json": {
+          "content": {
+            "parts": [
+              {
+                "text": "Subject: Re: Interview Opportunity for Software Engineer Role\n\nDear Talent Acquisition Team,\n\nThank you for the interview opportunity for the Software Engineer position.\n\nI am available for a 30-minute call this week on [Day, Date] at [Time AM/PM Time Zone] or [Day, Date] at [Time AM/PM Time Zone]. Please let me know if either of these times works for you, or suggest an alternative.\n\nBest,\nSheshpal"
+              }
+            ],
+            "role": "model"
+          },
+          "finishReason": "STOP",
+          "index": 0
+        }
+      }
+    ],
+    "Recruitment Email Reply2": [
+      {
+        "json": {
+          "content": {
+            "parts": [
+              {
+                "text": "Subject: Re: Interview Opportunity for Software Engineer Role\n\nDear Talent Acquisition Team,\n\nThank you for the interview opportunity for the Software Engineer position.\n\nI am available for a 30-minute call this week on [Day, Date] at [Time AM/PM Time Zone] or [Day, Date] at [Time AM/PM Time Zone]. Please let me know if either of these times works for you, or suggest an alternative.\n\nBest,\nSheshpal"
+              }
+            ],
+            "role": "model"
+          },
+          "finishReason": "STOP",
+          "index": 0
+        }
+      }
+    ],
+    "Personal Email Draft1": [
+      {
+        "json": {
+          "id": "r-2471564336790211142",
+          "message": {
+            "id": "19c0ec0c42c78adf",
+            "threadId": "19c0ec0c42c78adf",
+            "labelIds": [
+              "DRAFT"
+            ]
+          }
+        }
+      }
+    ],
+    "Gmail Trigger": [
+      {
+        "json": {
+          "id": "19c15e758a4157fe",
+          "threadId": "19c15e758a4157fe",
+          "snippet": "₹1,‌500 an hour. Hi SHESHPAL, It looks like your background could be a match for this Maths - Tutor - IBDP role. Please submit a quick application if you have any interest. ͏ ͏ ͏ ͏ ͏ ͏ ͏ ͏ ͏ ͏ ͏ ͏ ͏ ͏",
+          "payload": {
+            "mimeType": "multipart/alternative"
+          },
+          "sizeEstimate": 72365,
+          "historyId": "553103",
+          "internalDate": "1769894008000",
+          "labels": [
+            {
+              "id": "INBOX",
+              "name": "INBOX"
+            },
+            {
+              "id": "CATEGORY_UPDATES",
+              "name": "CATEGORY_UPDATES"
+            },
+            {
+              "id": "UNREAD",
+              "name": "UNREAD"
+            }
+          ],
+          "To": "<sheshpalsingh2024@gmail.com>",
+          "Subject": "Maths - Tutor - IBDP @ Facultyzone Talent Acquisition",
+          "From": "Indeed <donotreply@match.indeed.com>"
+        },
+        "pairedItem": {
+          "item": 0
+        }
+      }
+    ]
+  },
+  "connections": {
+    "Gmail Trigger": {
+      "main": [
+        [
+          {
+            "node": "Text Classifier",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Groq Chat Model": {
+      "ai_languageModel": [
+        [
+          {
+            "node": "Text Classifier",
+            "type": "ai_languageModel",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Text Classifier": {
+      "main": [
+        [
+          {
+            "node": "Promotions",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "Social",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "Personal",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "Sales",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "Recruitment",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "opportunity",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "Offers",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "Mics",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Social": {
+      "main": [
+        [
+          {
+            "node": "Social Mail Summarization",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Mics": {
+      "main": [
+        [
+          {
+            "node": "AI Agent",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Personal": {
+      "main": [
+        [
+          {
+            "node": "Personal Email Reply",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Sales": {
+      "main": [
+        [
+          {
+            "node": "Sales email",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Sales email": {
+      "main": [
+        [
+          {
+            "node": "Sales Email reply",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Recruitment": {
+      "main": [
+        [
+          {
+            "node": "Recruitment Email Reply",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "opportunity": {
+      "main": [
+        [
+          {
+            "node": "Opportunity Email Reply",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Recruitment Email Reply": {
+      "main": [
+        [
+          {
+            "node": "Recruitment Email Reply1",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Offers": {
+      "main": [
+        [
+          {
+            "node": "Offers Email Handling",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Opportunity Email Reply": {
+      "main": [
+        [
+          {
+            "node": "Opportunity Email Reply1",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Offers Email Handling": {
+      "main": [
+        [
+          {
+            "node": "Offers Email Reply",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Social Mail Summarization": {
+      "main": [
+        [
+          {
+            "node": "Append or update row in sheet2",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Personal Email Reply": {
+      "main": [
+        [
+          {
+            "node": "Personal Email Draft",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Sales Email reply": {
+      "main": [
+        []
+      ]
+    },
+    "Misc Email Handling": {
+      "main": [
+        []
+      ]
+    },
+    "AI Agent": {
+      "main": [
+        []
+      ]
+    },
+    "Groq Chat Model1": {
+      "ai_languageModel": [
+        [
+          {
+            "node": "AI Agent",
+            "type": "ai_languageModel",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Gmail Trigger1": {
+      "main": [
+        [
+          {
+            "node": "Text Classifier1",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Text Classifier1": {
+      "main": [
+        [
+          {
+            "node": "AI Agent1",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "AI Agent1",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "AI Agent1",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "AI Agent1",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "AI Agent1",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "AI Agent1",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "AI Agent1",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "AI Agent1",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Groq Chat Model2": {
+      "ai_languageModel": [
+        [
+          {
+            "node": "Text Classifier1",
+            "type": "ai_languageModel",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Social1": {
+      "main": [
+        [
+          {
+            "node": "Social Mail Summarization1",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Personal1": {
+      "main": [
+        [
+          {
+            "node": "Personal Email Reply1",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Sales1": {
+      "main": [
+        [
+          {
+            "node": "Sales email1",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Recruitment1": {
+      "main": [
+        [
+          {
+            "node": "Recruitment Email Reply2",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "opportunity1": {
+      "main": [
+        [
+          {
+            "node": "Opportunity Email Reply2",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Offers1": {
+      "main": [
+        [
+          {
+            "node": "Offers Email Handling1",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Mics1": {
+      "main": [
+        [
+          {
+            "node": "Misc Email Handling1",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Sales email1": {
+      "main": [
+        [
+          {
+            "node": "Sales Email reply1",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Opportunity Email Reply2": {
+      "main": [
+        [
+          {
+            "node": "Opportunity Email Reply3",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Recruitment Email Reply2": {
+      "main": [
+        [
+          {
+            "node": "Recruitment Email Reply3",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Offers Email Handling1": {
+      "main": [
+        [
+          {
+            "node": "Offers Email Reply1",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Social Mail Summarization1": {
+      "main": [
+        [
+          {
+            "node": "Append or update row in sheet3",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Personal Email Reply1": {
+      "main": [
+        [
+          {
+            "node": "Personal Email Draft1",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Misc Email Handling1": {
+      "main": [
+        [
+          {
+            "node": "Append or update row in sheet",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "AI Agent1": {
+      "main": [
+        [
+          {
+            "node": "Sales1",
+            "type": "main",
+            "index": 0
+          },
+          {
+            "node": "opportunity1",
+            "type": "main",
+            "index": 0
+          },
+          {
+            "node": "Personal1",
+            "type": "main",
+            "index": 0
+          },
+          {
+            "node": "Social1",
+            "type": "main",
+            "index": 0
+          },
+          {
+            "node": "Promotions1",
+            "type": "main",
+            "index": 0
+          },
+          {
+            "node": "Offers1",
+            "type": "main",
+            "index": 0
+          },
+          {
+            "node": "Mics1",
+            "type": "main",
+            "index": 0
+          },
+          {
+            "node": "Recruitment1",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Groq Chat Model3": {
+      "ai_languageModel": [
+        [
+          {
+            "node": "AI Agent1",
+            "type": "ai_languageModel",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Send a message in Gmail1": {
+      "ai_tool": [
+        [
+          {
+            "node": "AI Agent1",
+            "type": "ai_tool",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Send a message in Gmail": {
+      "ai_tool": [
+        [
+          {
+            "node": "AI Agent",
+            "type": "ai_tool",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "active": false,
+  "settings": {
+    "executionOrder": "v1",
+    "availableInMCP": false
+  },
+  "versionId": "6bfc4cf7-9ce0-4cf1-95cf-d2edd67064f0",
+  "meta": {
+    "templateCredsSetupCompleted": true,
+    "instanceId": "f9504f6fd50c2c9f2ab43bf6bd558272eb779c9f05ab5d9749cd8fd2a428a23a"
+  },
+  "id": "gt-Gpf5WHvpFk_W_V_8d6",
+  "tags": []
+}
