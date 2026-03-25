@@ -145,6 +145,65 @@ section{position:relative;padding:6rem 0;overflow:hidden}
 .step-note{font-size:.7rem;font-style:italic;color:var(--accent);margin-top:1rem;padding-left:1rem;border-left:2px solid var(--accent)}
 
 /* ═══════════════════════════════════════════════════
+   DEMO SECTION
+   ═══════════════════════════════════════════════════ */
+.demo{background:var(--text);color:var(--bg)}
+.demo .section-label{color:var(--accent)}
+.demo-header{text-align:center;max-width:720px;margin:0 auto 3.5rem}
+.demo-header h2{font-size:clamp(2.5rem,5vw,4rem);color:var(--bg);margin-bottom:1rem}
+.demo-header p{color:rgba(245,240,232,.55);font-size:1rem;line-height:1.7}
+.demo-video-wrap{
+  position:relative;max-width:960px;margin:0 auto;
+  border:2px solid rgba(245,240,232,.12);
+  box-shadow:0 0 0 1px rgba(255,107,0,.25),0 32px 80px rgba(0,0,0,.5);
+  background:#000;overflow:hidden;
+}
+.demo-video-wrap::before{
+  content:'';position:absolute;inset:-2px;border:2px solid transparent;
+  background:linear-gradient(135deg,var(--accent),transparent 60%) border-box;
+  -webkit-mask:linear-gradient(#fff 0 0) padding-box,linear-gradient(#fff 0 0);
+  mask:linear-gradient(#fff 0 0) padding-box,linear-gradient(#fff 0 0);
+  -webkit-mask-composite:destination-out;mask-composite:exclude;
+  pointer-events:none;z-index:2;
+}
+.demo-video-wrap iframe,.demo-video-wrap video{
+  width:100%;aspect-ratio:16/9;display:block;border:none;
+}
+.demo-play-overlay{
+  position:absolute;inset:0;display:flex;flex-direction:column;
+  align-items:center;justify-content:center;gap:1.25rem;
+  background:linear-gradient(135deg,rgba(10,10,10,.85) 0%,rgba(10,10,10,.6) 100%);
+  backdrop-filter:blur(2px);z-index:3;cursor:none;
+  transition:opacity .4s var(--transition);
+}
+.demo-play-overlay.hidden{opacity:0;pointer-events:none}
+.demo-play-btn{
+  width:72px;height:72px;background:var(--accent);border:none;
+  display:flex;align-items:center;justify-content:center;
+  cursor:none;transition:transform .3s var(--transition),background .3s;
+  clip-path:polygon(0 0,100% 50%,0 100%);
+  margin-left:8px;
+}
+.demo-play-ring{
+  width:100px;height:100px;border:2px solid var(--accent);
+  border-radius:50%;position:absolute;animation:ring-pulse 2s ease-out infinite;
+}
+.demo-play-ring:nth-child(2){animation-delay:.6s}
+@keyframes ring-pulse{0%{transform:scale(.8);opacity:.8}100%{transform:scale(1.6);opacity:0}}
+.demo-play-wrap{
+  position:relative;display:flex;align-items:center;justify-content:center;
+  width:100px;height:100px;
+}
+.demo-play-wrap:hover .demo-play-btn{transform:scale(1.12) translateX(4px);background:var(--accent-dark)}
+.demo-overlay-label{color:var(--bg);font-size:.8rem;font-weight:700;text-transform:uppercase;letter-spacing:.2em;opacity:.7}
+.demo-chips{display:flex;justify-content:center;flex-wrap:wrap;gap:.75rem;margin-top:2.5rem}
+.demo-chip{
+  padding:.375rem 1rem;border:1px solid rgba(245,240,232,.15);
+  font-size:.7rem;font-weight:700;text-transform:uppercase;letter-spacing:.12em;
+  color:rgba(245,240,232,.5);background:rgba(245,240,232,.05);
+}
+
+/* ═══════════════════════════════════════════════════
    TOOL STACK MARQUEE
    ═══════════════════════════════════════════════════ */
 .marquee-section{padding:3rem 0;border-top:var(--rule);border-bottom:var(--rule);overflow:hidden}
@@ -199,13 +258,46 @@ section{position:relative;padding:6rem 0;overflow:hidden}
 .testimonial-name{font-weight:700;font-size:.875rem}
 .testimonial-role{font-size:.75rem;color:rgba(10,10,10,.5)}
 
+
+/* ═══════════════════════════════════════════════════
+   FAQ
+   ═══════════════════════════════════════════════════ */
+.faq{background:var(--bg)}
+.faq h2{font-size:clamp(2.5rem,5vw,4rem);margin-bottom:.75rem}
+.faq-sub{font-size:.95rem;color:rgba(10,10,10,.5);margin-bottom:3.5rem;max-width:480px}
+.faq-grid{display:grid;grid-template-columns:1fr 1fr;gap:0 4rem;align-items:start}
+.faq-list{display:flex;flex-direction:column}
+.faq-item{border-bottom:var(--rule-thin);overflow:hidden}
+.faq-question{display:flex;align-items:center;justify-content:space-between;padding:1.5rem 0;cursor:none;gap:1rem}
+.faq-question h4{font-family:var(--sans);font-size:.95rem;font-weight:700;line-height:1.4}
+.faq-icon{width:28px;height:28px;flex-shrink:0;display:flex;align-items:center;justify-content:center;border:1px solid rgba(10,10,10,.2);transition:transform .35s var(--transition),background .35s,border-color .35s}
+.faq-item.open .faq-icon{transform:rotate(45deg);background:var(--accent);border-color:var(--accent)}
+.faq-icon svg{width:12px;height:12px;stroke:currentColor;stroke-width:2;fill:none;transition:stroke .35s}
+.faq-item.open .faq-icon svg{stroke:#fff}
+.faq-answer{max-height:0;overflow:hidden;transition:max-height .45s var(--transition),padding .45s var(--transition)}
+.faq-answer p{font-size:.875rem;line-height:1.75;color:rgba(10,10,10,.6);padding-bottom:1.5rem}
+.faq-item.open .faq-answer{max-height:400px}
+.faq-aside{padding:2.5rem;background:var(--text);color:var(--bg);position:sticky;top:calc(var(--nav-h) + 2rem)}
+.faq-aside h3{font-size:1.5rem;color:var(--bg);margin-bottom:.75rem}
+.faq-aside p{font-size:.875rem;color:rgba(245,240,232,.55);line-height:1.7;margin-bottom:1.75rem}
+.faq-aside .btn-primary{width:100%;justify-content:center}
+@media(max-width:768px){.faq-grid{grid-template-columns:1fr}.faq-aside{display:none}}
+
 /* ═══════════════════════════════════════════════════
    CONTACT
    ═══════════════════════════════════════════════════ */
 .contact{background:var(--text);color:var(--bg)}
 .contact h2{font-size:clamp(2.5rem,5vw,4rem);color:var(--bg);margin-bottom:1rem}
 .contact .section-label{color:var(--accent)}
-.contact-sub{color:rgba(245,240,232,.5);margin-bottom:3rem;max-width:500px}
+.contact-sub{color:rgba(245,240,232,.5);margin-bottom:2rem;max-width:500px}
+.contact-booking-strip{display:flex;align-items:center;gap:1.5rem;padding:1.25rem 1.5rem;border:1px solid rgba(245,240,232,.15);margin-bottom:2.5rem;max-width:700px;background:rgba(245,240,232,.04)}
+.contact-booking-strip p{font-size:.875rem;color:rgba(245,240,232,.55);line-height:1.5;flex:1}
+.contact-booking-strip p strong{display:block;font-size:.95rem;color:var(--bg);margin-bottom:.25rem}
+.btn-calendly{display:inline-flex;align-items:center;gap:.5rem;padding:.75rem 1.5rem;background:var(--accent);color:#fff;font-weight:700;font-size:.8rem;text-transform:uppercase;letter-spacing:.12em;border:none;transition:all .3s var(--transition);white-space:nowrap;flex-shrink:0}
+.btn-calendly:hover{background:var(--accent-dark);transform:translateY(-1px)}
+.contact-divider{display:flex;align-items:center;gap:1rem;margin-bottom:2.5rem;max-width:700px}
+.contact-divider::before,.contact-divider::after{content:'';flex:1;height:1px;background:rgba(245,240,232,.12)}
+.contact-divider span{font-size:.75rem;font-weight:600;text-transform:uppercase;letter-spacing:.15em;color:rgba(245,240,232,.25)}
 .contact-form{display:grid;grid-template-columns:1fr 1fr;gap:1.5rem;max-width:700px}
 .form-group{display:flex;flex-direction:column;gap:.5rem}
 .form-group.full{grid-column:1/-1}
@@ -300,7 +392,9 @@ section{position:relative;padding:6rem 0;overflow:hidden}
     <div class="nav-links">
       <a href="#services">Services</a>
       <a href="#process">Process</a>
+      <!-- <a href="#demo">Demo</a> -->
       <a href="#portfolio">Work</a>
+      <a href="#faq">FAQ</a>
       <a href="projects.html">Projects</a>
       <a href="resources.html">Resources</a>
       <a href="#contact">Contact</a>
@@ -316,7 +410,9 @@ section{position:relative;padding:6rem 0;overflow:hidden}
 <div class="mobile-menu" id="mobileMenu">
   <a href="#services" class="mobile-link">Services</a>
   <a href="#process" class="mobile-link">Process</a>
+  <a href="#demo" class="mobile-link">Demo</a>
   <a href="#portfolio" class="mobile-link">Work</a>
+  <a href="#faq" class="mobile-link">FAQ</a>
   <a href="projects.html" class="mobile-link">Projects</a>
   <a href="resources.html" class="mobile-link">Resources</a>
   <a href="#contact" class="mobile-link">Contact</a>
@@ -338,7 +434,7 @@ section{position:relative;padding:6rem 0;overflow:hidden}
           </div>
         </div>
         <div class="hero-visual reveal">
-          <img src="assets/hero-visual.png" alt="AI automation network illustration" loading="lazy">
+          <img src="assets/hero-ai-network.png" alt="AI automation network illustration" loading="lazy">
         </div>
       </div>
       <div class="hero-stats">
@@ -362,28 +458,28 @@ section{position:relative;padding:6rem 0;overflow:hidden}
     <div class="services-grid">
       <div class="service-card reveal reveal-delay-1">
         <div class="service-num">01</div>
-        <img src="assets/service-automation.png" alt="AI Automation illustration">
+        <!-- <img  alt="AI Automation illustration"> -->
         <h3>AI Automation</h3>
         <p>Custom n8n / Make workflows that connect your tools, automate repetitive tasks, and eliminate manual data entry across your entire business operation.</p>
         <div class="service-tags"><span class="service-tag">n8n</span><span class="service-tag">Make</span><span class="service-tag">Zapier</span><span class="service-tag">APIs</span></div>
       </div>
       <div class="service-card reveal reveal-delay-2">
         <div class="service-num">02</div>
-        <img src="assets/services-ai-hand.png" alt="AI Agents illustration">
+        <!-- <img  alt="AI Agents illustration"> -->
         <h3>AI Agents & MCP</h3>
         <p>Autonomous AI agents powered by Model Context Protocol — they browse, research, write, and execute multi-step tasks without human babysitting.</p>
         <div class="service-tags"><span class="service-tag">MCP</span><span class="service-tag">Claude</span><span class="service-tag">LangChain</span><span class="service-tag">Agents</span></div>
       </div>
       <div class="service-card reveal reveal-delay-3">
         <div class="service-num">03</div>
-        <img src="assets/service-voice.png" alt="AI Voice Agents illustration">
+        <!-- <img  alt="AI Voice Agents illustration"> -->
         <h3>AI Voice Agents</h3>
         <p>Production-ready voice bots for inbound/outbound calls — appointment booking, lead qualification, customer support. Sounds human. Works 24/7.</p>
         <div class="service-tags"><span class="service-tag">ElevenLabs</span><span class="service-tag">Voiceflow</span><span class="service-tag">Twilio</span><span class="service-tag">VAPI</span></div>
       </div>
       <div class="service-card reveal reveal-delay-4">
         <div class="service-num">04</div>
-        <img src="assets/service-aios.png" alt="AIOS local AI stack illustration">
+        <!-- <img  alt="AIOS local AI stack illustration"> -->
         <h3>AIOS — Local AI Stack</h3>
         <p>Full private AI infrastructure on your machine or VPS. Ollama, Claude Code, local LLMs — zero vendor lock-in, total data privacy, your rules.</p>
         <div class="service-tags"><span class="service-tag">Ollama</span><span class="service-tag">Claude Code</span><span class="service-tag">Local LLMs</span><span class="service-tag">VPS</span></div>
@@ -431,6 +527,47 @@ section{position:relative;padding:6rem 0;overflow:hidden}
     </div>
   </div>
 </section>
+
+<!-- DEMO SECTION -->
+<section class="demo" id="demo">
+  <div class="container">
+    <div class="demo-header reveal">
+      <p class="section-label">See It In Action</p>
+      <h2>Watch the Agent Work</h2>
+      <p>This is a live walkthrough of an AI automation agent handling a real end-to-end workflow — from trigger to completion, zero human intervention.</p>
+    </div>
+    <div class="demo-video-wrap reveal">
+      <!-- ▶ TEMP VIDEO — swap src with your real YouTube link or local video path -->
+      <iframe
+        id="demoIframe"
+        src="https://www.youtube.com/embed/dQw4w9WgXcQ?rel=0&modestbranding=1"
+        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+        allowfullscreen
+        style="display:none"
+      ></iframe>
+      <video id="demoBg" autoplay muted loop playsinline style="display:block">
+        <!-- fallback animated gradient background while overlay visible -->
+      </video>
+      <div class="demo-play-overlay" id="demoPlayOverlay">
+        <div class="demo-play-wrap" id="demoPlayWrap">
+          <span class="demo-play-ring"></span>
+          <span class="demo-play-ring"></span>
+          <button class="demo-play-btn" id="demoPlayBtn" aria-label="Play demo video"></button>
+        </div>
+        <span class="demo-overlay-label">Watch Full Demo</span>
+      </div>
+    </div>
+    <div class="demo-chips">
+      <span class="demo-chip">n8n Workflow</span>
+      <span class="demo-chip">AI Agent</span>
+      <span class="demo-chip">Zero Human Input</span>
+      <span class="demo-chip">Real-Time Execution</span>
+      <span class="demo-chip">End-to-End Automation</span>
+    </div>
+  </div>
+</section>
+
+<hr class="thick-rule">
 
 <!-- TOOL STACK MARQUEE -->
 <div class="marquee-section">
@@ -567,12 +704,82 @@ section{position:relative;padding:6rem 0;overflow:hidden}
 
 <hr class="thick-rule">
 
+<!-- FAQ -->
+<section class="faq" id="faq">
+  <div class="container">
+    <p class="section-label">Got Questions?</p>
+    <h2>Frequently Asked</h2>
+    <p class="faq-sub">Everything you need to know before we talk. Still unsure? Book a free call.</p>
+    <div class="faq-grid">
+      <div class="faq-list">
+        <div class="faq-item">
+          <div class="faq-question">
+            <h4>Do I need to be technical to work with you?</h4>
+            <div class="faq-icon"><svg viewBox="0 0 12 12"><line x1="6" y1="1" x2="6" y2="11"/><line x1="1" y1="6" x2="11" y2="6"/></svg></div>
+          </div>
+          <div class="faq-answer"><p>Not at all. I handle all the technical heavy lifting. You just need to know your business process and pain points — I'll translate that into working automations and explain everything in plain language.</p></div>
+        </div>
+        <div class="faq-item">
+          <div class="faq-question">
+            <h4>Will this work with the tools I already use?</h4>
+            <div class="faq-icon"><svg viewBox="0 0 12 12"><line x1="6" y1="1" x2="6" y2="11"/><line x1="1" y1="6" x2="11" y2="6"/></svg></div>
+          </div>
+          <div class="faq-answer"><p>Almost certainly yes. n8n and Make connect to 500+ apps including Gmail, Slack, Notion, Airtable, Shopify, HubSpot, and virtually any tool with an API. We'll confirm compatibility in the discovery call.</p></div>
+        </div>
+        <div class="faq-item">
+          <div class="faq-question">
+            <h4>How long does a typical project take?</h4>
+            <div class="faq-icon"><svg viewBox="0 0 12 12"><line x1="6" y1="1" x2="6" y2="11"/><line x1="1" y1="6" x2="11" y2="6"/></svg></div>
+          </div>
+          <div class="faq-answer"><p>A focused automation sprint takes about 1 week. A full AI agent or voice bot build runs 2–4 weeks. Enterprise AIOS deployments are scoped per project. You'll get a clear timeline before any work starts.</p></div>
+        </div>
+        <div class="faq-item">
+          <div class="faq-question">
+            <h4>What happens if something breaks after launch?</h4>
+            <div class="faq-icon"><svg viewBox="0 0 12 12"><line x1="6" y1="1" x2="6" y2="11"/><line x1="1" y1="6" x2="11" y2="6"/></svg></div>
+          </div>
+          <div class="faq-answer"><p>Every project includes post-launch support — 7 days on Starter, 30 days on Full-Stack AI builds. I'm also available for retainer arrangements if you want ongoing monitoring and iterative improvements.</p></div>
+        </div>
+        <div class="faq-item">
+          <div class="faq-question">
+            <h4>Is my data safe? Will it go to third-party AI services?</h4>
+            <div class="faq-icon"><svg viewBox="0 0 12 12"><line x1="6" y1="1" x2="6" y2="11"/><line x1="1" y1="6" x2="11" y2="6"/></svg></div>
+          </div>
+          <div class="faq-answer"><p>It depends on your requirements. For sensitive data, I specialise in local LLM stacks (Ollama + private models) where nothing leaves your servers. For other projects, we use enterprise-tier API services with strong data handling policies.</p></div>
+        </div>
+        <div class="faq-item">
+          <div class="faq-question">
+            <h4>Do you offer ongoing maintenance or retainers?</h4>
+            <div class="faq-icon"><svg viewBox="0 0 12 12"><line x1="6" y1="1" x2="6" y2="11"/><line x1="1" y1="6" x2="11" y2="6"/></svg></div>
+          </div>
+          <div class="faq-answer"><p>Yes. Monthly retainers are available for clients who want regular updates, new workflow additions, model fine-tuning, or proactive monitoring. Rates start at $500/month. We can discuss this after your first project.</p></div>
+        </div>
+      </div>
+      <div class="faq-aside reveal">
+        <h3>Still have questions?</h3>
+        <p>Book a free 30-minute discovery call. No sales pitch — just a clear look at what's possible for your specific situation.</p>
+        <a href="#contact" class="btn btn-primary btn-arrow">Book Free Discovery Call</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<hr class="thick-rule">
+
 <!-- CONTACT -->
 <section class="contact" id="contact">
   <div class="container">
     <p class="section-label">Get In Touch</p>
     <h2>Let's Build Something<br>Remarkable.</h2>
     <p class="contact-sub">Book your free AI audit — I'll map your biggest automation opportunities and show you exactly what's possible.</p>
+
+    <!-- Calendly booking strip -->
+    <div class="contact-booking-strip">
+      <p><strong>Prefer a call first?</strong>Book a free 30-min discovery session — pick a time that suits you, no back-and-forth.</p>
+      <a href="https://calendly.com/sheshpalsingh" target="_blank" rel="noopener" class="btn-calendly">📅 Book on Calendly</a>
+    </div>
+    <div class="contact-divider"><span>or send a message below</span></div>
+
     <form class="contact-form" id="contactForm">
       <div class="form-group"><label for="name">Full Name</label><input type="text" id="name" name="name" placeholder="John Doe" required></div>
       <div class="form-group"><label for="email">Email Address</label><input type="email" id="email" name="email" placeholder="john@company.com" required></div>
@@ -611,7 +818,7 @@ section{position:relative;padding:6rem 0;overflow:hidden}
     <div class="footer-grid">
       <div>
         <div class="footer-brand">Activ<span>Orbit</span></div>
-        <p class="footer-desc">AI Automation Freelancer based in Lucknow, India. Building intelligent systems for clients worldwide.</p>
+        <p class="footer-desc">AI Engineer based in Lucknow, India. Building intelligent systems for clients worldwide.</p>
       </div>
       <div>
         <h4>Services</h4>
@@ -649,6 +856,8 @@ section{position:relative;padding:6rem 0;overflow:hidden}
   </div>
 </footer>
 
+
+
 <!-- Floating CTA -->
 <button class="floating-cta" id="floatingCta" onclick="document.querySelector('#contact').scrollIntoView({behavior:'smooth'})">🚀 Free AI Audit</button>
 
@@ -666,7 +875,22 @@ section{position:relative;padding:6rem 0;overflow:hidden}
   document.addEventListener('mousemove',e=>{mx=e.clientX;my=e.clientY;dot.style.left=mx+'px';dot.style.top=my+'px'});
   function animateCursor(){rx+=(mx-rx)*.15;ry+=(my-ry)*.15;ring.style.left=rx+'px';ring.style.top=ry+'px';requestAnimationFrame(animateCursor)}
   animateCursor();
-  document.querySelectorAll('a,button,.service-card,.portfolio-card,.testimonial-card').forEach(el=>{
+  // Demo video play
+  const demoPlayWrap=document.getElementById('demoPlayWrap');
+  const demoOverlay=document.getElementById('demoPlayOverlay');
+  const demoIframe=document.getElementById('demoIframe');
+  const demoBg=document.getElementById('demoBg');
+  if(demoPlayWrap){
+    demoPlayWrap.addEventListener('click',()=>{
+      demoOverlay.classList.add('hidden');
+      demoBg.style.display='none';
+      demoIframe.style.display='block';
+      // Autoplay: append ?autoplay=1 to src
+      demoIframe.src=demoIframe.src.replace('dQw4w9WgXcQ','dQw4w9WgXcQ')+'&autoplay=1';
+    });
+  }
+
+  document.querySelectorAll('a,button,.service-card,.portfolio-card,.testimonial-card,.demo-play-wrap').forEach(el=>{
     el.addEventListener('mouseenter',()=>{ring.classList.add('hover');dot.classList.add('hover')});
     el.addEventListener('mouseleave',()=>{ring.classList.remove('hover');dot.classList.remove('hover')});
   });
@@ -713,6 +937,17 @@ section{position:relative;padding:6rem 0;overflow:hidden}
     entries.forEach(e=>{if(e.isIntersecting){e.target.classList.add('visible');revealObserver.unobserve(e.target)}});
   },{threshold:.12,rootMargin:'0px 0px -40px 0px'});
   revealEls.forEach(el=>revealObserver.observe(el));
+
+  // FAQ Accordion
+  document.querySelectorAll('.faq-question').forEach(btn=>{
+    btn.addEventListener('click',()=>{
+      const item=btn.closest('.faq-item');
+      const isOpen=item.classList.contains('open');
+      document.querySelectorAll('.faq-item.open').forEach(el=>el.classList.remove('open'));
+      if(!isOpen)item.classList.add('open');
+    });
+    btn.style.cursor='none';
+  });
 
   // Contact Form → Google Sheets
   const GOOGLE_SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbwK5zPhMW5DmaalC-CgWw4dW-1MTisp66cwITMVkoGtvnbf89xtX54JcjjmOjc-o---yQ/exec'; // ← Replace with your deployed Web App URL

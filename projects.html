@@ -88,6 +88,31 @@ section{position:relative;padding:6rem 0;overflow:hidden}
 .project-metrics-side{display:flex;flex-direction:column;gap:1.25rem;padding:1.5rem;background:rgba(10,10,10,.02);border:var(--rule-thin)}
 .pm{text-align:center}.pm .val{font-family:var(--serif);font-size:1.75rem;font-weight:900;color:var(--accent);line-height:1}.pm .lbl{font-size:.65rem;font-weight:600;text-transform:uppercase;letter-spacing:.1em;color:rgba(10,10,10,.4);margin-top:.2rem}
 
+/* PROJECT DEMO VIDEO */
+.project-demo{position:relative;width:100%;aspect-ratio:16/9;background:#0A0A0A;overflow:hidden;margin-bottom:1.25rem;border:var(--rule-thin)}
+.project-demo iframe{width:100%;height:100%;display:none;border:none}
+.project-demo-overlay{
+  position:absolute;inset:0;display:flex;flex-direction:column;
+  align-items:center;justify-content:center;gap:.75rem;
+  background:linear-gradient(135deg,rgba(10,10,10,.88) 0%,rgba(10,10,10,.65) 100%);
+  cursor:none;transition:opacity .4s var(--transition);
+}
+.project-demo-overlay.hidden{opacity:0;pointer-events:none}
+.pdemo-play-wrap{position:relative;display:flex;align-items:center;justify-content:center;width:64px;height:64px}
+.pdemo-ring{
+  width:64px;height:64px;border:1.5px solid var(--accent);
+  border-radius:50%;position:absolute;animation:ring-pulse 2s ease-out infinite;
+}
+.pdemo-ring:nth-child(2){animation-delay:.6s}
+.pdemo-btn{
+  width:44px;height:44px;background:var(--accent);border:none;
+  clip-path:polygon(0 0,100% 50%,0 100%);
+  margin-left:6px;cursor:none;
+  transition:transform .3s var(--transition),background .3s;
+}
+.pdemo-play-wrap:hover .pdemo-btn{transform:scale(1.15) translateX(3px);background:var(--accent-dark)}
+.pdemo-label{font-size:.65rem;font-weight:700;text-transform:uppercase;letter-spacing:.18em;color:rgba(245,240,232,.55)}
+
 /* CTA BAND */
 .cta-band{background:var(--text);color:var(--bg);padding:5rem 0;text-align:center}
 .cta-band h2{font-size:clamp(2rem,4vw,3.5rem);color:var(--bg);margin-bottom:1rem}
@@ -137,7 +162,9 @@ section{position:relative;padding:6rem 0;overflow:hidden}
     <div class="nav-links">
       <a href="index.html#services">Services</a>
       <a href="index.html#process">Process</a>
+      <a href="index.html#demo">Demo</a>
       <a href="index.html#portfolio">Work</a>
+      <a href="index.html#faq">FAQ</a>
       <a href="projects.html" style="color:var(--accent)">Projects</a>
       <a href="resources.html">Resources</a>
       <a href="index.html#contact">Contact</a>
@@ -150,7 +177,9 @@ section{position:relative;padding:6rem 0;overflow:hidden}
   <a href="index.html" class="mobile-link">Home</a>
   <a href="index.html#services" class="mobile-link">Services</a>
   <a href="index.html#process" class="mobile-link">Process</a>
+  <a href="index.html#demo" class="mobile-link">Demo</a>
   <a href="index.html#portfolio" class="mobile-link">Work</a>
+  <a href="index.html#faq" class="mobile-link">FAQ</a>
   <a href="projects.html" class="mobile-link">Projects</a>
   <a href="resources.html" class="mobile-link">Resources</a>
   <a href="index.html#contact" class="mobile-link">Contact</a>
@@ -179,6 +208,17 @@ section{position:relative;padding:6rem 0;overflow:hidden}
             <h3>E-Commerce Order-to-Fulfilment Pipeline</h3>
             <p>A D2C skincare brand was drowning in manual order processing — copy-pasting from Shopify, emailing warehouses, and manually sending SMS updates. I built a fully automated pipeline using n8n that triggers on every new order, routes to the correct warehouse API, generates shipping labels, and sends real-time customer updates via WhatsApp and SMS.</p>
             <div class="project-tech"><span>n8n</span><span>Shopify API</span><span>Warehouse API</span><span>Twilio</span><span>WhatsApp</span><span>Google Sheets</span></div>
+            <!-- DEMO VIDEO — swap YouTube ID with real video later -->
+            <div class="project-demo">
+              <iframe id="demo-iframe-1" src="https://www.youtube.com/embed/dQw4w9WgXcQ?rel=0&modestbranding=1" allow="accelerometer;autoplay;clipboard-write;encrypted-media;gyroscope;picture-in-picture" allowfullscreen></iframe>
+              <div class="project-demo-overlay" id="demo-overlay-1">
+                <div class="pdemo-play-wrap" data-iframe="demo-iframe-1" data-overlay="demo-overlay-1">
+                  <span class="pdemo-ring"></span><span class="pdemo-ring"></span>
+                  <button class="pdemo-btn" aria-label="Play project demo"></button>
+                </div>
+                <span class="pdemo-label">Watch Demo</span>
+              </div>
+            </div>
             <a href="index.html#contact" class="btn btn-secondary btn-arrow" style="padding:.6rem 1.5rem;font-size:.75rem">Discuss Similar Project</a>
           </div>
           <div class="project-metrics-side">
@@ -197,6 +237,17 @@ section{position:relative;padding:6rem 0;overflow:hidden}
             <h3>Multi-Location Clinic Appointment Bot</h3>
             <p>A chain of 5 dental clinics was losing patients because the front desk couldn't keep up with phone volume. I designed and deployed a 24/7 AI voice agent that handles appointment booking, rescheduling, reminders, and basic insurance verification — in both English and Hindi. Trained on their specific scheduling rules and doctor availability.</p>
             <div class="project-tech"><span>ElevenLabs</span><span>Voiceflow</span><span>Twilio</span><span>Google Calendar API</span><span>n8n</span></div>
+            <!-- DEMO VIDEO — swap YouTube ID with real video later -->
+            <div class="project-demo">
+              <iframe id="demo-iframe-2" src="https://www.youtube.com/embed/dQw4w9WgXcQ?rel=0&modestbranding=1" allow="accelerometer;autoplay;clipboard-write;encrypted-media;gyroscope;picture-in-picture" allowfullscreen></iframe>
+              <div class="project-demo-overlay" id="demo-overlay-2">
+                <div class="pdemo-play-wrap" data-iframe="demo-iframe-2" data-overlay="demo-overlay-2">
+                  <span class="pdemo-ring"></span><span class="pdemo-ring"></span>
+                  <button class="pdemo-btn" aria-label="Play project demo"></button>
+                </div>
+                <span class="pdemo-label">Watch Demo</span>
+              </div>
+            </div>
             <a href="index.html#contact" class="btn btn-secondary btn-arrow" style="padding:.6rem 1.5rem;font-size:.75rem">Discuss Similar Project</a>
           </div>
           <div class="project-metrics-side">
@@ -215,6 +266,17 @@ section{position:relative;padding:6rem 0;overflow:hidden}
             <h3>On-Prem LLM Research Lab for Law Firm</h3>
             <p>A mid-size law firm needed AI-powered contract analysis but couldn't send client data to external APIs due to compliance. I deployed a full private AI stack on their servers — Ollama with fine-tuned models for legal clause extraction, risk flagging, and document summarization. Zero data leaves the building. Runs entirely on local hardware.</p>
             <div class="project-tech"><span>Ollama</span><span>Local LLMs</span><span>Claude Code</span><span>Python</span><span>FastAPI</span><span>Docker</span></div>
+            <!-- DEMO VIDEO — swap YouTube ID with real video later -->
+            <div class="project-demo">
+              <iframe id="demo-iframe-3" src="https://www.youtube.com/embed/dQw4w9WgXcQ?rel=0&modestbranding=1" allow="accelerometer;autoplay;clipboard-write;encrypted-media;gyroscope;picture-in-picture" allowfullscreen></iframe>
+              <div class="project-demo-overlay" id="demo-overlay-3">
+                <div class="pdemo-play-wrap" data-iframe="demo-iframe-3" data-overlay="demo-overlay-3">
+                  <span class="pdemo-ring"></span><span class="pdemo-ring"></span>
+                  <button class="pdemo-btn" aria-label="Play project demo"></button>
+                </div>
+                <span class="pdemo-label">Watch Demo</span>
+              </div>
+            </div>
             <a href="index.html#contact" class="btn btn-secondary btn-arrow" style="padding:.6rem 1.5rem;font-size:.75rem">Discuss Similar Project</a>
           </div>
           <div class="project-metrics-side">
@@ -233,6 +295,17 @@ section{position:relative;padding:6rem 0;overflow:hidden}
             <h3>Autonomous Research & Outreach Agent</h3>
             <p>A SaaS startup's sales team was spending 15+ hours a week on prospect research and cold email personalization. I built an MCP-powered AI agent that autonomously researches prospects (LinkedIn, Crunchbase, website), writes hyper-personalized outreach sequences, and pushes them into their CRM — all triggered by a single form submission.</p>
             <div class="project-tech"><span>MCP</span><span>Claude</span><span>Gmail API</span><span>HubSpot</span><span>n8n</span><span>Airtable</span></div>
+            <!-- DEMO VIDEO — swap YouTube ID with real video later -->
+            <div class="project-demo">
+              <iframe id="demo-iframe-4" src="https://www.youtube.com/embed/dQw4w9WgXcQ?rel=0&modestbranding=1" allow="accelerometer;autoplay;clipboard-write;encrypted-media;gyroscope;picture-in-picture" allowfullscreen></iframe>
+              <div class="project-demo-overlay" id="demo-overlay-4">
+                <div class="pdemo-play-wrap" data-iframe="demo-iframe-4" data-overlay="demo-overlay-4">
+                  <span class="pdemo-ring"></span><span class="pdemo-ring"></span>
+                  <button class="pdemo-btn" aria-label="Play project demo"></button>
+                </div>
+                <span class="pdemo-label">Watch Demo</span>
+              </div>
+            </div>
             <a href="index.html#contact" class="btn btn-secondary btn-arrow" style="padding:.6rem 1.5rem;font-size:.75rem">Discuss Similar Project</a>
           </div>
           <div class="project-metrics-side">
@@ -251,6 +324,17 @@ section{position:relative;padding:6rem 0;overflow:hidden}
             <h3>Finance Reconciliation Automator</h3>
             <p>An accounting firm was manually reconciling bank statements against invoices — an error-prone process eating 20+ hours weekly. I built an automated pipeline that ingests bank CSVs, matches them against Tally/QuickBooks entries using fuzzy logic and AI classification, flags anomalies, and generates reconciliation reports automatically.</p>
             <div class="project-tech"><span>n8n</span><span>OpenAI</span><span>Google Sheets</span><span>Tally API</span><span>Python</span></div>
+            <!-- DEMO VIDEO — swap YouTube ID with real video later -->
+            <div class="project-demo">
+              <iframe id="demo-iframe-5" src="https://www.youtube.com/embed/dQw4w9WgXcQ?rel=0&modestbranding=1" allow="accelerometer;autoplay;clipboard-write;encrypted-media;gyroscope;picture-in-picture" allowfullscreen></iframe>
+              <div class="project-demo-overlay" id="demo-overlay-5">
+                <div class="pdemo-play-wrap" data-iframe="demo-iframe-5" data-overlay="demo-overlay-5">
+                  <span class="pdemo-ring"></span><span class="pdemo-ring"></span>
+                  <button class="pdemo-btn" aria-label="Play project demo"></button>
+                </div>
+                <span class="pdemo-label">Watch Demo</span>
+              </div>
+            </div>
             <a href="index.html#contact" class="btn btn-secondary btn-arrow" style="padding:.6rem 1.5rem;font-size:.75rem">Discuss Similar Project</a>
           </div>
           <div class="project-metrics-side">
@@ -269,6 +353,17 @@ section{position:relative;padding:6rem 0;overflow:hidden}
             <h3>Restaurant Order & Reservation Bot</h3>
             <p>A popular restaurant chain needed to handle phone orders and reservations without hiring extra staff. I deployed a multilingual voice agent that takes food orders, confirms reservations, provides menu information, and integrates directly with their POS system — handling peak dinner rush volumes with zero wait times.</p>
             <div class="project-tech"><span>VAPI</span><span>ElevenLabs</span><span>Make</span><span>POS API</span><span>Google Sheets</span></div>
+            <!-- DEMO VIDEO — swap YouTube ID with real video later -->
+            <div class="project-demo">
+              <iframe id="demo-iframe-6" src="https://www.youtube.com/embed/dQw4w9WgXcQ?rel=0&modestbranding=1" allow="accelerometer;autoplay;clipboard-write;encrypted-media;gyroscope;picture-in-picture" allowfullscreen></iframe>
+              <div class="project-demo-overlay" id="demo-overlay-6">
+                <div class="pdemo-play-wrap" data-iframe="demo-iframe-6" data-overlay="demo-overlay-6">
+                  <span class="pdemo-ring"></span><span class="pdemo-ring"></span>
+                  <button class="pdemo-btn" aria-label="Play project demo"></button>
+                </div>
+                <span class="pdemo-label">Watch Demo</span>
+              </div>
+            </div>
             <a href="index.html#contact" class="btn btn-secondary btn-arrow" style="padding:.6rem 1.5rem;font-size:.75rem">Discuss Similar Project</a>
           </div>
           <div class="project-metrics-side">
@@ -349,7 +444,22 @@ section{position:relative;padding:6rem 0;overflow:hidden}
   document.addEventListener('mousemove',e=>{mx=e.clientX;my=e.clientY;dot.style.left=mx+'px';dot.style.top=my+'px'});
   function animateCursor(){rx+=(mx-rx)*.15;ry+=(my-ry)*.15;ring.style.left=rx+'px';ring.style.top=ry+'px';requestAnimationFrame(animateCursor)}
   animateCursor();
-  document.querySelectorAll('a,button,.project-item').forEach(el=>{
+  // Project demo play buttons
+  document.querySelectorAll('.pdemo-play-wrap').forEach(wrap=>{
+    wrap.addEventListener('click',()=>{
+      const iframeId=wrap.dataset.iframe;
+      const overlayId=wrap.dataset.overlay;
+      const iframe=document.getElementById(iframeId);
+      const overlay=document.getElementById(overlayId);
+      if(!iframe||!overlay)return;
+      overlay.classList.add('hidden');
+      iframe.style.display='block';
+      // Append autoplay
+      if(!iframe.src.includes('autoplay=1'))iframe.src=iframe.src+'&autoplay=1';
+    });
+  });
+
+  document.querySelectorAll('a,button,.project-item,.pdemo-play-wrap').forEach(el=>{
     el.addEventListener('mouseenter',()=>{ring.classList.add('hover');dot.classList.add('hover')});
     el.addEventListener('mouseleave',()=>{ring.classList.remove('hover');dot.classList.remove('hover')});
   });
